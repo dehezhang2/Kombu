@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://noobody.org/is-report/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="description" content="Comupter Graphics Final Project Report">
+    <title>Final Project Report – Deheng Zhang & Ganlin Zhang</title>
+
+    <link rel="stylesheet" href="./assets/pure.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="./assets/side-menu.css">
+    <!--<![endif]-->
+<style type="text/css"></style></head>
+
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="./index.html#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a href="./index.html">Final Project</a>
+            <ul>
+                <li class="menu-item-divided pure-menu-selected">
+                    <a href="./index.html">Proposal</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h2>Project Proposal</h2>
+            <h3 style="margin: 0 0 10px 0">Deheng Zhang, Ganlin Zhang</h3>
+        </div>
+
+        <div class="content">
+            <!--<i>Please click image thumbnails for full size version</i>-->
+        
+            <h3>Motivational Image: "Police vehicle sinks in the water"</h3>
+            <div class="center">
+                <img src="./assets/Car-in-sea.jpg" alt="Car" width = "50%">
+                <p><a href="https://polyhaven.com/gallery?render=mxJVMXgzAurhY0zoEQzr"><i>Source</i></a></p>
+            </div>
+            <p>The idea behinds our project proposal is to generate a similar scene as in the motivational image: a police vehicle sinks in the water. 
+                We do not intend to reproduce the image exactly, but like the main idea and composition: the police vehicle appears in a place where it is not supposed to be. 
+                The image shows a few interesting phenomena for rendering, e.g. different medium, fluctuating waters, glossy reflections, Fresnel effect, etc.
+                Besides, we want to create some explosion on the car to show an accident scene, which utilizes light emission from volumes.
+            </p>
+
+
+            <h3>Features to implement:</h3>
+
+            <p>Here is our proposed feature list we would like to implement. After the list we describe why we want
+                to implement this feature and what for it is used for in the final image.</p>
+
+           
+            <h4>Deheng Zhang</h4>
+            <p>Following features are summing up to 60 points.</p>
+            <ul>
+                <li>5 Points
+                    <ul>
+                        <li>Simple Extra Emitters (e.g. spotlight, directional light)</li>
+                        <li>Anisotropic Phase Function (e.g. Henyey-Greenstein)</li>
+                    </ul>
+                </li>
+                <li>10 Points
+                    <ul>
+                        <li>Equiangular Sampling of Single Scattering</li>
+                        <li>Different distance sampling and transmittance estimation methods: ray marching, delta tracking and ratio tracking</li>
+                    </ul>
+                </li>
+                <li>30 Points
+                    <ul>
+                        <li>Heterogeneous Volumetric Participating Media</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Ganlin Zhang</h4>
+            <p>Following features are summing up to 60 points.</p>
+            <ul>
+                <li>5 Points
+                    <ul>
+                        <li>Images as Textures</li>
+                        <li>Basic Desnoising: Bilateral Filter with Uniform Variance</li>
+                        <li>Bump Mapping or Normal Mapping</li>
+                        <li>Simple Extra BSDF (e.g. conductor, rough dielectric, opacity mask)</li>
+                    </ul>
+                </li>
+                <li>10 Points
+                    <ul>
+                        <li>Emissive Participating Media</li>
+                    </ul>
+                </li>
+                <li>15 Points
+                    <ul>
+                        <li>Environment Map Emitter</li>
+                        <li>Disney BSDF</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Simple Extra Emitters (spotlight, directional light, ...)</h4>
+            <p>There are four emitters except the environment. Including the headlamps and warning light.</p>
+            <p>Validation: We will try to generate a valid xml-test file as it already exists for the
+                point-light.</p>
+                
+            <h4>Anisotropic Phase Function</h4>
+            <p>The Henyey-Greenstein phase function is a very popular empirical phase function. We would like to 
+                implement this function for volumetric rendering. 
+            </p>
+            <p>Validation: We will compare the result of this phase function with the uniform phase function. Besides, we will test
+                some hand-computed values or visualize the sampled directions to check the correctness. 
+            </p>
+                
+            <h4>Images as Textures</h4>
+            <p>This feature is needed for the painting of the police vehicle to make it looks more realistic.</p>
+            <p>Validation: The result of this feature would be easily checked whether it is correct or not by eyes.</p>
+
+            <h4>Basic Denoising: Bilateral Filter with Uniform Variance</h4>
+            <p>The denoising step is important to reduce noisy points in the rendered images. Baisc denoising would
+                appplied in our project. </p>
+            <p>Validation: A simple scene would be rendered with and without the denoising technique, we will check the quality of 
+                these rendered images to see whether the denoising part is implemented correctly or not. </p>
+
+            <h4>Bump Mapping or Normal Mapping</h4>
+            <p>We want to simulate the fluctuating surface of the water, thus, bump mapping is needed.</p>
+            <p>Validation: The rendered scene will be visualized and be compared with the results of other reneders.</p>
+            
+            <h4>Simple Extra BSDF</h4>
+            <p>More BSDF is needed to simulate the texture of different surface, i.e. metal, plastic, glass, etc. </p>
+            <p>Validation: The rendered objects will be visualized, a plot of BSDF of certain material is also possible.</p>
+
+            <h4>Equiangular Sampling of Single Scattering</h4>
+            <p>
+                The equiangular sampling of single scattering is used for the volumetric rendering pipeline.
+                This method reduces the noise for volumetric rendering. The headlamps under the water have beams, which can be better rendered.
+            </p>
+            <p>
+                Validation: We will compare the sampling result with phase function sampling to see whether the noise is reduced.
+            </p>
+            
+            <h4>Different distance sampling and transmittance estimation methods</h4>
+            <p>
+                Different distance sampling methods might be used for the volumetric rendering, MIS might also be used to get the result.
+            </p>
+            <p>
+                Validation: We will compare the different methods with each other to select the best sampling strategy. 
+            </p>
+            
+
+            <h4>Emissive Participating Media</h4>
+            <p>This feature is to simulate the explosion. We hope to generate some fire behind the sinked vehicle. Thus, emissive 
+                participating media is needed.
+            </p>
+            <p>Validation: Use some existing open-source renderers to render a same scene and check if the results are similar.
+            </p>
+            
+
+            <h4>Environment Map Emitter</h4>
+            <p>This feature is to give a realistic background of our image. Also, the image we want to render does 
+                not contain much light source, so that it is also used for providing enough light for this scene.
+            </p>
+            <p>Validation: Use some existing open-source renderers to render a same scene and check if the results are similar.
+            </p>
+            
+            <h4>Disney BSDF</h4>
+            <p>More BSDF is needed to simulate the texture of different surface, i.e. metal, plastic, glass, etc. And Disney
+                BSDF technique will be applied to simulate more realistic surfaces. </p>
+            <p>Validation: The rendered objects will be visualized, a plot of BSDF of certain material is also possible.</p>
+
+            <h4>Heterogeneous Volumetric Participating Media</h4>
+            <p>Since we are going to create explosion for the car, the heterogeneous volumetric rendering is required. </p>
+            <p>Validation: We can render the same scene with an existing renderer (as
+                Mitsuba- or Indigo-renderer for example), and compare it with our result.</p>
+            <br>
+            <br>
+            <br>
+    </div>
+</div>
+
+<script src="./assets/ui.js"></script>
+
+
+
+</div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
