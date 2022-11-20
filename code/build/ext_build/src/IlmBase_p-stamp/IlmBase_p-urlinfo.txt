@@ -1,0 +1,3 @@
+repository='external project URL'
+module='/Users/zdh/Documents/GitHub/Kombu/code/ext/openexr/IlmBase'
+tag=''

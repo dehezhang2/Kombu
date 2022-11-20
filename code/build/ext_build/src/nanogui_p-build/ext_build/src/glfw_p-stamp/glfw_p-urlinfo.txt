@@ -1,0 +1,3 @@
+repository='external project URL'
+module='/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/src/nanogui_p/ext/glfw'
+tag=''

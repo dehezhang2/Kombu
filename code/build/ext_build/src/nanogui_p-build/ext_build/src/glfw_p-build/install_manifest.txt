@@ -1,0 +1,8 @@
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/include/GLFW/glfw3.h
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/include/GLFW/glfw3native.h
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/lib/cmake/glfw3/glfw3Config.cmake
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/lib/cmake/glfw3/glfw3ConfigVersion.cmake
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/lib/cmake/glfw3/glfw3Targets.cmake
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/lib/cmake/glfw3/glfw3Targets-release.cmake
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/lib/pkgconfig/glfw3.pc
+/Users/zdh/Documents/GitHub/Kombu/code/build/ext_build/dist/lib/libglfw3.a
