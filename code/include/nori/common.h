@@ -131,6 +131,7 @@ class Shape;
 class NoriObject;
 class NoriObjectFactory;
 class NoriScreen;
+class Medium;
 class PhaseFunction;
 class ReconstructionFilter;
 class Sampler;

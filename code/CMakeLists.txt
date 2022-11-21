@@ -1,6 +1,6 @@
 # This is the main CMake build file used to compile Nori
 cmake_minimum_required (VERSION 2.8)
-project("nori")
+project("kombu")
 
 # This file included below takes care of compiling dependencies
 # and setting compiler flags on different platforms
@@ -10,7 +10,7 @@ include_directories(ext)
 
 # The following lines build the main executable. If you add a source
 # code file to Nori, be sure to include it in this list.
-add_executable(nori
+add_executable(kombu
 
   # Header files
   include/nori/bbox.h
@@ -43,6 +43,9 @@ add_executable(nori
   include/nori/transform.h
   include/nori/vector.h
   include/nori/warp.h
+
+  include/kombu/medium.h 
+  
 
   # Source code files
   src/bsdfs/dielectric.cpp
@@ -116,15 +119,15 @@ add_executable(tonemapper
 
 # Nori depends on some libraries created in CMakeConfig.txt. The following two
 # lines ensure that Nori is built *after* those libraries have been created.
-add_dependencies(nori OpenEXR_p)
-add_dependencies(nori nanogui_p)
-add_dependencies(nori tbb_p)
-add_dependencies(nori pugixml)
-add_dependencies(warptest nori)
-add_dependencies(tonemapper nori)
+add_dependencies(kombu OpenEXR_p)
+add_dependencies(kombu nanogui_p)
+add_dependencies(kombu tbb_p)
+add_dependencies(kombu pugixml)
+add_dependencies(warptest kombu)
+add_dependencies(tonemapper kombu)
 
 # Link to dependency libraries
-target_link_libraries(nori ${extra_libs})
+target_link_libraries(kombu ${extra_libs})
 target_link_libraries(warptest ${extra_libs})
 target_link_libraries(tonemapper ${extra_libs})
 

@@ -21,6 +21,7 @@
 
 #include <nori/bvh.h>
 #include <nori/emitter.h>
+#include <kombu/medium.h>
 
 NORI_NAMESPACE_BEGIN
 
@@ -62,6 +63,9 @@ public:
 
     /// Return a reference to an array containing all lights
     const std::vector<Emitter *> &getLights() const { return m_emitters; }
+
+    /// Return a reference to an array containing all mediums
+    const std::vector<Medium *> &getMediums() const { return m_mediums; }
 
     /// Return a random emitter
     const Emitter * getRandomEmitter(float rnd) const {
@@ -140,6 +144,7 @@ private:
     BVH *m_bvh = nullptr;
 
     std::vector<Emitter *> m_emitters;
+    std::vector<Medium *> m_mediums;
 };
 
 NORI_NAMESPACE_END

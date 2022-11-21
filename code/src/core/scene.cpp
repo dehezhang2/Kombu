@@ -92,6 +92,13 @@ void Scene::addChild(NoriObject *obj) {
             m_integrator = static_cast<Integrator *>(obj);
             break;
 
+        case EMedium:
+            {
+                m_mediums.push_back(static_cast<Medium *>(obj));
+                break;
+            }
+            break;
+
         default:
             throw NoriException("Scene::addChild(<%s>) is not supported!",
                 classTypeName(obj->getClassType()));
@@ -115,6 +122,14 @@ std::string Scene::toString() const {
         lights += "\n";
     }
 
+    std::string mediums;
+    for (size_t i=0; i<m_mediums.size(); ++i) {
+        mediums += std::string("  ") + indent(m_mediums[i]->toString(), 2);
+        if (i + 1 < m_mediums.size())
+            mediums += ",";
+        mediums += "\n";
+    }
+
     return tfm::format(
         "Scene[\n"
         "  integrator = %s,\n"
@@ -124,12 +139,15 @@ std::string Scene::toString() const {
         "  %s  }\n"
         "  emitters = {\n"
         "  %s  }\n"
+        "  mediums = {\n"
+        "  %s  }\n"
         "]",
         indent(m_integrator->toString()),
         indent(m_sampler->toString()),
         indent(m_camera->toString()),
         indent(shapes, 2),
-        indent(lights,2)
+        indent(lights,2),
+        indent(mediums,2)
     );
 }
 
