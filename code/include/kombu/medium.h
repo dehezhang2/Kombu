@@ -90,7 +90,7 @@ public:
      * @return false : outside
      */
 
-    virtual bool isInside(Point3f &p) const = 0;
+    virtual bool contains(Point3f &p) const = 0;
 
      /**
 	 * \brief Evaluate transmittance from \c mRec.ref to \c mRec.p.

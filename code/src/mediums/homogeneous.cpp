@@ -26,8 +26,9 @@ public:
         return 0.0f;
     }
     
-    bool isHomogeneous() const { return false; }
-    bool isInside(Point3f &p){
+    bool isHomogeneous() const { return true; }
+    
+    bool contains(Point3f &p){
         if (!m_shape)
 			throw NoriException(
 					"There is no shape attached to this medium!");
@@ -53,7 +54,15 @@ public:
         }
     }
     std::string toString() const {
-        return "HomogeneousMedium[]";
+        return tfm::format(
+                    "HomogeneousMedium[\n"
+                    "  sigmaA = %s,\n"
+                    "  sigmaS = %s,\n"
+                    "  sigmaT = %s,\n"
+                    "]",
+                    m_sigma_a,
+                    m_sigma_s,
+                    m_sigma_t);
     }
 
 protected:
