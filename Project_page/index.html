@@ -73,7 +73,7 @@
                 <li>10 Points
                     <ul>
                         <li>Equiangular Sampling of Single Scattering</li>
-                        <li>Different distance sampling and transmittance estimation methods: ray marching, delta tracking and ratio tracking</li>
+                        <li>Stratified Sampling (should work beyond sampling on the image plane)</li>
                     </ul>
                 </li>
                 <li>30 Points
@@ -146,12 +146,12 @@
                 Validation: We will compare the sampling result with phase function sampling to see whether the noise is reduced.
             </p>
             
-            <h4>Different distance sampling and transmittance estimation methods</h4>
+            <h4>Stratified Sampling</h4>
             <p>
-                Different distance sampling methods might be used for the volumetric rendering, MIS might also be used to get the result.
+                Stratified sampling can be used to reduce the aliasing effect. 
             </p>
             <p>
-                Validation: We will compare the different methods with each other to select the best sampling strategy. 
+                Validation: We will try to visualize the sampled point in the warptest GUI.
             </p>
             
 
