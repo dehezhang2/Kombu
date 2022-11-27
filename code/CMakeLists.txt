@@ -76,6 +76,8 @@ add_executable(kombu
   src/integrators/path_mis.cpp
   src/integrators/photonmapper.cpp
 
+  src/mediums/homogeneous.cpp
+
   src/sample/independent.cpp
   src/sample/warp.cpp
 

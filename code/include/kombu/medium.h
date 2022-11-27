@@ -25,10 +25,12 @@ struct MediumQueryRecord {
     /// whether the sampled point hits the medium (or surface)
     bool hitMedium;
 
+    EMeasure measure;
+
     /// Empty constructor
     MediumQueryRecord(){}
     /// Sample phase function and distance (free path)
-    MediumQueryRecord(const Point3f &_ref, const Vector3f &_wi) : ref(_ref), wi(_wi){}
+    MediumQueryRecord(const Point3f &_ref, const Vector3f &_wi, const float &_tMax) : ref(_ref), wi(_wi), tMax(_tMax){}
     /// Evaluate albedo
     MediumQueryRecord(const Point3f &_ref) : ref(_ref){}
     /// Evaluate transmittance
@@ -36,7 +38,7 @@ struct MediumQueryRecord {
         wo = (p - ref).normalized();
     }
     /// Query probability density of sampling
-    MediumQueryRecord(const Point3f &_ref, const Point3f &_p, const Vector3f &_wi) : ref(_ref), p(_p), wi(_wi){
+    MediumQueryRecord(const Point3f &_ref, const Point3f &_p, const Vector3f &_wi, const EMeasure &_measure) : ref(_ref), p(_p), wi(_wi), measure(_measure){
         wo = (p - ref).normalized();
     }
 };
@@ -55,7 +57,7 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    virtual Color3f sample(MediumQueryRecord &mRec, const Point2f &sample) const = 0;
+    virtual Color3f sample(MediumQueryRecord &mRec, const Point2f &sample_1, const float &sample_2) const = 0;
     
     /**
 	 * \brief Evaluate the medium albedo
@@ -90,7 +92,7 @@ public:
      * @return false : outside
      */
 
-    virtual bool contains(Point3f &p) const = 0;
+    virtual bool contains(Point3f &p) = 0;
 
      /**
 	 * \brief Evaluate transmittance from \c mRec.ref to \c mRec.p.
@@ -114,10 +116,10 @@ public:
      */
     virtual bool isHomogeneous() const { return false; }
 
-    virtual Color3f &getSigmaA() const = 0;
-    virtual Color3f &getSigmaS() const = 0;
-    virtual Color3f &getSigmaT() const = 0;
-    virtual Color3f &getAlbedo() const = 0;
+    virtual Color3f &getSigmaA() = 0;
+    virtual Color3f &getSigmaS() = 0;
+    virtual Color3f &getSigmaT() = 0;
+    virtual Color3f &getAlbedo() = 0;
 
     /**
      * \brief Set the shape if the medium is attached to a shape

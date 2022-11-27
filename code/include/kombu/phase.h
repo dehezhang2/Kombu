@@ -46,7 +46,7 @@ public:
     virtual float sample(PhaseFunctionQueryRecord &pRec, const Point2f &sample) const = 0;
 
     // pdf is equal to eval
-    virtual float eval(PhaseFunctionQueryRecord &bRec) const = 0;
+    virtual float eval(PhaseFunctionQueryRecord &pRec) const = 0;
 
     EClassType getClassType() const { return EPhaseFunction; }
 

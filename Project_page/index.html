@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <!-- saved from url=(0039)http://noobody.org/is-report/index.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Comupter Graphics Final Project Report">
     <title>Final Project Report – Deheng Zhang & Ganlin Zhang</title>
 
@@ -12,10 +14,11 @@
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="./assets/side-menu.css">
     <!--<![endif]-->
+    <link href="./assets/twentytwenty.css" rel="stylesheet" type="text/css" />
 <style type="text/css"></style></head>
 
 <body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
-
+<div class="container contentWrapper">
 <div id="layout">
     <!-- Menu toggle -->
     <a href="./index.html#menu" id="menuLink" class="menu-link">
@@ -43,15 +46,30 @@
         <div class="content">
             <!--<i>Please click image thumbnails for full size version</i>-->
         
-            <h3>Motivational Image: "Police vehicle sinks in the water"</h3>
+            <h3>Motivational Image: "Christmas on the Moon"</h3>
             <div class="center">
-                <img src="./assets/Car-in-sea.jpg" alt="Car" width = "50%">
-                <p><a href="https://polyhaven.com/gallery?render=mxJVMXgzAurhY0zoEQzr"><i>Source</i></a></p>
+
+                <div class="twentytwenty-container">
+                    <img src="./assets/three_robots.jpg" alt="Three robots" class="img-responsive">
+                    <img src="./assets/cat_on_the_moon.jpg" alt="Cat on the moon" class="img-responsive">
+                    <img src="./assets/christmas.jpg" alt="Christmas" class="img-responsive">
+                </div> <br>
+                <!-- <img src="./assets/Car-in-sea.jpg" alt="Car" width = "50%"> -->
+                <p><a href="https://www.imdb.com/title/tt9788484/mediaviewer/rm511533568?ref_=ttmi_mi_all_sf_1"><i>Three robots</i></a>, 
+                    <a href="https://lovedeathrobots.fandom.com/wiki/The_Cat?file=Elon_Musk.jpeg"><i>Cat on the moon</i></a>,
+                    <a href="https://hk.ulifestyle.com.hk/topic/detail/213319/%E5%8B%95%E7%89%A9%E6%A3%AE%E5%8F%8B%E6%9C%83-%E5%8B%95%E7%89%A9%E4%B9%8B%E6%A3%AE-%E6%9B%B4%E6%96%B0%E8%81%96%E8%AA%95%E7%AF%80%E5%B9%B3%E5%AE%89%E5%A4%9C%E6%94%BB%E7%95%A5%E4%BB%BB%E5%8B%99%E6%8F%9B%E7%8D%8E%E5%8B%B5-13%E5%A4%A7%E8%81%96%E8%AA%95%E5%AE%B6%E5%85%B7diy-%E8%81%96%E8%AA%95%E6%9C%8D%E9%A3%BE"><i>Christmas</i></a>
+                </p>
             </div>
-            <p>The idea behinds our project proposal is to generate a similar scene as in the motivational image: a police vehicle sinks in the water. 
-                We do not intend to reproduce the image exactly, but like the main idea and composition: the police vehicle appears in a place where it is not supposed to be. 
-                The image shows a few interesting phenomena for rendering, e.g. different medium, fluctuating waters, glossy reflections, Fresnel effect, etc.
-                Besides, we want to create some explosion on the car to show an accident scene, which utilizes light emission from volumes.
+            <p>
+                The idea of this image is to have a Christmas party on the moon. The three robots and cat on the moon images are from
+                the Netfilx television series <i>Love Death + Robots </i>. The story is about long after the fall of humanity, three robots embark on a sightseeing tour of a post-apocalyptic city.
+                And the cats occupies the moon as their homeland. The third image is from the Nintendo game <i>Animal Crossing: New Horizons</i>, which shows a Christmas party scene.
+            </p>
+            <p>The idea behinds our project proposal is to generate a similar scene as in the motivational images,
+                we do not intend to reproduce the images exactly, but want to combine these scenes: Some robots and creatures are on the moon for Christmas party, and there is an earth (flooded by lava) on the background.
+                We assume that the Moon will snow in the future and that ice exists. Vegetation is also present.
+                We also want to create chimneys with smokes coming out.
+                These scenes may show a few interesting phenomena for rendering, e.g. different matrial of surface, glossy reflections, homogeneous medium, emissive texture etc.
             </p>
 
 
@@ -66,19 +84,21 @@
             <ul>
                 <li>5 Points
                     <ul>
-                        <li>Simple Extra Emitters (e.g. spotlight, directional light)</li>
+                        <li>Basic Denoising: Bilateral Filter with Uniform Variance</li>
+                        <li>Simple Extra Emitters: directional light</li>
                         <li>Anisotropic Phase Function (e.g. Henyey-Greenstein)</li>
+                        <li>Object Instancing</li>
                     </ul>
                 </li>
                 <li>10 Points
                     <ul>
                         <li>Equiangular Sampling of Single Scattering</li>
-                        <li>Stratified Sampling (should work beyond sampling on the image plane)</li>
                     </ul>
                 </li>
-                <li>30 Points
+                <li>15 Points
                     <ul>
-                        <li>Heterogeneous Volumetric Participating Media</li>
+                        <li>Homogeneous Participating Media</li>
+                        <li>Layered BSDF</li>
                     </ul>
                 </li>
             </ul>
@@ -88,36 +108,28 @@
                 <li>5 Points
                     <ul>
                         <li>Images as Textures</li>
-                        <li>Basic Desnoising: Bilateral Filter with Uniform Variance</li>
                         <li>Bump Mapping or Normal Mapping</li>
-                        <li>Simple Extra BSDF (e.g. conductor, rough dielectric, opacity mask)</li>
+                        <li>Simple Extra BSDF: Conductor</li>
+                        <li>Simple Extra BSDF: Blend BSDF</li>
                     </ul>
                 </li>
                 <li>10 Points
                     <ul>
-                        <li>Emissive Participating Media</li>
+                        <li>Stratified Sampling</li>
                     </ul>
                 </li>
                 <li>15 Points
                     <ul>
                         <li>Environment Map Emitter</li>
-                        <li>Disney BSDF</li>
+                        <li>Disney BSDF (5 params: roughness, specular, metallic, sheen, sheen_tint)</li>
                     </ul>
                 </li>
             </ul>
 
-            <h4>Simple Extra Emitters (spotlight, directional light, ...)</h4>
+            <h4>Simple Extra Emitters: directional light</h4>
             <p>There are four emitters except the environment. Including the headlamps and warning light.</p>
             <p>Validation: We will try to generate a valid xml-test file as it already exists for the
                 point-light.</p>
-                
-            <h4>Anisotropic Phase Function</h4>
-            <p>The Henyey-Greenstein phase function is a very popular empirical phase function. We would like to 
-                implement this function for volumetric rendering. 
-            </p>
-            <p>Validation: We will compare the result of this phase function with the uniform phase function. Besides, we will test
-                some hand-computed values or visualize the sampled directions to check the correctness. 
-            </p>
                 
             <h4>Images as Textures</h4>
             <p>This feature is needed for the painting of the police vehicle to make it looks more realistic.</p>
@@ -133,14 +145,35 @@
             <p>We want to simulate the fluctuating surface of the water, thus, bump mapping is needed.</p>
             <p>Validation: The rendered scene will be visualized and be compared with the results of other reneders.</p>
             
-            <h4>Simple Extra BSDF</h4>
-            <p>More BSDF is needed to simulate the texture of different surface, i.e. metal, plastic, glass, etc. </p>
+            <h4>Simple Extra BSDF: Conductor</h4>
+            <p>More BSDF is needed to simulate the texture of different surface like metal</p>
             <p>Validation: The rendered objects will be visualized, a plot of BSDF of certain material is also possible.</p>
+
+            <h4>Simple Extra BSDF: Blend BSDF</h4>
+            <p>Blend BSDF will be used to mix multiple BSDF to better simulate object with complicated surface. i.e. surface of the Earth. </p>
+            <p>Validation: The rendered scene will be visualized and be compared with the results of other reneders.</p>
+
+            <h4>Anisotropic Phase Function</h4>
+            <p>The Henyey-Greenstein phase function is a very popular empirical phase function. We would like to 
+                implement this function for volumetric rendering. 
+            </p>
+            <p>Validation: We will compare the result of this phase function with the uniform phase function. Besides, we will test
+                some hand-computed values or visualize the sampled directions to check the correctness. 
+            </p>
+            <h4>Object Instancing</h4>
+            <p>Since we use one model multiple times (e.g. the Christmas gifts), and shape groups (the Christmas pine with candies on it), we 
+                need to instantiate the object.
+            </p>
+            <p>
+                Validation: we will directly check whether the object is reused in the scene. 
+            </p>
+
+
 
             <h4>Equiangular Sampling of Single Scattering</h4>
             <p>
                 The equiangular sampling of single scattering is used for the volumetric rendering pipeline.
-                This method reduces the noise for volumetric rendering. The headlamps under the water have beams, which can be better rendered.
+                This method reduces the noise for volumetric rendering.
             </p>
             <p>
                 Validation: We will compare the sampling result with phase function sampling to see whether the noise is reduced.
@@ -155,14 +188,6 @@
             </p>
             
 
-            <h4>Emissive Participating Media</h4>
-            <p>This feature is to simulate the explosion. We hope to generate some fire behind the sinked vehicle. Thus, emissive 
-                participating media is needed.
-            </p>
-            <p>Validation: Use some existing open-source renderers to render a same scene and check if the results are similar.
-            </p>
-            
-
             <h4>Environment Map Emitter</h4>
             <p>This feature is to give a realistic background of our image. Also, the image we want to render does 
                 not contain much light source, so that it is also used for providing enough light for this scene.
@@ -170,15 +195,21 @@
             <p>Validation: Use some existing open-source renderers to render a same scene and check if the results are similar.
             </p>
             
-            <h4>Disney BSDF</h4>
+            <h4>Disney BSDF (5 params: roughness, specular, metallic, sheen, sheen_tint)</h4>
             <p>More BSDF is needed to simulate the texture of different surface, i.e. metal, plastic, glass, etc. And Disney
                 BSDF technique will be applied to simulate more realistic surfaces. </p>
             <p>Validation: The rendered objects will be visualized, a plot of BSDF of certain material is also possible.</p>
+            
+            <h4>Homogeneous Participating Media</h4>
+            <p>Since we are going to create explosion for the car, the homogeneous volumetric rendering is required.</p>
+            <p>Validation: We can render the same scene with an existing renderer (as Mitsuba- or Indigo-renderer for example), and compare it with our result.</p>
 
-            <h4>Heterogeneous Volumetric Participating Media</h4>
-            <p>Since we are going to create explosion for the car, the heterogeneous volumetric rendering is required. </p>
-            <p>Validation: We can render the same scene with an existing renderer (as
-                Mitsuba- or Indigo-renderer for example), and compare it with our result.</p>
+            <h4>Layered BSDF</h4>
+            <p>Multi-layers BSDF is needed to simulate object with complicated, i.e. Earth. And Layered
+                BSDF will be applied to simulate more realistic atmosphere of the Earth. </p>
+            <p>Validation: The rendered objects will be visualized, we will compare the difference with the ones without layered BRDF.</p>
+
+
             <br>
             <br>
             <br>
@@ -186,7 +217,12 @@
 </div>
 
 <script src="./assets/ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="assets/jquery.twentytwenty.js"></script>
 
-
+<script>
+    $(window).load(function(){$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5});});
+</script>
+    
 
 </div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
