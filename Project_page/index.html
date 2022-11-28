@@ -92,13 +92,12 @@
                 </li>
                 <li>10 Points
                     <ul>
-                        <li>Equiangular Sampling of Single Scattering</li>
+                        <li>Different distance sampling and transmittance estimation methods: ray marching, delta tracking and ratio tracking</li>
                     </ul>
                 </li>
-                <li>15 Points
+                <li>30 Points 
                     <ul>
-                        <li>Homogeneous Participating Media</li>
-                        <li>Layered BSDF</li>
+                        Heterogeneous Participating Media
                     </ul>
                 </li>
             </ul>
@@ -170,13 +169,17 @@
 
 
 
-            <h4>Equiangular Sampling of Single Scattering</h4>
+            <!-- <h4>Equiangular Sampling of Single Scattering</h4>
             <p>
                 The equiangular sampling of single scattering is used for the volumetric rendering pipeline.
                 This method reduces the noise for volumetric rendering.
+            </p> -->
+            <h4>Different distance sampling and transmittance estimation methods</h4>
+            <p>
+                The different distance sampling is used for the volumetric rendering pipeline.
             </p>
             <p>
-                Validation: We will compare the sampling result with phase function sampling to see whether the noise is reduced.
+                Validation: We will compare the sampling result with other render such as mitsuba.
             </p>
             
             <h4>Stratified Sampling</h4>
@@ -200,14 +203,14 @@
                 BSDF technique will be applied to simulate more realistic surfaces. </p>
             <p>Validation: The rendered objects will be visualized, a plot of BSDF of certain material is also possible.</p>
             
-            <h4>Homogeneous Participating Media</h4>
-            <p>Since we are going to create explosion for the car, the homogeneous volumetric rendering is required.</p>
+            <h4>Heterogeneous Participating Media</h4>
+            <p>Since we are going to create the smoke on the house, the heterogeneous volumetric rendering is required.</p>
             <p>Validation: We can render the same scene with an existing renderer (as Mitsuba- or Indigo-renderer for example), and compare it with our result.</p>
 
-            <h4>Layered BSDF</h4>
+            <!-- <h4>Layered BSDF</h4>
             <p>Multi-layers BSDF is needed to simulate object with complicated, i.e. Earth. And Layered
                 BSDF will be applied to simulate more realistic atmosphere of the Earth. </p>
-            <p>Validation: The rendered objects will be visualized, we will compare the difference with the ones without layered BRDF.</p>
+            <p>Validation: The rendered objects will be visualized, we will compare the difference with the ones without layered BRDF.</p> -->
 
 
             <br>
