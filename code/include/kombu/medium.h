@@ -48,7 +48,7 @@ struct MediumQueryRecord {
  */
 class Medium: public NoriObject{
 public:
-/**
+    /**
 	 * \brief Sample the medium distance
 	 *
 	 * \param mRec    A medium query record (ref, wi are needed)
@@ -57,8 +57,24 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    virtual Color3f sample(MediumQueryRecord &mRec, const Point2f &sample_1, const float &sample_2) const = 0;
+    virtual Color3f sample_intersection(MediumQueryRecord &mRec, const float &sample) const = 0;
     
+    /** \brief Sample the medium phasefunction
+	 *
+	 * \param mRec    A medium query record (ref, wi are needed)
+	 * \param sample  A uniformly distributed sample on \f$[0,1]^2\f$
+	 *
+	 * \return The albedo, evaluated for each color channel.
+	 *         A zero value means that sampling failed.
+	 */
+    float sample_phase(MediumQueryRecord &mRec, const Point2f &sample){
+        PhaseFunctionQueryRecord pRec(mRec.wi);
+        float phase_val = m_phase -> sample(pRec, sample);
+        mRec.wo = pRec.wo;
+        return phase_val;
+    }
+
+
     /**
 	 * \brief Evaluate the medium albedo
 	 *

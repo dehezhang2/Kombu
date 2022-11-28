@@ -12,16 +12,11 @@ public:
         m_albedo =  m_sigma_s / m_sigma_t;
     }
 
-    Color3f sample(MediumQueryRecord &mRec, const Point2f &sample_1, const float &sample_2) const {
-        // sample direction
-        PhaseFunctionQueryRecord pRec(mRec.wi);
-        Color3f phase_val = m_phase -> sample(pRec, sample_1);
-        mRec.wo = pRec.wo;
-        // sample distance
-        float t = -log(1.f - sample_2) / m_sigma_t.getLuminance();
+    Color3f sample_intersection(MediumQueryRecord &mRec, const float &sample) const {        // sample distance
+        float t = -log(1.f - sample) / m_sigma_t.getLuminance();
         mRec.hitMedium = (t < mRec.tMax);
         if(mRec.hitMedium){
-            mRec.p = mRec.ref + t * pRec.wo;
+            mRec.p = mRec.ref + t * mRec.wi;
         }
         return m_albedo;
     }

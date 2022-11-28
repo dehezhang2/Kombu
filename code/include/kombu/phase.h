@@ -38,16 +38,10 @@ struct PhaseFunctionQueryRecord {
 
 class PhaseFunction : public NoriObject {
 public:
-    PhaseFunction();
-    PhaseFunction(const PropertyList &props);
-    /// Release all memory
-    virtual ~PhaseFunction() {}
-
     virtual float sample(PhaseFunctionQueryRecord &pRec, const Point2f &sample) const = 0;
-
     // pdf is equal to eval
+    // use world coordinate
     virtual float eval(PhaseFunctionQueryRecord &pRec) const = 0;
-
     EClassType getClassType() const { return EPhaseFunction; }
 
 protected:

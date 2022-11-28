@@ -52,6 +52,7 @@ add_executable(kombu
   src/bsdfs/diffuse.cpp
   src/bsdfs/mirror.cpp
   src/bsdfs/microfacet.cpp
+  src/bsdfs/transparent.cpp
 
   src/cameras/perspective.cpp
   
@@ -75,9 +76,13 @@ add_executable(kombu
   src/integrators/path_mats.cpp
   src/integrators/path_mis.cpp
   src/integrators/photonmapper.cpp
+  src/integrators/vol_path_mats.cpp
+  src/integrators/vol_path_mis.cpp
 
   src/mediums/homogeneous.cpp
 
+  src/phase/isotropic.cpp
+  
   src/sample/independent.cpp
   src/sample/warp.cpp
 

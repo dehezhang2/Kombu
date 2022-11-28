@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<scene>
+	<integrator type="vol_path_mats"/>
+
+	<camera type="perspective">
+		<float name="fov" value="27.7856"/>
+		<transform name="toWorld">
+			<scale value="-1,1,1"/>
+			<lookat target="0, 0.893051, 4.41198" origin="0, 0.919769, 5.41159" up="0, 1, 0"/>
+		</transform>
+
+		<integer name="height" value="600"/>
+		<integer name="width" value="800"/>
+	</camera>
+
+	<sampler type="independent">
+		<integer name="sampleCount" value="512"/>
+	</sampler>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/walls.obj"/>
+
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.725 0.71 0.68"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/rightwall.obj"/>
+
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.161 0.133 0.427"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/leftwall.obj"/>
+
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.630 0.065 0.05"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="sphere">
+		<point name="center" value="-0.421400 0.332100 -0.280000" />
+		<float name="radius" value="0.3263" />
+		<bsdf type="dielectric">
+			<float name="intIOR" value="1.5046" />
+			<float name="extIOR" value="1.000277" />
+		</bsdf>
+	</mesh>
+
+	<mesh type="sphere">
+		<point name="center" value="-0.421400 0.332100 -0.280000" />
+		<float name="radius" value="0.1263" />
+		<medium type="homogeneous">
+			<phase type="isotropic"/>
+			<color name="sigma_a" value="0.2 0.2 0.2" />
+			<color name="sigma_s" value="2 2 2" />
+		</medium>
+		<!-- <bsdf type="dielectric">
+			<float name="intIOR" value="1.5046" />
+			<float name="extIOR" value="1.000277" />
+		</bsdf> -->
+		<bsdf type="transparent" />
+		
+	</mesh>
+
+	<mesh type="sphere">
+		<point name="center" value="0.445800 0.332100 0.376700" />
+		<float name="radius" value="0.3263" />
+		<medium type="homogeneous">
+			<phase type="isotropic"/>
+			<color name="sigma_a" value="0.9 0.9 0.9" />
+			<color name="sigma_s" value="0 0 0" />
+		</medium>
+		<!-- <bsdf type="dielectric">
+			<float name="intIOR" value="1.5046" />
+			<float name="extIOR" value="1.000277" />
+		</bsdf> -->
+		<bsdf type="transparent" />
+		
+	</mesh>
+	<mesh type="sphere">
+		<point name="center" value="0.445800 0.332100 0.376700" />
+		<float name="radius" value="0.1263" />
+		<emitter type="area">
+			<color name="radiance" value="15 15 15"/>
+		</emitter>
+		<bsdf type="transparent" />
+		
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/light.obj"/>
+
+		<emitter type="area">
+			<color name="radiance" value="15 15 15"/>
+		</emitter>
+	</mesh>
+</scene>

@@ -67,6 +67,8 @@ void Scene::addChild(NoriObject *obj) {
                 m_shapes.push_back(mesh);
                 if(mesh->isEmitter())
                     m_emitters.push_back(mesh->getEmitter());
+                if(mesh->isMedium())
+                    m_mediums.push_back(mesh->getMedium());
             }
             break;
         
