@@ -61,12 +61,38 @@ public:
                     EmitterQueryRecord lRec(mRec.p);
                     Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
                     float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
-                    if(!scene -> rayIntersect(lRec.shadowRay)){
-                        PhaseFunctionQueryRecord pRec(-incident_ray.d, lRec.wi, ESolidAngle);
-                        float pdf_mat_em = current_medium->getPhaseFunction()->eval(pRec);
-                        w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
-                        Li += throughput * w_ems * current_medium->evalTransmittance(mRec) * pdf_mat_em * Li_over_pdf ;
+
+                    Intersection its_medium;
+                    PhaseFunctionQueryRecord pRec(-incident_ray.d, lRec.wi, ESolidAngle);
+                    float pdf_mat_em = current_medium->getPhaseFunction()->eval(pRec);
+                    w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
+                    Color3f accumulate_tr = 0.f;
+                    if(!scene -> rayIntersect(lRec.shadowRay, its_medium)){
+                        accumulate_tr = current_medium->evalTransmittance(MediumQueryRecord(its_surface.p, lRec.p));
+                    } else if(its_medium.mesh->isMedium()){
+                        accumulate_tr = current_medium->evalTransmittance(MediumQueryRecord(its_surface.p, its_medium.p));
+                        Ray3f medium_ray(its_medium.p, lRec.shadowRay.d, Epsilon, (lRec.p - its_medium.p).norm() - Epsilon);
+                        
+                        int medium_cnt = 0;
+                        while(scene->rayIntersect(medium_ray, its_medium)){
+                            if(its_medium.mesh->isMedium()){
+                                medium_ray = Ray3f(its_medium.p, lRec.shadowRay.d, Epsilon, (lRec.p - its_medium.p).norm() - Epsilon);
+                                if(++medium_cnt==2){
+                                    // goes out of medium
+                                    medium_cnt = 0;
+                                    accumulate_tr *= its_medium.mesh->getMedium()->evalTransmittance(MediumQueryRecord(medium_ray.o, its_medium.p));
+                                }
+
+                            } else {
+                                accumulate_tr = 0.f;
+                                break;
+                            }
+                        }
+                        if(medium_cnt == 1){
+                            accumulate_tr *= its_medium.mesh->getMedium()->evalTransmittance(MediumQueryRecord(its_surface.p, lRec.p))
+                        } 
                     }
+                    Li += throughput * w_ems * accumulate_tr * pdf_mat_em * Li_over_pdf ;
                     prev_discrete = false;
 
                     // update throughput and incident ray
@@ -106,16 +132,49 @@ public:
                     EmitterQueryRecord lRec(its_surface.p);
                     Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
                     float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
-                    if(!scene -> rayIntersect(lRec.shadowRay)){
-                        float cos_theta_i = max(0.f, its_surface.shFrame.n.dot(lRec.wi));
-                        BSDFQueryRecord bRec_em(its_surface.shFrame.toLocal(-incident_ray.d), its_surface.shFrame.toLocal(lRec.wi), ESolidAngle);
-                        bRec_em.uv = its_surface.uv;
-                        bRec_em.p = its_surface.p;
-                        Color3f bsdf = its_surface.mesh->getBSDF()->eval(bRec_em);
-                        float pdf_mat_em = its_surface.mesh->getBSDF()->pdf(bRec_em);
-                        w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
-                        Li += throughput * w_ems * bsdf * Li_over_pdf * cos_theta_i;
+                    
+                    // if(!scene -> rayIntersect(lRec.shadowRay)){
+                    //     float cos_theta_i = max(0.f, its_surface.shFrame.n.dot(lRec.wi));
+                    //     BSDFQueryRecord bRec_em(its_surface.shFrame.toLocal(-incident_ray.d), its_surface.shFrame.toLocal(lRec.wi), ESolidAngle);
+                    //     bRec_em.uv = its_surface.uv;
+                    //     bRec_em.p = its_surface.p;
+                    //     Color3f bsdf = its_surface.mesh->getBSDF()->eval(bRec_em);
+                    //     float pdf_mat_em = its_surface.mesh->getBSDF()->pdf(bRec_em);
+                    //     w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
+                    //     Li += throughput * w_ems * bsdf * Li_over_pdf * cos_theta_i;
+                    // }
+                    Intersection its_medium;
+                    float cos_theta_i = max(0.f, its_surface.shFrame.n.dot(lRec.wi));
+                    BSDFQueryRecord bRec_em(its_surface.shFrame.toLocal(-incident_ray.d), its_surface.shFrame.toLocal(lRec.wi), ESolidAngle);
+                    bRec_em.uv = its_surface.uv;
+                    bRec_em.p = its_surface.p;
+                    Color3f bsdf = its_surface.mesh->getBSDF()->eval(bRec_em);
+                    float pdf_mat_em = its_surface.mesh->getBSDF()->pdf(bRec_em);
+                    w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
+
+                    Color3f accumulate_tr = 0.f;
+                    if(!scene -> rayIntersect(lRec.shadowRay, its_medium)){
+                        accumulate_tr = 1.0f;
+                    } else if(its_medium.mesh->isMedium()){
+                        accumulate_tr = 1.0f;
+                        Ray3f medium_ray = lRec.shadowRay;
+                        int medium_cnt = 0;
+                        while(scene->rayIntersect(medium_ray, its_medium)){
+                            if(its_medium.mesh->isMedium()){
+                                medium_ray = Ray3f(its_medium.p, lRec.shadowRay.d, Epsilon, (lRec.p - its_medium.p).norm() - Epsilon);
+                                if(++medium_cnt==2){
+                                    // goes out of medium
+                                    medium_cnt = 0;
+                                    accumulate_tr *= its_medium.mesh->getMedium()->evalTransmittance(MediumQueryRecord(medium_ray.o, its_medium.p));
+                                }
+
+                            } else {
+                                accumulate_tr = 0.f;
+                                break;
+                            }
+                        }
                     }
+                    Li += throughput * w_ems * bsdf * Li_over_pdf * cos_theta_i * accumulate_tr;
                 }
                 // update throughput and incident_ray
                 incident_ray = Ray3f(its_surface.p, its_surface.shFrame.toWorld(bRec.wo));

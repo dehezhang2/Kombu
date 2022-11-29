@@ -58,10 +58,6 @@
 			<color name="sigma_a" value="0.2 0.2 0.2" />
 			<color name="sigma_s" value="2 2 2" />
 		</medium>
-		<!-- <bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf> -->
 		<bsdf type="transparent" />
 		
 	</mesh>
@@ -74,10 +70,6 @@
 			<color name="sigma_a" value="0.9 0.9 0.9" />
 			<color name="sigma_s" value="0 0 0" />
 		</medium>
-		<!-- <bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf> -->
 		<bsdf type="transparent" />
 		
 	</mesh>
@@ -87,7 +79,6 @@
 		<emitter type="area">
 			<color name="radiance" value="15 15 15"/>
 		</emitter>
-		<bsdf type="transparent" />
 		
 	</mesh>
 
