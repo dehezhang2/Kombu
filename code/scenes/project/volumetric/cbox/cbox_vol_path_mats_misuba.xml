@@ -3,9 +3,7 @@
     <default name="res" value="256"/>
     <default name="max_depth" value="6"/>
 
-    <integrator type="volpath">
-        <integer name="max_depth" value="$max_depth"/>
-    </integrator>
+    <integrator type="volpath"/>
 
     <sensor type="perspective">
         <float name="fov" value="27.78"/>
@@ -48,7 +46,7 @@
 	</shape>
 
     
-    	<shape type="sphere">
+    <shape type="sphere">
 		<point name="center" value="-0.421400 0.332100 -0.280000" />
 		<float name="radius" value="0.3263" />
 		<bsdf type="dielectric">
@@ -62,13 +60,16 @@
 		<float name="radius" value="0.1263" />
 		<medium type="homogeneous">
 			<phase type="isotropic"/>
-			<rgb name="sigma_t" value="1 1 1" />
-			<rgb name="albedo" value="0.9 0.9 0.9" />
+        	<!-- <rgb name="sigma_t" value="1, 1, 1"/>
+        	<rgb name="albedo" value="0.5, 0.5, 0.5"/> -->
+			<spectrum name="sigma_t" value="3"/>
+			<spectrum name="albedo" value="0.66"/>
 		</medium>
-		<bsdf type="dielectric">
-			<float name="int_ior" value="1" />
-			<float name="ext_ior" value="1" />
-		</bsdf>
+		<!-- <bsdf type="dielectric">
+        	<float name="int_ior" value="1.5046"/>
+        	<float name="ext_ior" value="1.000277"/>
+    	</bsdf> -->
+
 		
 	</shape>
 
@@ -76,14 +77,16 @@
 		<point name="center" value="0.445800 0.332100 0.376700" />
 		<float name="radius" value="0.3263" />
 		<medium type="homogeneous">
-			<rgb name="sigma_t" value="0.9 0.9 0.9" />
-			<rgb name="albedo" value="0 0 0" />
+			<phase type="isotropic"/>
+        	<!-- <rgb name="sigma_t" value="1, 1, 1"/>
+        	<rgb name="albedo" value="0.5, 0.5, 0.5"/> -->
+			<spectrum name="sigma_t" value="3"/>
+			<spectrum name="albedo" value="0.66"/>
 		</medium>
-		<bsdf type="dielectric">
-			<float name="int_ior" value="1" />
-			<float name="ext_ior" value="1" />
-		</bsdf>
-		
+		<!-- <bsdf type="dielectric">
+        	<float name="int_ior" value="1.5046"/>
+        	<float name="ext_ior" value="1.000277"/>
+    	</bsdf> -->
 	</shape>
 	<shape type="sphere">
 		<point name="center" value="0.445800 0.332100 0.376700" />

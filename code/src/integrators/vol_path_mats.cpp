@@ -12,45 +12,29 @@ private:
 public:
     VolPathMATSIntegrator(const PropertyList &props) {
     }
-
+    
     Color3f Li(const Scene *scene, Sampler *sampler, const Ray3f &ray) const {
         Color3f Li = 0;
         // larger throughput => larger contribution => larger probability for russian
         Color3f throughput = 1.f;
         Ray3f incident_ray = ray;
         int bounce_cnt = 0;
-        Medium* current_medium = nullptr;
+        const Medium* current_medium = nullptr;
         Intersection its_surface;
-        bool use_volume = false;
+        bool has_intersection = scene->rayIntersect(incident_ray, its_surface);
+
         while(true){
-            if (!scene->rayIntersect(incident_ray, its_surface)) break;
-            // Check whether the current point is in the medium
-            current_medium = nullptr;
-            auto mediums = scene->getMediums();
-            // cout << mediums.size() << endl;
-            for(auto medium : mediums){
-                if(medium->contains(incident_ray.o)){
-                    current_medium = medium;
-                    break; 
-                }
-            }
-            use_volume = false;
-            if(current_medium){
+            MediumQueryRecord mRec(incident_ray.o, incident_ray.d, its_surface.t);
+            if(current_medium && current_medium->sample_intersection(mRec, sampler->next1D())){
                 // volumetric rendering
+                current_medium->sample_phase(mRec, sampler->next2D());
                 Frame incident_local_frame(incident_ray.d);
-                MediumQueryRecord mRec(its_surface.p, Vector3f(0.f), its_surface.t);
-                Color3f albedo = current_medium->sample_intersection(mRec, sampler->next1D());
-                if(mRec.hitMedium){
-                    // volumetric
-                    use_volume = true;
-                    // sample phasefunction ray
-                    current_medium->sample_phase(mRec, sampler->next2D());
-                    incident_ray = Ray3f(mRec.p, incident_local_frame.toWorld(mRec.wo));
-                    // update throughput 
-                    throughput *= albedo;
-                } 
-            } 
-            if(!use_volume){
+                incident_ray = Ray3f(mRec.p, incident_local_frame.toWorld(mRec.wo));
+                has_intersection = scene->rayIntersect(incident_ray, its_surface);
+                // update throughput 
+                throughput *= mRec.albedo;                
+            } else {
+                if(!has_intersection) break;
                 // same as path_mats
                 // count Li
                 if(its_surface.mesh->isEmitter()){
@@ -63,6 +47,8 @@ public:
                 bRec.p = its_surface.p;
                 Color3f bsdf_cos_theta_over_pdf = its_surface.mesh->getBSDF()->sample(bRec, sampler->next2D());
                 incident_ray = Ray3f(its_surface.p, its_surface.shFrame.toWorld(bRec.wo));
+                has_intersection = scene->rayIntersect(incident_ray, its_surface);
+                current_medium = its_surface.mesh->getMedium();
                 // update throughput
                 throughput *= bsdf_cos_theta_over_pdf;   
             }
@@ -71,7 +57,7 @@ public:
                 float success_prob = std::min(throughput.getLuminance(), 0.99f);
                 if(sampler->next1D() > success_prob) break;
                 throughput /= success_prob;
-            }            
+            }   
         }
         return Li;
     }

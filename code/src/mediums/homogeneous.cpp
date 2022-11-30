@@ -12,13 +12,15 @@ public:
         m_albedo =  m_sigma_s / m_sigma_t;
     }
 
-    Color3f sample_intersection(MediumQueryRecord &mRec, const float &sample) const {        // sample distance
-        float t = -log(1.f - sample) / m_sigma_t.getLuminance();
-        mRec.hitMedium = (t < mRec.tMax);
-        if(mRec.hitMedium){
+    bool sample_intersection(MediumQueryRecord &mRec, const float &sample) const {        // sample distance
+        float t = -log(1.f - sample) / m_sigma_t.maxCoeff();
+        if(t < mRec.tMax){
             mRec.p = mRec.ref + t * mRec.wi;
+            if (mRec.p == mRec.ref) return false;
+            mRec.albedo = m_albedo;            
+            return true;
         }
-        return m_albedo;
+        return false;
     }
 
     Color3f eval(const MediumQueryRecord &mRec) const {
@@ -72,10 +74,12 @@ public:
                     "  sigmaA = %s,\n"
                     "  sigmaS = %s,\n"
                     "  sigmaT = %s,\n"
+                    "  albedo = %s,\n"
                     "]",
                     m_sigma_a,
                     m_sigma_s,
-                    m_sigma_t);
+                    m_sigma_t,
+                    m_albedo);
     }
 
 protected:

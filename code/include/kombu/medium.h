@@ -22,8 +22,8 @@ struct MediumQueryRecord {
     float pdf;  
     /// Max free path length
     float tMax;
-    /// whether the sampled point hits the medium (or surface)
-    bool hitMedium;
+    /// albedo
+    Color3f albedo;
 
     EMeasure measure;
 
@@ -57,7 +57,7 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    virtual Color3f sample_intersection(MediumQueryRecord &mRec, const float &sample) const = 0;
+    virtual  bool sample_intersection(MediumQueryRecord &mRec, const float &sample) const = 0;
     
     /** \brief Sample the medium phasefunction
 	 *
@@ -67,7 +67,7 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    float sample_phase(MediumQueryRecord &mRec, const Point2f &sample){
+    float sample_phase(MediumQueryRecord &mRec, const Point2f &sample) const{
         PhaseFunctionQueryRecord pRec(mRec.wi);
         float phase_val = m_phase -> sample(pRec, sample);
         mRec.wo = pRec.wo;

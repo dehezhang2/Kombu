@@ -52,40 +52,24 @@
 	</mesh>
 
 	<mesh type="sphere">
-		<point name="center" value="-0.421400 0.332100 -0.280000" />
-		<float name="radius" value="0.1263" />
-		<medium type="homogeneous">
-			<phase type="isotropic"/>
-			<color name="sigma_a" value="0.1 0.1 0.1" />
-			<color name="sigma_s" value="0.9 0.9 0.9" />
-		</medium>
-		<bsdf type="transparent" />
-		
-	</mesh>
-
-	<mesh type="sphere">
 		<point name="center" value="0.445800 0.332100 0.376700" />
 		<float name="radius" value="0.3263" />
 		<medium type="homogeneous">
 			<phase type="isotropic"/>
-			<color name="sigma_a" value="0.9 0.9 0.9" />
-			<color name="sigma_s" value="0 0 0" />
+			<color name="sigma_a" value="4 4 4" />
+			<color name="sigma_s" value="6 6 6" />
 		</medium>
-		<!-- <bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf> -->
-		<bsdf type="transparent" />
-		
+		<bsdf type="transparent"/>
 	</mesh>
-	<mesh type="sphere">
+
+	<!-- <mesh type="sphere">
 		<point name="center" value="0.445800 0.332100 0.376700" />
 		<float name="radius" value="0.1263" />
 		<emitter type="area">
 			<color name="radiance" value="15 15 15"/>
 		</emitter>
 		
-	</mesh>
+	</mesh> -->
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/light.obj"/>
