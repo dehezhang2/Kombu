@@ -20,6 +20,7 @@ public:
             mRec.albedo = m_albedo;            
             return true;
         }
+        mRec.p = mRec.ref + mRec.tMax * mRec.wi;
         return false;
     }
 
