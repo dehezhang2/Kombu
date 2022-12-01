@@ -457,7 +457,7 @@ bool BVH::rayIntersect(const Ray3f &_ray, Intersection &its, bool shadowRay) con
     if (foundIntersection) {
         its.mesh->setHitInformation(f,ray,its);
     }
-
+    its.valid = foundIntersection;
     return foundIntersection;
 }
 

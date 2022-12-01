@@ -48,6 +48,7 @@ struct Intersection {
     Frame geoFrame;
     /// Pointer to the associated shape
     const Shape *mesh;
+    bool valid;
 
     /// Create an uninitialized intersection record
     Intersection() : mesh(nullptr) { }
