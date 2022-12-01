@@ -35,8 +35,12 @@ private:
             // BSDFQueryRecord bRec(-wo, wo, ESolidAngle);
             // transmittance *= bsdf->eval(bRec);
 
+            // if(its.mesh->isMedium()){
+            //     medium = its.mesh->getMedium();
+            // }
             if(its.mesh->isMedium()){
-                medium = its.mesh->getMedium();
+                if(its.shFrame.n.dot(ray.d) >= 0) medium = nullptr;
+                else medium = its.mesh->getMedium();
             }
             ray.o = ray(its.t);
             remaining -= its.t;
@@ -60,8 +64,12 @@ private:
                 break;
             if(transmittance.maxCoeff()==0.f) 
                 return;
-            if (its->mesh->isMedium())
-                medium = its->mesh->getMedium();
+            // if (its->mesh->isMedium())
+            //     medium = its->mesh->getMedium();
+            if(its->mesh->isMedium()){
+                if(its->shFrame.n.dot(ray.d) >= 0) medium = nullptr;
+                else medium = its->mesh->getMedium();
+            }
             ray.o = ray(its->t);
             ray.mint = Epsilon;
             its = &its2;
@@ -91,7 +99,8 @@ public:
         const Medium* current_medium = nullptr;
         Intersection its_surface;
         bool has_intersection = scene->rayIntersect(incident_ray, its_surface);
-        bool mats_strategy = sampler->next1D() < 0.5;
+        bool mats_strategy = 0;
+        bool has_direct_medium = has_intersection ? its_surface.mesh->isMedium() : false;
         while(true){
             MediumQueryRecord mRec(incident_ray.o, incident_ray.d, its_surface.t);
             if(current_medium && current_medium->sample_intersection(mRec, sampler->next1D())){
@@ -103,48 +112,47 @@ public:
                     if(sampler->next1D() > success_prob) break;
                     throughput /= success_prob;
                 }
-                if(mats_strategy){
-                    // sample light
-                    const Emitter* light = scene->getRandomEmitter(sampler->next1D());
-                    EmitterQueryRecord lRec(mRec.p);
-                    Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
-                    Color3f transmittance = recursiveTransmittence(scene, lRec.shadowRay.o, false, lRec.p, true, current_medium);
-                    float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
-                    if(transmittance.maxCoeff()!=0){
-                        PhaseFunctionQueryRecord pRec(-incident_ray.d, lRec.wi, ESolidAngle);
-                        float pdf_mat_em = current_medium->getPhaseFunction()->eval(pRec);
-                        w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
-                        Li += throughput * w_ems * transmittance * pdf_mat_em * Li_over_pdf ;
-                    }
-                    prev_discrete = false;
+                // sample light
+                const Emitter* light = scene->getRandomEmitter(sampler->next1D());
+                EmitterQueryRecord lRec(mRec.p);
+                Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
+                Color3f transmittance = recursiveTransmittence(scene, lRec.shadowRay.o, false, lRec.p, true, current_medium);
+                float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
+                if(transmittance.maxCoeff()!=0){
+                    PhaseFunctionQueryRecord pRec(-incident_ray.d, lRec.wi, ESolidAngle);
+                    float pdf_mat_em = current_medium->getPhaseFunction()->eval(pRec);
+                    w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
+                    Li += throughput * w_ems * transmittance * pdf_mat_em * Li_over_pdf ;
                 }
+                prev_discrete = false;
                 
                 // sample phasefunction ray
                 pdf_mat_mat = current_medium->sample_phase(mRec, sampler->next2D());
                 Frame incident_local_frame(incident_ray.d);
                 incident_ray = Ray3f(mRec.p, incident_local_frame.toWorld(mRec.wo));
                 // TODO: add rayIntersectAndLookForEmitter
+                Color3f Le_tr(0.f);
+                float pdf_em_mat = 0.f;
+                recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat);
+                mats_strategy = Le_tr.maxCoeff()!=0;
                 if(mats_strategy){
-                    Color3f Le_tr(0.f);
-                    float pdf_em_mat = 0.f;
-                    recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat);
-                    if(Le_tr.maxCoeff()!=0){
-                        if(!prev_discrete){
-                            w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
-                        }
-                        Li += throughput * Le_tr * w_mat;
+                    if(!prev_discrete){
+                        w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
                     }
-                    has_intersection = its_surface.valid;
-                } else {
-                    has_intersection = scene->rayIntersect(incident_ray, its_surface);
+                    Li += throughput * Le_tr * w_mat;
                 }
+                has_intersection = its_surface.valid;
             } else {
                 if(!has_intersection) break;
                 // same as path_mits
                 // count Li
-                if(its_surface.mesh->isEmitter() && !mats_strategy){
+                if(its_surface.mesh->isEmitter() && (!mats_strategy || has_direct_medium)){
                     EmitterQueryRecord emitter_lRec(incident_ray.o, its_surface.p, its_surface.shFrame.n); // intersection (camera), light, normal
-                    Li += throughput * its_surface.mesh->getEmitter()->eval(emitter_lRec);
+                    if(!prev_discrete){
+                        float pdf_em_mat = its_surface.mesh->getEmitter()->pdf(emitter_lRec) / scene->getLights().size();
+                        w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
+                    }
+                    Li += its_surface.mesh->getEmitter()->eval(emitter_lRec) * throughput * w_mat;
                 }
                 // Ruassian Roulette 
                 if(++bounce_cnt > 3){
@@ -163,7 +171,7 @@ public:
 
                 // sample light source
                 // Note that this MIS corresponds to the BSDF sample in next iteration
-                if(!prev_discrete && mats_strategy){
+                if(!prev_discrete){
                     
                     if(its_surface.mesh->isMedium()) current_medium = its_surface.mesh->getMedium();
                     const Emitter* light = scene->getRandomEmitter(sampler->next1D());
@@ -187,25 +195,26 @@ public:
                 // update throughput and incident_ray
                 incident_ray = Ray3f(its_surface.p, its_surface.shFrame.toWorld(bRec.wo));
                 throughput *= bsdf_cos_theta_over_pdf;
-
-                if(mats_strategy){
-                    Color3f Le_tr(0.f);
-                    float pdf_em_mat = 0.f;
-                    recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat);
-                    if(Le_tr.maxCoeff()!=0){
-                        if(!prev_discrete){
-                            w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
-                        }
-                        Li += throughput * Le_tr * w_mat;
-                    }
-                    has_intersection = its_surface.valid;
-                }else {
-                    has_intersection = scene->rayIntersect(incident_ray, its_surface);
-                }
                 
-                current_medium = its_surface.mesh->getMedium();   
+                if(its_surface.mesh->isMedium()){
+                    if(its_surface.shFrame.n.dot(incident_ray.d) >= 0) current_medium = nullptr;
+                    else current_medium = its_surface.mesh->getMedium();
+                    scene->rayIntersect(incident_ray, its_surface);
+                }
+
+                Color3f Le_tr(0.f);
+                float pdf_em_mat = 0.f;
+                recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat);
+                mats_strategy = Le_tr.maxCoeff()!=0;
+                if(mats_strategy){
+                    if(!prev_discrete){
+                        w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
+                    }
+                    Li += throughput * Le_tr * w_mat;
+                }
+                has_intersection = its_surface.valid;
+                // current_medium = its_surface.mesh->getMedium();   
             }
-            mats_strategy = sampler->next1D() < 0.5;
         }
         return Li;
     }
