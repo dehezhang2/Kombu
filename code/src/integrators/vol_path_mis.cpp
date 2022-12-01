@@ -128,8 +128,7 @@ public:
                 
                 // sample phasefunction ray
                 pdf_mat_mat = current_medium->sample_phase(mRec, sampler->next2D());
-                Frame incident_local_frame(incident_ray.d);
-                incident_ray = Ray3f(mRec.p, incident_local_frame.toWorld(mRec.wo));
+                incident_ray = Ray3f(mRec.p, mRec.wo);
                 // TODO: add rayIntersectAndLookForEmitter
                 Color3f Le_tr(0.f);
                 float pdf_em_mat = 0.f;

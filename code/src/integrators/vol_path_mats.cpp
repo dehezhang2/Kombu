@@ -28,8 +28,7 @@ public:
             if(current_medium && current_medium->sample_intersection(mRec, sampler->next1D())){
                 // volumetric rendering
                 current_medium->sample_phase(mRec, sampler->next2D());
-                Frame incident_local_frame(incident_ray.d);
-                incident_ray = Ray3f(mRec.p, incident_local_frame.toWorld(mRec.wo));
+                incident_ray = Ray3f(mRec.p, mRec.wo);
                 has_intersection = scene->rayIntersect(incident_ray, its_surface);
                 // update throughput 
                 throughput *= mRec.albedo;                

@@ -82,6 +82,7 @@ add_executable(kombu
   src/mediums/homogeneous.cpp
 
   src/phase/isotropic.cpp
+  src/phase/hg.cpp
   
   src/sample/independent.cpp
   src/sample/warp.cpp
