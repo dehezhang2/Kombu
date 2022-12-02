@@ -91,7 +91,7 @@ public:
         bool has_intersection;
         bool mats_strategy = true;
         while(true){
-            MediumQueryRecord mRec(incident_ray.o, incident_ray.d, its_surface.t);
+            MediumQueryRecord mRec(incident_ray.o, -incident_ray.d, its_surface.t);
             if(current_medium && current_medium->sample_intersection(mRec, sampler)){
                 // volumetric rendering
                 throughput *= mRec.albedo;

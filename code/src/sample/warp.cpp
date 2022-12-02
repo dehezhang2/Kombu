@@ -114,20 +114,22 @@ Vector3f Warp::squareToUniformTriangle(const Point2f &sample) {
 Vector3f Warp::squareToHenyeyGreenstein(const Point2f &sample, float g) {
 
     //use the inverse method
-    if(g == 0.0){
-        return Warp::squareToUniformSphere(sample);
+    float cos_theta;
+    if(abs(g) < Epsilon){
+        cos_theta = 1 - 2*sample[0];
+    } else {
+        float fraction = (1.0f - g*g) / (1.0f - g + 2.0f * g * sample[0]);
+        cos_theta = (1 + g*g - fraction * fraction) / (2.0f * g);
     }
-    float fraction = (1.0f - g*g) / (1.0f - g + 2.0f * g * sample[0]);
-    float theta =  acos(1.0f / (2.0f * g) * (1.0f +  g * g - fraction * fraction));
+    float sin_theta = sqrt(1.0f - cos_theta * cos_theta);
     float phi = 2.0 * M_PI * sample[1];
-    return Vector3f(cos(phi) * sin(theta), sin(phi) * sin(theta), cos(theta));
+    return Vector3f(cos(phi) * sin_theta, sin(phi) * sin_theta, cos_theta);
 }
 
 float Warp::squareToHenyeyGreensteinPdf(const Vector3f &m, float g){
     float cos_theta = m[2];
     float frac = 1.0f + g * g - 2.0f * g * cos_theta;
-    if(frac <= 0.0f) return 0.0f;
-    float pdf =  ((1.0f - g * g) / (4.0f * M_PI * pow(frac, 1.5f)));
+    float pdf =  INV_FOURPI * (1 - g*g) / (frac * std::sqrt(frac));
     return pdf;
 }
 

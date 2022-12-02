@@ -15,6 +15,7 @@ public:
     }
 
     bool sample_intersection(MediumQueryRecord &mRec, Sampler* sampler) const {        // sample distance
+        Vector3f direction = -mRec.wi;
         int channel = std::min((int) (sampler->next1D()* 3.f), 2);
         float density = m_sigma_t[channel];
 
@@ -33,12 +34,12 @@ public:
         
         Color3f transmittance = (-m_sigma_t * sampled_distance).exp();
         if(t < mRec.tMax){
-            mRec.p = mRec.ref + t * mRec.wi;
+            mRec.p = mRec.ref + t * direction;
             if (mRec.p == mRec.ref) return false;
             mRec.albedo = m_sigma_s * transmittance / pdf_success;            
 
         } else {
-            mRec.p = mRec.ref + mRec.tMax * mRec.wi;
+            mRec.p = mRec.ref + mRec.tMax * direction;
             mRec.albedo =  transmittance / pdf_failure;            
         }
         return t < mRec.tMax;

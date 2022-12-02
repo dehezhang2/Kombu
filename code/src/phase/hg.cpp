@@ -20,7 +20,8 @@ public:
 
     // pdf is equal to eval
     float eval(PhaseFunctionQueryRecord &pRec) const override{
-        pRec.pdf = Warp::squareToHenyeyGreensteinPdf(pRec.wo, m_g);
+        Frame incident_local_frame(-pRec.wi);
+        pRec.pdf = Warp::squareToHenyeyGreensteinPdf(incident_local_frame.toLocal(pRec.wo), m_g);
         return pRec.pdf;
     }
     
