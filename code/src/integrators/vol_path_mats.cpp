@@ -25,7 +25,7 @@ public:
 
         while(true){
             MediumQueryRecord mRec(incident_ray.o, incident_ray.d, its_surface.t);
-            if(current_medium && current_medium->sample_intersection(mRec, sampler->next1D())){
+            if(current_medium && current_medium->sample_intersection(mRec, sampler)){
                 // volumetric rendering
                 current_medium->sample_phase(mRec, sampler->next2D());
                 incident_ray = Ray3f(mRec.p, mRec.wo);
@@ -33,6 +33,7 @@ public:
                 // update throughput 
                 throughput *= mRec.albedo;                
             } else {
+                if(current_medium) throughput *= mRec.albedo;
                 if(!has_intersection) break;
                 // same as path_mats
                 // count Li

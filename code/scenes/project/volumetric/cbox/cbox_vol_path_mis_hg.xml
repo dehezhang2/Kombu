@@ -18,7 +18,7 @@
 	</camera>
 
 	<sampler type="independent">
-		<integer name="sampleCount" value="512"/>
+		<integer name="sampleCount" value="128"/>
 	</sampler>
 
 	<mesh type="obj">
@@ -48,10 +48,14 @@
 	<mesh type="sphere">
 		<point name="center" value="-0.421400 0.332100 -0.280000" />
 		<float name="radius" value="0.3263" />
-		<bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf>
+		<medium type="homogeneous">
+			<phase type="hg">
+				<float name="g" value="0.5"/>
+			</phase>
+			<color name="sigma_t" value="2 3 6" />
+			<color name="albedo" value="0.5 0.333 0.167" />
+		</medium>
+		<bsdf type="transparent"/>
 	</mesh>
 
 	<mesh type="sphere">
@@ -59,10 +63,10 @@
 		<float name="radius" value="0.3263" />
 		<medium type="homogeneous">
 			<phase type="hg">
-				<float name="g" value="0.5"/>
+				<float name="g" value="-0.5"/>
 			</phase>
-			<color name="sigma_a" value="4 4 4" />
-			<color name="sigma_s" value="6 6 6" />
+			<color name="sigma_t" value="6 3 2" />
+			<color name="albedo" value="0.167 0.333 0.5" />
 		</medium>
 		<bsdf type="transparent"/>
 	</mesh>

@@ -57,7 +57,7 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    virtual  bool sample_intersection(MediumQueryRecord &mRec, const float &sample) const = 0;
+    virtual  bool sample_intersection(MediumQueryRecord &mRec, Sampler* sampler) const = 0;
     
     /** \brief Sample the medium phasefunction
 	 *
@@ -122,7 +122,7 @@ public:
 	 * \return
 	 *    The transmittance between the two points
 	 */
-    virtual Color3f evalTransmittance(const MediumQueryRecord &mRec) const = 0;
+    virtual Color3f evalTransmittance(const MediumQueryRecord &mRec, Sampler * sampler) const = 0;
 
     // Return the phase function of this medium
     inline const PhaseFunction *getPhaseFunction() const { return m_phase; }
@@ -131,11 +131,6 @@ public:
      * \brief Return whether or not this medium is homogeneous.
      */
     virtual bool isHomogeneous() const { return false; }
-
-    virtual Color3f &getSigmaA() = 0;
-    virtual Color3f &getSigmaS() = 0;
-    virtual Color3f &getSigmaT() = 0;
-    virtual Color3f &getAlbedo() = 0;
 
     /**
      * \brief Set the shape if the medium is attached to a shape
