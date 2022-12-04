@@ -1,6 +1,7 @@
 #include <kombu/medium.h>
+#include <kombu/volume.h>
 #include <nori/shape.h>
-#include <boost/algorithm/string.hpp>
+
 NORI_NAMESPACE_BEGIN
 using namespace std;
 
@@ -14,11 +15,9 @@ public:
     };
     
     HeterogeneousMedium(const PropertyList &propList){
-        m_albedo = propList.getColor("albedo", Color3f(0.5f));
-        m_sigma_t = propList.getColor("sigma_t", Color3f(0.5f));
         m_scale = propList.getFloat("scale", 1.f);
         
-        string method_string = boost::to_lower_copy(propList.getString("method", "delta"));
+        string method_string = propList.getString("method", "delta");
         if(method_string == "delta")
             m_method = EDeltaTracking;
         else if(method_string == "ratio")
@@ -28,20 +27,29 @@ public:
         
     }
 
-    bool sample_intersection(MediumQueryRecord &mRec, const float &sample) const {        // sample distance
-        float t = -log(1.f - sample) / m_sigma_t.maxCoeff();
+    bool sample_intersection(MediumQueryRecord &mRec, Sampler* sampler) const {        // sample distance
+        float sigma_t = m_sigma_t->lookup(Vector3f(0.f));
+        float albedo = m_albedo->lookup(Vector3f(0.f));
+        // float sigma_s = albedo * sigma_t;
+        Vector3f direction = -mRec.wi;
+        float density = sigma_t;
+
+        float t = -log(1.f - sampler->next1D()) / density;
+
+
         if(t < mRec.tMax){
-            mRec.p = mRec.ref + t * mRec.wi;
+            mRec.p = mRec.ref + t * direction;
             if (mRec.p == mRec.ref) return false;
-            mRec.albedo = m_albedo;            
-            return true;
+            mRec.albedo = albedo; 
+        } else {
+            mRec.p = mRec.ref + mRec.tMax * direction;
+            mRec.albedo =  1.f;            
         }
-        mRec.p = mRec.ref + mRec.tMax * mRec.wi;
-        return false;
+        return t < mRec.tMax;
     }
 
     Color3f eval(const MediumQueryRecord &mRec) const {
-        return m_albedo;
+        return m_albedo->lookup(Vector3f(0.f));
     }
 
     float pdf(const MediumQueryRecord &mRec) const override {
@@ -54,11 +62,9 @@ public:
 
     Color3f evalTransmittance(const MediumQueryRecord &mRec, Sampler* sampler) const override {
         float t = (mRec.p - mRec.ref).norm();
-        Color3f sigma_t_t = -m_sigma_t * t;
+        Color3f sigma_t_t = -m_sigma_t->lookup(Vector3f(0.f)) * t;
         return {exp(sigma_t_t[0]),exp(sigma_t_t[1]), exp(sigma_t_t[2]) };
     }
-    
-    bool isHomogeneous() const override { return true; }
     
     bool contains(Point3f &p) {
         if (!m_shape)
@@ -66,9 +72,6 @@ public:
 					"There is no shape attached to this medium!");
 		return m_shape->getBoundingBox().contains(p, 0);
     }
-    
-    Color3f &getSigmaT() {return m_sigma_t;}
-    Color3f &getAlbedo() {return m_albedo;}
 
     void addChild(NoriObject *obj) {
         switch (obj->getClassType()) {
@@ -78,7 +81,16 @@ public:
                         "Medium: tried to register multiple Phase functions!");
                 m_phase = static_cast<PhaseFunction *>(obj);
                 break;
-
+            case EVolume:
+                // m_phase = static_cast<Volume *>(obj);
+                if(obj->getIdName() == "albedo"){
+                    m_albedo = static_cast<Volume *>(obj);
+                    m_albedo->setBoundingBox(m_shape->getBoundingBox());
+                } else if(obj->getIdName() == "sigma_t"){
+                    m_sigma_t = static_cast<Volume *>(obj);
+                    m_sigma_t->setBoundingBox(m_shape->getBoundingBox());
+                }
+                break;
             default:
                 throw NoriException("Medium::addChild(<%s>) is not supported!",
                                     classTypeName(obj->getClassType()));
@@ -87,17 +99,20 @@ public:
     
     std::string toString() const override{
         return tfm::format(
-                    "HomogeneousMedium[\n"
+                    "HeterogeneousMedium[\n"
+                    "  scale = %s,\n"
                     "  sigmaT = %s,\n"
                     "  albedo = %s,\n"
+                    
                     "]",
+                    m_scale,
                     m_sigma_t,
                     m_albedo);
     }
 
 protected:
-    Color3f m_sigma_t;
-    Color3f m_albedo;
+    Volume* m_sigma_t;
+    Volume* m_albedo;
     float m_scale;
     EIntegrationMethod m_method;
 };

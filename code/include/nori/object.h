@@ -39,6 +39,7 @@ public:
         EPhaseFunction,
         EEmitter,
         EMedium,
+        EVolume,
         ECamera,
         EIntegrator,
         ESampler,
@@ -58,6 +59,7 @@ public:
             case ECamera:            return "camera";
             case EMedium:            return "medium";
             case EPhaseFunction:     return "phasefunction";
+            case EVolume:            return "volume";
             case EIntegrator:        return "integrator";
             case ESampler:           return "sampler";
             case ETest:              return "test";

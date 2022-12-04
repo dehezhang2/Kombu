@@ -1,12 +1,13 @@
 # This is the main CMake build file used to compile Nori
 cmake_minimum_required (VERSION 2.8)
 project("kombu")
-
 # This file included below takes care of compiling dependencies
 # and setting compiler flags on different platforms
 include("CMakeConfig.txt")
 
 include_directories(ext)
+
+find_package(Qt4 REQUIRED)
 
 # The following lines build the main executable. If you add a source
 # code file to Nori, be sure to include it in this list.
@@ -45,6 +46,8 @@ add_executable(kombu
   include/nori/warp.h
 
   include/kombu/medium.h 
+  include/kombu/phase.h 
+  include/kombu/volume.h 
   
 
   # Source code files
@@ -80,9 +83,12 @@ add_executable(kombu
   src/integrators/vol_path_mis.cpp
 
   src/mediums/homogeneous.cpp
+  src/mediums/heterogeneous.cpp
 
   src/phase/isotropic.cpp
   src/phase/hg.cpp
+
+  src/volumes/constvolume.cpp
   
   src/sample/independent.cpp
   src/sample/warp.cpp
@@ -108,6 +114,7 @@ add_executable(kombu
 
 )
 
+
 # The following lines build the warping test application
 add_executable(warptest
   include/nori/warp.h
@@ -131,12 +138,18 @@ add_dependencies(kombu OpenEXR_p)
 add_dependencies(kombu nanogui_p)
 add_dependencies(kombu tbb_p)
 add_dependencies(kombu pugixml)
+# add_dependencies(kombu Qt4::Core)
 add_dependencies(warptest kombu)
 add_dependencies(tonemapper kombu)
 
 # Link to dependency libraries
-target_link_libraries(kombu ${extra_libs})
+target_link_libraries(kombu ${extra_libs} Qt4::QtCore)
 target_link_libraries(warptest ${extra_libs})
 target_link_libraries(tonemapper ${extra_libs})
+
+
+# MESSAGE( ${extra_libs})
+# target_link_libraries(kombu PRIVATE Qt6::Core)
+
 
 # vim: set et ts=2 sw=2 ft=cmake nospell:

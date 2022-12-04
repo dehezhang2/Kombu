@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ui</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>uifile.icns</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSIsAppleDefaultForType</key>
+			<true/>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>Designer</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Created by Qt/QMake</string>
+	<key>CFBundleIconFile</key>
+	<string>designer.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.trolltech.Designer</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>ttxt</string>
+	<key>LSEnvironment</key>
+	<dict>
+		<key>QT_PLUGIN_PATH</key>
+		<string>/usr/local/lib/qt4/plugins</string>
+	</dict>
+	<key>NOTE</key>
+	<string>Qt/Designer by The Qt Company Ltd</string>
+</dict>
+</plist>
