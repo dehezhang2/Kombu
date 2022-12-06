@@ -11,7 +11,7 @@ public:
         return m_value;
     }
 
-    float getStepSize() const{
+    float getStepSize(Shape* shape){
         return std::numeric_limits<float>::infinity();
     }
 

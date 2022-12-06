@@ -44,7 +44,7 @@ public:
 
 		cout << "Mapping \"" << filename.data() << "\" (" << m_res.x()
 			<< "x" << m_res.y() << "x" << m_res.z() << ") into memory .." << endl;
-
+		m_stepSize = -1;
 		m_fileSize = (size_t) file.size();
 		#if defined(PLATFORM_LINUX) || defined(PLATFORM_MACOS)
 			int fd = open(filename.data(), O_RDONLY);
@@ -123,8 +123,15 @@ public:
 		return ret;
     }
 
-    float getStepSize() const{
-        return std::numeric_limits<float>::infinity();
+    float getStepSize(Shape* shape){
+		if(m_stepSize == -1){
+			Vector3f extents = shape->getBoundingBox().getExtents();
+			m_stepSize = std::numeric_limits<float>::infinity();
+			for (int i=0; i<3; ++i)
+				m_stepSize = std::min(m_stepSize, 0.5f * extents[i] / (float) (m_res[i]-1));
+		}
+		
+        return m_stepSize;
     }
 
     float getMaximumValue() const {
@@ -145,6 +152,7 @@ protected:
 	size_t m_fileSize;
 	float *m_data;
     Vector3i m_res;
+	float m_stepSize;
 };
 NORI_REGISTER_CLASS(GridVolume, "gridvolume");
 NORI_NAMESPACE_END

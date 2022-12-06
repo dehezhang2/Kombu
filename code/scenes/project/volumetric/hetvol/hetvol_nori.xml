@@ -3,13 +3,11 @@
 <scene>
 	<integrator type="vol_path_mis"/>
 
-	
-
 	<mesh type="obj">
 		<string name="filename" value="bounds.obj"/>
 		<bsdf type="transparent"/>
 		<medium type="heterogeneous">
-			<string name="method" value="delta"/>
+			<string name="method" value="march"/>
 			<phase type="isotropic"/>
 			<volume name="sigma_t" type="gridvolume">
 				<string name="filename" value="smoke.vol"/>

@@ -15,7 +15,7 @@ class Volume: public NoriObject{
 public:
     virtual float lookup(Shape* shape, const Point3f &_p) = 0;
 
-    virtual float getStepSize() const = 0;
+    virtual float getStepSize(Shape* shape) = 0;
 
     virtual float getMaximumValue() const = 0;
     

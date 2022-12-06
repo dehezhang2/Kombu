@@ -7,8 +7,7 @@ NORI_NAMESPACE_BEGIN
 using namespace std;
 
 class VolPathMISIntegrator : public Integrator {
-private:
-    float m_mats_ratio;
+protected:
     Color3f recursiveTransmittence(const Scene* scene, const Point3f &p1, bool p1_onsurface, const Point3f &p2, bool p2_onsurface, const Medium* medium, Sampler* sampler) const{
         Vector3f d = p2 - p1;
         float remaining = d.norm();
@@ -73,9 +72,11 @@ private:
             }
         } 
     }
+    
+    bool m_inmedium;
 public:
     VolPathMISIntegrator(const PropertyList &props) {
-        m_mats_ratio = props.getFloat("mats_ratio", 0.7f);
+        m_inmedium = props.getBoolean("inmedium", false);
     }
 
     Color3f Li(const Scene *scene, Sampler *sampler, const Ray3f &ray) const {
@@ -83,7 +84,7 @@ public:
         // larger throughput => larger contribution => larger probability for russian
         Color3f throughput = 1.f;
         Ray3f incident_ray = ray;
-        int bounce_cnt = sampler->next1D() < m_mats_ratio;;
+        int bounce_cnt = 0;
         // The first ray just compute Le, therefore, no MIS => set w_mat to one
         float w_mat = 1.f, w_ems = 0.f, pdf_mat_mat;
         bool prev_discrete = true;
@@ -91,6 +92,22 @@ public:
         Intersection its_surface;
         bool has_intersection;
         bool mats_strategy = true;
+        if(m_inmedium){
+            auto mediums = scene->getMediums();
+            for(auto medium : mediums){
+                Point3f ray_o = ray.o;
+                if(medium->contains(ray_o)){
+                    current_medium = medium;
+                    scene->rayIntersect(ray, its_surface);
+                    // cout << "haha\n";
+                    if(its_surface.mesh->isEmitter()){
+                        EmitterQueryRecord emitter_lRec(ray.o, its_surface.p, its_surface.shFrame.n); 
+                        Li += its_surface.mesh->getEmitter()->eval(emitter_lRec) * throughput * current_medium->evalTransmittance(MediumQueryRecord(ray.o, its_surface.p), sampler);
+                    }
+                }
+            }
+        }
+
         while(true){
             MediumQueryRecord mRec(incident_ray.o, -incident_ray.d, its_surface.t);
             if(current_medium && current_medium->sample_intersection(mRec, sampler)){

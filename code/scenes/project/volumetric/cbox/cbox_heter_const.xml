@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 
 <scene>
-	<integrator type="vol_path_mis">
-		<float name="mats_ratio" value="0.7" />
-	</integrator>
+	<integrator type="vol_path_mis"/>
 	
 
 	<camera type="perspective">
