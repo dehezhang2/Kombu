@@ -1,5 +1,5 @@
 # This is the main CMake build file used to compile Nori
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 2.9)
 project("kombu")
 
 # This file included below takes care of compiling dependencies
@@ -45,6 +45,10 @@ add_executable(kombu
   include/nori/warp.h
 
   include/kombu/medium.h 
+  include/kombu/envmap.h
+  include/kombu/disney_utils.h
+  include/kombu/principledhelpers.h
+  include/kombu/microfacet.h
   
 
   # Source code files
@@ -53,6 +57,8 @@ add_executable(kombu
   src/bsdfs/mirror.cpp
   src/bsdfs/microfacet.cpp
   src/bsdfs/transparent.cpp
+  src/bsdfs/disney_glass.cpp
+  src/bsdfs/disney_principled.cpp
 
   src/cameras/perspective.cpp
   
@@ -61,6 +67,8 @@ add_executable(kombu
 
   src/emitters/arealight.cpp
   src/emitters/pointlight.cpp
+  src/emitters/envmap.cpp
+  src/emitters/envlight.cpp
   
   src/geometry/shape.cpp
   src/geometry/mesh.cpp
