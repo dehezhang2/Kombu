@@ -7,7 +7,7 @@ public:
         m_value = props.getFloat("value", 0.f);
     }
 
-    float lookup(const Point3f &p) const {
+    float lookup(Shape* shape, const Point3f &_p) {
         return m_value;
     }
 
@@ -15,7 +15,7 @@ public:
         return std::numeric_limits<float>::infinity();
     }
 
-    float getMaximumFloatValue() const {
+    float getMaximumValue() const {
         return m_value;
     }
 

@@ -53,8 +53,6 @@
 			<color name="sigma_t" value="0.6 0.3 0.2" />
 			<color name="albedo" value="0.167 0.333 0.5" />
 			<float name="scale" value="10"/>
-			<!-- <color name="sigma_t" value="5 5 5" />
-			<color name="albedo" value="0.4 0.4 0.4" /> -->
 		</medium>
 		<bsdf type="transparent"/>
 	</mesh>
@@ -67,21 +65,10 @@
 			<color name="sigma_t" value="0.2 0.3 0.6" />
 			<color name="albedo" value="0.5 0.333 0.167" />
 			<float name="scale" value="10"/>
-			<!-- <color name="sigma_t" value="5 5 5" />
-			<color name="albedo" value="0.4 0.4 0.4" /> -->
 			
 		</medium>
 		<bsdf type="transparent"/>
 	</mesh>
-
-	<!-- <mesh type="sphere">
-		<point name="center" value="0.445800 0.332100 0.376700" />
-		<float name="radius" value="0.1263" />
-		<emitter type="area">
-			<color name="radiance" value="15 15 15"/>
-		</emitter>
-		
-	</mesh> -->
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/light.obj"/>

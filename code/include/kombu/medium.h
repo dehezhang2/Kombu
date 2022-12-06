@@ -135,7 +135,7 @@ public:
     /**
      * \brief Set the shape if the medium is attached to a shape
      * */
-    void setShape(Shape * shape) { m_shape = shape; }
+    virtual void setShape(Shape * shape) { m_shape = shape; }
     
     virtual void addChild(NoriObject *obj) {}
 

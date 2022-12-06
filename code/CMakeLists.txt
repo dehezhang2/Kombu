@@ -89,6 +89,7 @@ add_executable(kombu
   src/phase/hg.cpp
 
   src/volumes/constvolume.cpp
+  src/volumes/gridvolume.cpp
   
   src/sample/independent.cpp
   src/sample/warp.cpp

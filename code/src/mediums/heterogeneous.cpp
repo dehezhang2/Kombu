@@ -22,48 +22,96 @@ public:
             m_method = EDeltaTracking;
         else if(method_string == "ratio")
             m_method = ERatioTracking;
-        else if(method_string == "")
+        else if(method_string == "march")
             m_method = ERayMarching;
         
     }
 
     bool sample_intersection(MediumQueryRecord &mRec, Sampler* sampler) const {        // sample distance
-        float sigma_t = m_sigma_t->lookup(Vector3f(0.f));
-        float albedo = m_albedo->lookup(Vector3f(0.f));
-        // float sigma_s = albedo * sigma_t;
         Vector3f direction = -mRec.wi;
-        float density = sigma_t;
+        Ray3f ray(mRec.ref, direction, 0, mRec.tMax);
+        if(m_method==EDeltaTracking){
+            float pdf_failure = 1.0f;
+            float pdf_success = 1.0f;
+            Color3f transmittance(1.0f);
 
-        float t = -log(1.f - sampler->next1D()) / density;
+            float mint, maxt;
+            
+            if (!m_shape->getBoundingBox().rayIntersect(ray, mint, maxt))
+                return false;
+            mint = std::max(mint, ray.mint);
+            maxt = std::min(maxt, ray.maxt);
 
+            float t = mint, densityAtT = 0;
+            while (true) {
+                t -= log(1-sampler->next1D()) * m_invMaxDensity;
+                if (t >= maxt)
+                    break;
 
-        if(t < mRec.tMax){
-            mRec.p = mRec.ref + t * direction;
-            if (mRec.p == mRec.ref) return false;
-            mRec.albedo = albedo; 
-        } else {
-            mRec.p = mRec.ref + mRec.tMax * direction;
-            mRec.albedo =  1.f;            
+                Point3f p = ray(t);
+                densityAtT = m_sigma_t->lookup(m_shape, p) * m_scale;
+
+                if (densityAtT * m_invMaxDensity > sampler->next1D()) {
+                    mRec.p = p;
+                    mRec.albedo = m_albedo->lookup(m_shape, p);
+                    return true;
+                }
+            }
+        } else if(m_method == ERatioTracking){
+
+        } else if(m_method==ERayMarching){
+
         }
-        return t < mRec.tMax;
+        mRec.p = mRec.ref + mRec.tMax * direction;
+        mRec.albedo = 1.f; 
+        return false;
     }
 
     Color3f eval(const MediumQueryRecord &mRec) const {
-        return m_albedo->lookup(Vector3f(0.f));
+        return m_albedo->lookup(m_shape, mRec.ref);
     }
 
     float pdf(const MediumQueryRecord &mRec) const override {
         PhaseFunctionQueryRecord pRec(mRec.wi, mRec.wo, mRec.measure);
         float pdf_w = m_phase -> eval(pRec);
-        // float pdf_x = evalTransmittance(mRec).getLuminance();
-        // return pdf_x * pdf_w;
         return pdf_w;
     }
 
     Color3f evalTransmittance(const MediumQueryRecord &mRec, Sampler* sampler) const override {
+        Vector3f direction = (mRec.p - mRec.ref).normalized();
         float t = (mRec.p - mRec.ref).norm();
-        Color3f sigma_t_t = -m_sigma_t->lookup(Vector3f(0.f)) * t;
-        return {exp(sigma_t_t[0]),exp(sigma_t_t[1]), exp(sigma_t_t[2]) };
+        Ray3f ray = Ray3f(mRec.ref, direction, 0, t);
+        if(m_method==EDeltaTracking){
+            float mint, maxt;
+            
+            if (!m_shape->getBoundingBox().rayIntersect(ray, mint, maxt))
+                return Color3f(1.f);
+            mint = std::max(mint, ray.mint);
+            maxt = std::min(maxt, ray.maxt);
+            int nSamples = 2; /// XXX make configurable
+            float result = 0;
+
+            for (int i=0; i<nSamples; ++i) {
+                float t = mint;
+                while (true) {
+                    t -= log(1-sampler->next1D()) * m_invMaxDensity;
+                    if (t >= maxt) {
+                        result += 1;
+                        break;
+                    }
+                    Point3f p = ray(t);
+                    float density = m_sigma_t->lookup(m_shape, p) * m_scale;
+
+                    if (density * m_invMaxDensity > sampler->next1D())
+                        break;
+                }
+            }
+            return Color3f(result/nSamples);
+        } else if(m_method == ERatioTracking){
+
+        } else if(m_method==ERayMarching){
+
+        }
     }
     
     bool contains(Point3f &p) {
@@ -85,16 +133,19 @@ public:
                 // m_phase = static_cast<Volume *>(obj);
                 if(obj->getIdName() == "albedo"){
                     m_albedo = static_cast<Volume *>(obj);
-                    m_albedo->setBoundingBox(m_shape->getBoundingBox());
                 } else if(obj->getIdName() == "sigma_t"){
                     m_sigma_t = static_cast<Volume *>(obj);
-                    m_sigma_t->setBoundingBox(m_shape->getBoundingBox());
+                    m_maxDensity = m_scale * m_sigma_t->getMaximumValue();
+                    m_invMaxDensity = 1.0f/m_maxDensity;
                 }
                 break;
             default:
                 throw NoriException("Medium::addChild(<%s>) is not supported!",
                                     classTypeName(obj->getClassType()));
         }
+    }
+    void setShape(Shape * shape) override{
+        m_shape = shape; 
     }
     
     std::string toString() const override{
@@ -106,8 +157,8 @@ public:
                     
                     "]",
                     m_scale,
-                    m_sigma_t,
-                    m_albedo);
+                    m_sigma_t->toString(),
+                    m_albedo->toString());
     }
 
 protected:
@@ -115,6 +166,9 @@ protected:
     Volume* m_albedo;
     float m_scale;
     EIntegrationMethod m_method;
+    float m_maxDensity;
+    float m_invMaxDensity;
+    Transform m_worldToGrid;
 };
 
 NORI_REGISTER_CLASS(HeterogeneousMedium, "heterogeneous");

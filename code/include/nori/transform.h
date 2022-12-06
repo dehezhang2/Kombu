@@ -56,6 +56,45 @@ public:
         return m_inverse;
     }
 
+    static Transform scale(const Eigen::Vector3f &v) {
+        Eigen::Matrix4f trafo;
+        trafo << 
+            v.x(), 0,   0,   0,
+            0,   v.y(), 0,   0,
+            0,   0,   v.z(), 0,
+            0,   0,   0,   1;
+        Eigen::Matrix4f invTrafo;
+        invTrafo << 
+            1.0f/v.x(), 0,        0,        0,
+            0,        1.0f/v.y(), 0,        0,
+            0,        0,        1.0f/v.z(), 0,
+            0,        0,        0,        1;
+        return Transform(trafo, invTrafo);
+    }
+    static Transform translate(const Eigen::Vector3f &v) {
+        Eigen::Matrix4f trafo;
+        trafo <<
+            1, 0, 0, v.x(),
+            0, 1, 0, v.y(),
+            0, 0, 1, v.z(),
+            0, 0, 0, 1;
+        Eigen::Matrix4f invTrafo;
+        invTrafo << 
+            1, 0, 0, -v.x(),
+            0, 1, 0, -v.y(),
+            0, 0, 1, -v.z(),
+            0, 0, 0, 1;
+    return Transform(trafo, invTrafo);
+}
+    inline Point3f transformAffine(const Point3f &p) const {
+        float x = m_transform(0, 0) * p.x() + m_transform(0, 1) * p.y()
+                + m_transform(0, 2) * p.z() + m_transform(0, 3);
+        float y = m_transform(1, 0) * p.x() + m_transform(1, 1) * p.y()
+                + m_transform(1, 2) * p.z() + m_transform(1, 3);
+        float z = m_transform(2, 0) * p.x() + m_transform(2, 1) * p.y()
+                + m_transform(2, 2) * p.z() + m_transform(2, 3);
+        return Point3f(x,y,z);
+    }
     /// Return the inverse transformation
     Transform inverse() const {
         return Transform(m_inverse, m_transform);

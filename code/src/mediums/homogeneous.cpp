@@ -18,7 +18,11 @@ public:
         Vector3f direction = -mRec.wi;
         int channel = std::min((int) (sampler->next1D()* 3.f), 2);
         float density = m_sigma_t[channel];
-
+        if(density<Epsilon){
+            mRec.p = mRec.ref + mRec.tMax * direction;
+            mRec.albedo = 1;
+            return false; 
+        }
         float t = -log(1.f - sampler->next1D()) / density;
 
         float pdf_failure = 0;

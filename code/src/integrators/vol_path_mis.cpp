@@ -39,7 +39,7 @@ private:
         return transmittance;
     }
 
-    void recursiveEmitterChecking(const Scene* scene, const Medium*& medium, Ray3f ray, Intersection &_its, Color3f& value, float& pdf_em, Sampler* sampler) const {
+    void recursiveEmitterChecking(const Scene* scene, const Medium* medium, Ray3f ray, Intersection &_its, Color3f& value, float& pdf_em, Sampler* sampler) const {
         Intersection its2, *its = &_its;
         Color3f transmittance(1.f);
         bool has_intersect = false;
@@ -57,6 +57,7 @@ private:
             // if (its->mesh->isMedium())
             //     medium = its->mesh->getMedium();
             if(its->mesh->isMedium()){
+                break;
                 if(its->shFrame.n.dot(ray.d) >= 0) medium = nullptr;
                 else medium = its->mesh->getMedium();
             }
