@@ -69,7 +69,7 @@ float RenderThread::getProgress() {
     else return 1.f;
 }
 
-static void renderBlock(const Scene *scene, Sampler *sampler, ImageBlock &block) {
+static void renderBlock(const Scene *scene, Sampler *sampler, ImageBlock &block, int numSamples) {
     const Camera *camera = scene->getCamera();
     const Integrator *integrator = scene->getIntegrator();
 
@@ -80,20 +80,25 @@ static void renderBlock(const Scene *scene, Sampler *sampler, ImageBlock &block)
     block.clear();
 
     /* For each pixel and pixel sample sample */
+    sampler->prepare(block);
     for (int y=0; y<size.y(); ++y) {
         for (int x=0; x<size.x(); ++x) {
-            Point2f pixelSample = Point2f((float) (x + offset.x()), (float) (y + offset.y())) + sampler->next2D();
-            Point2f apertureSample = sampler->next2D();
+            sampler->generate();
+            for (uint32_t k = 0; k < numSamples ; ++k) {
+                Point2f pixelSample = Point2f((float) (x + offset.x()), (float) (y + offset.y())) + sampler->next2D();
+                Point2f apertureSample = sampler->next2D();
 
-            /* Sample a ray from the camera */
-            Ray3f ray;
-            Color3f value = camera->sampleRay(ray, pixelSample, apertureSample);
+                /* Sample a ray from the camera */
+                Ray3f ray;
+                Color3f value = camera->sampleRay(ray, pixelSample, apertureSample);
 
-            /* Compute the incident radiance */
-            value *= integrator->Li(scene, sampler, ray);
+                /* Compute the incident radiance */
+                value *= integrator->Li(scene, sampler, ray);
 
-            /* Store in the image block */
-            block.put(pixelSample, value);
+                /* Store in the image block */
+                block.put(pixelSample, value);
+                sampler->advance();
+            }
         }
     }
 }
@@ -146,10 +151,10 @@ void RenderThread::renderScene(const std::string & filename) {
             tbb::concurrent_vector< std::unique_ptr<Sampler> > samplers;
             samplers.resize(numBlocks);
 
-            for (uint32_t k = 0; k < numSamples ; ++k) {
-                m_progress = k/float(numSamples);
-                if(m_render_status == 2)
-                    break;
+            // for (uint32_t k = 0; k < numSamples ; ++k) {
+                // m_progress = k/float(numSamples);
+                // if(m_render_status == 2)
+                //     break;
 
                 tbb::blocked_range<int> range(0, numBlocks);
 
@@ -164,14 +169,16 @@ void RenderThread::renderScene(const std::string & filename) {
 
                         // Get block id to continue using the same sampler
                         auto blockId = block.getBlockId();
-                        if(k == 0) { // Initialize the sampler for the first sample
-                            std::unique_ptr<Sampler> sampler(m_scene->getSampler()->clone());
-                            sampler->prepare(block);
-                            samplers.at(blockId) = std::move(sampler);
-                        }
+                        // if(k == 0) { // Initialize the sampler for the first sample
+                        //     std::unique_ptr<Sampler> sampler(m_scene->getSampler()->clone());
+                        //     sampler->prepare(block);
+                        //     samplers.at(blockId) = std::move(sampler);
+                        // }
 
                         // Render all contained pixels
-                        renderBlock(m_scene, samplers.at(blockId).get(), block);
+                        std::unique_ptr<Sampler> sampler(m_scene->getSampler()->clone());
+                        samplers.at(blockId) = std::move(sampler);
+                        renderBlock(m_scene, samplers.at(blockId).get(), block, numSamples);
 
                         // The image block has been processed. Now add it to the "big" block that represents the entire image
                         m_block.put(block);
@@ -185,7 +192,7 @@ void RenderThread::renderScene(const std::string & filename) {
                 tbb::parallel_for(range, map);
 
                 blockGenerator.reset();
-            }
+            // }
 
             cout << "done. (took " << timer.elapsedString() << ")" << endl;
 

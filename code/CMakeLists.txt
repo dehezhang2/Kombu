@@ -93,6 +93,7 @@ add_executable(kombu
   
   src/sample/independent.cpp
   src/sample/warp.cpp
+  src/sample/stratified.cpp
 
   src/tests/ttest.cpp
   src/tests/chi2test.cpp
