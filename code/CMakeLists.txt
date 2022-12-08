@@ -50,6 +50,7 @@ add_executable(kombu
   include/kombu/volume.h 
   include/kombu/reference.h 
   include/kombu/instance.h 
+  include/kombu/denoiser.h
   
 
   # Source code files
@@ -110,6 +111,8 @@ add_executable(kombu
   src/utils/parser.cpp
   src/utils/proplist.cpp
   src/utils/rfilter.cpp
+  src/utils/bilaterial.cpp
+  src/utils/nl_means.cpp
 
   src/core/gui.cpp
   src/core/main.cpp

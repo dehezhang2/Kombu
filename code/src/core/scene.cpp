@@ -129,6 +129,14 @@ void Scene::addChild(NoriObject *obj) {
             }
             break;
 
+        case EDenoiser:
+            {
+                if (m_denoiser)
+                    throw NoriException("There can only be one denoiser per scene!");
+                m_denoiser = static_cast<Denoiser *>(obj);
+            }
+            break;
+
         default:
             throw NoriException("Scene::addChild(<%s>) is not supported!",
                 classTypeName(obj->getClassType()));

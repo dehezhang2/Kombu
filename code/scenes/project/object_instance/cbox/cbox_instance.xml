@@ -18,7 +18,7 @@
 	</camera>
 
 	<sampler type="independent">
-		<integer name="sampleCount" value="512"/>
+		<integer name="sampleCount" value="64"/>
 	</sampler>
 
 	<mesh type="obj">
@@ -76,26 +76,6 @@
 		</transform>
 		<string name="ref" value="sphere-001"/>
 	</mesh>
-
-    <!-- <mesh type="sphere">
-		<point name="center" value="-0.421400 0.332100 -0.280000" />
-		<float name="radius" value="0.3263" />
-
-		<bsdf type="diffuse">
-			<color name="albedo" value="0.161 0.133 0.427"/>
-		</bsdf>
-	</mesh> -->
-
-	
-
-	<!-- <mesh type="sphere">
-		<point name="center" value="0.445800 0.332100 0.376700" />
-		<float name="radius" value="0.3263" />
-
-		<bsdf type="diffuse">
-			<color name="albedo" value="0.161 0.133 0.427"/>
-		</bsdf>
-	</mesh> -->
 
 	<mesh type="sphere">
 		<point name="center" value="0.445800 0.332100 0.376700" />

@@ -69,6 +69,7 @@ NoriObject *loadFromXML(const std::string &filename) {
         ESampler              = NoriObject::ESampler,
         ETest                 = NoriObject::ETest,
         EReconstructionFilter = NoriObject::EReconstructionFilter,
+        EDenoiser             = NoriObject::EDenoiser,
 
         /* Properties */
         EBoolean = NoriObject::EClassTypeCount,
@@ -102,6 +103,7 @@ NoriObject *loadFromXML(const std::string &filename) {
     tags["integrator"] = EIntegrator;
     tags["sampler"]    = ESampler;
     tags["rfilter"]    = EReconstructionFilter;
+    tags["denoiser"]    = EDenoiser;
     tags["test"]       = ETest;
     tags["boolean"]    = EBoolean;
     tags["integer"]    = EInteger;
