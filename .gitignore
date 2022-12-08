@@ -11,3 +11,4 @@ ETH_Year2_SemA.code-workspace
 .vscode
 main_scene*
 *.exr
+*.png

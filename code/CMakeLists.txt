@@ -68,7 +68,7 @@ add_executable(kombu
   src/emitters/arealight.cpp
   src/emitters/pointlight.cpp
   src/emitters/envmap.cpp
-  src/emitters/envlight.cpp
+  # src/emitters/envlight.cpp
   
   src/geometry/shape.cpp
   src/geometry/mesh.cpp
@@ -100,6 +100,7 @@ add_executable(kombu
 
   src/textures/consttexture.cpp
   src/textures/checkerboard.cpp
+  src/textures/imagetexture.cpp
   
   src/utils/bitmap.cpp
   src/utils/block.cpp

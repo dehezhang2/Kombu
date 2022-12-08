@@ -22,6 +22,8 @@
 #include <kombu/microfacet.h>
 #include <nori/warp.h>
 #include <pcg32.h>
+#include <nori/texture.h>
+#include <filesystem/resolver.h>
 
 NORI_NAMESPACE_BEGIN
 
@@ -31,8 +33,22 @@ NORI_NAMESPACE_BEGIN
 class DisneyPrincipled : public BSDF {
 public:
     DisneyPrincipled(const PropertyList &propList) {
-        m_base_color = propList.getColor("base_color",0.5f);
-        m_roughness = propList.getFloat("roughness", 0.5f);
+        if(propList.has("base_color")) {
+            PropertyList l;
+            l.setColor("value", propList.getColor("base_color"));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+        }
+        if(propList.has("roughness")) {
+            PropertyList l;
+            l.setColor("value", propList.getFloat("roughness"));
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+        }
+        if(propList.has("spec_tint")) {
+            PropertyList l;
+            l.setColor("value", propList.getFloat("spec_tint"));
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+        }
+        // m_roughness = propList.getFloat("roughness", 0.5f);
         m_has_anisotropic = propList.has("anisotropic");
         m_anisotropic = propList.getFloat("anisotropic", 0.0f);
         m_has_spec_trans = propList.has("spec_trans");
@@ -44,7 +60,7 @@ public:
         m_has_flatness = propList.has("flatness");
         m_flatness = propList.getFloat("flatness", 0.0f);
         m_has_spec_tint = propList.has("spec_tint");
-        m_spec_tint = propList.getFloat("spec_tint", 0.0f);
+        // m_spec_tint = propList.getFloat("spec_tint", 0.0f);
         m_has_metallic = propList.has("metallic");
         m_metallic = propList.getFloat("metallic", 0.0f);
         m_has_clearcoat = propList.has("clearcoat");
@@ -63,6 +79,58 @@ public:
 
     }
 
+        /// Add texture for the albedo
+    virtual void addChild(NoriObject *obj) override {
+        switch (obj->getClassType()) {
+            case ETexture:
+                if(obj->getIdName() == "base_color") {
+                    if (m_base_color.get())
+                        throw NoriException("There is already an base_color defined!");
+                    m_base_color.reset(static_cast<Texture<Color3f> *>(obj));
+                }
+                else if(obj->getIdName() == "roughness") {
+                    if (m_roughness.get())
+                        throw NoriException("There is already an roughness defined!");
+                    m_roughness.reset(static_cast<Texture<Color3f> *>(obj));
+                }
+                else if(obj->getIdName() == "spec_tint") {
+                    if (m_spec_tint.get())
+                        throw NoriException("There is already an spec_tint defined!");
+                    m_spec_tint.reset(static_cast<Texture<Color3f> *>(obj));
+                    m_has_spec_tint = true;
+                }
+
+
+                else {
+                    throw NoriException("The name of this texture does not match any field!");
+                }
+                break;
+
+            default:
+                throw NoriException("Diffuse::addChild(<%s>) is not supported!",
+                                    classTypeName(obj->getClassType()));
+        }
+    }
+    
+    virtual void activate() override {
+        if(!m_base_color.get()) {
+            PropertyList l;
+            l.setColor("value", Color3f(0.5f));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            m_base_color->activate();
+        }
+        if(!m_roughness.get()) {
+            PropertyList l;
+            l.setColor("value", Color3f(0.5f));
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+        }
+        if(!m_spec_tint.get()) {
+            PropertyList l;
+            l.setColor("value", Color3f(0.f));
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+        }
+    }
+
     virtual Color3f eval(const BSDFQueryRecord & bRec) const override {
         bool active = true;
         float cos_theta_i = Frame::cosTheta(bRec.wi);
@@ -74,13 +142,13 @@ public:
 
         // Store the weights.
         float anisotropic = m_has_anisotropic ? m_anisotropic : 0.0f,
-              roughness = m_roughness,
+              roughness = luminance(m_roughness->eval(bRec.uv)),
               flatness = m_has_flatness ? m_flatness: 0.0f,
               spec_trans = m_has_spec_trans ? m_spec_trans: 0.0f,
               metallic = m_has_metallic ? m_metallic : 0.0f,
               clearcoat = m_has_clearcoat ? m_clearcoat: 0.0f,
               sheen = m_has_sheen ? m_sheen : 0.0f;
-        Color3f base_color = m_base_color;
+        Color3f base_color = m_base_color->eval(bRec.uv);
 
         // Weights for BRDF and BSDF major lobes.
         float brdf = (1.0f - metallic) * (1.0f - spec_trans),
@@ -166,7 +234,7 @@ public:
                     ? luminance(base_color)
                     : 1.0f;
             float spec_tint =
-                    m_has_spec_tint ? m_spec_tint: 0.0f;
+                    m_has_spec_tint ? luminance(m_spec_tint->eval(bRec.uv)): 0.0f;
 
             // Fresnel term
             Color3f F_principled = principled_fresnel(
@@ -311,7 +379,7 @@ public:
         // Store the weights.
         float anisotropic =
                 m_has_anisotropic ? m_anisotropic: 0.0f,
-                roughness = m_roughness,
+                roughness = luminance(m_roughness->eval(bRec.uv)),
                 spec_trans =
                         m_has_spec_trans ? m_spec_trans: 0.0f;
         float metallic = m_has_metallic ? m_metallic: 0.0f,
@@ -446,7 +514,7 @@ public:
 
         // Store the weights.
         float anisotropic = m_has_anisotropic ? m_anisotropic: 0.0f,
-        roughness = m_roughness,
+        roughness = luminance(m_roughness->eval(bRec.uv)),
         spec_trans = m_has_spec_trans ? m_spec_trans : 0.0f,
         metallic = m_has_metallic ? m_metallic : 0.0f,
         clearcoat = m_has_clearcoat ? m_clearcoat : 0.0f;
@@ -611,7 +679,7 @@ public:
     virtual std::string toString() const override {
         return tfm::format(
             "DisneyPrincipled[\n"
-            "  base_color = %f,%f,%f\n"
+            // "  base_color = %f,%f,%f\n"
             "  specular_transmission = %f\n"
             "  metallic = %f\n"
             "  flatness = %f\n"
@@ -624,21 +692,23 @@ public:
             "  clearcoat = %f\n"
             "  clearcoat_gloss = %f\n"
             "]",
-            m_base_color[0],m_base_color[1],m_base_color[2],
+            // m_base_color[0],m_base_color[1],m_base_color[2],
             m_spec_trans,m_metallic, m_flatness,
             m_specular,m_roughness,m_spec_tint,
             m_anisotropic,m_sheen,m_sheen_tint,
             m_clearcoat,m_clearcoat_gloss);
     }
 private:
-    Color3f m_base_color;
-    float m_roughness;
+    // Color3f m_base_color;
+    std::shared_ptr<Texture<Color3f>> m_base_color;
+    std::shared_ptr<Texture<Color3f>> m_roughness;
+    std::shared_ptr<Texture<Color3f>> m_spec_tint;
+
     float m_anisotropic;
     float m_sheen;
     float m_sheen_tint;
     float m_spec_trans;
     float m_flatness;
-    float m_spec_tint;
     float m_clearcoat;
     float m_clearcoat_gloss;
     float m_metallic;
