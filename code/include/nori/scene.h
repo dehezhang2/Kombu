@@ -22,7 +22,8 @@
 #include <nori/bvh.h>
 #include <nori/emitter.h>
 #include <kombu/medium.h>
-
+#include <kombu/reference.h>
+#include <kombu/instance.h>
 NORI_NAMESPACE_BEGIN
 
 /**
@@ -145,6 +146,8 @@ private:
 
     std::vector<Emitter *> m_emitters;
     std::vector<Medium *> m_mediums;
+    std::vector<Reference *> m_references;
+    std::vector<Instance *> m_instances;
 };
 
 NORI_NAMESPACE_END

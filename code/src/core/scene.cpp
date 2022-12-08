@@ -22,6 +22,7 @@
 #include <nori/sampler.h>
 #include <nori/camera.h>
 #include <nori/emitter.h>
+#include <kombu/instance.h>
 
 NORI_NAMESPACE_BEGIN
 
@@ -40,6 +41,25 @@ Scene::~Scene() {
 }
 
 void Scene::activate() {
+    // link the references and the instances
+    for(auto& instance : m_instances){
+        bool found = false;
+        for(auto ref: m_references){
+            if(ref->getIdName()==instance->getRefName()){
+                found = true;
+                instance->setRef(ref);
+            }
+        }
+        if(!found) throw NoriException("Reference not found!");
+        m_bvh->addShape(instance);
+        m_shapes.push_back(instance);
+        if(instance->isEmitter())
+            m_emitters.push_back(instance->getEmitter());
+        if(instance->isMedium()){
+            m_mediums.push_back(instance->getMedium());
+        }
+    }
+
     m_bvh->build();
 
     if (!m_integrator)
@@ -63,12 +83,20 @@ void Scene::addChild(NoriObject *obj) {
     switch (obj->getClassType()) {
         case EMesh: {
                 Shape *mesh = static_cast<Shape *>(obj);
-                m_bvh->addShape(mesh);
-                m_shapes.push_back(mesh);
-                if(mesh->isEmitter())
-                    m_emitters.push_back(mesh->getEmitter());
-                if(mesh->isMedium())
-                    m_mediums.push_back(mesh->getMedium());
+                if(mesh->isReference()){
+                    Reference *ref = static_cast<Reference*>(obj);
+                    m_references.push_back(ref);
+                } else if (mesh->isInstance()){
+                    Instance *ins = static_cast<Instance*>(obj);
+                    m_instances.push_back(ins);
+                } else {
+                    m_bvh->addShape(mesh);
+                    m_shapes.push_back(mesh);
+                    if(mesh->isEmitter())
+                        m_emitters.push_back(mesh->getEmitter());
+                    if(mesh->isMedium())
+                        m_mediums.push_back(mesh->getMedium());
+                }
             }
             break;
         

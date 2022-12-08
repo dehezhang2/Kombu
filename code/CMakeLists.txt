@@ -48,6 +48,8 @@ add_executable(kombu
   include/kombu/medium.h 
   include/kombu/phase.h 
   include/kombu/volume.h 
+  include/kombu/reference.h 
+  include/kombu/instance.h 
   
 
   # Source code files
@@ -69,6 +71,8 @@ add_executable(kombu
   src/geometry/mesh.cpp
   src/geometry/sphere.cpp
   src/geometry/obj.cpp
+  src/geometry/reference.cpp
+  src/geometry/instance.cpp
 
   src/integrators/averagevisibility.cpp
   src/integrators/direct.cpp
