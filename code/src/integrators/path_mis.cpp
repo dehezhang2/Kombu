@@ -67,6 +67,7 @@ public:
                     Color3f bsdf = its_surface.mesh->getBSDF()->eval(bRec_em);
                     float pdf_mat_em = its_surface.mesh->getBSDF()->pdf(bRec_em);
                     w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);
+                    if(lRec.isDelta) w_ems = 1.f;
                     Li += throughput * w_ems * bsdf * Li_over_pdf * cos_theta_i;
                 }
             }

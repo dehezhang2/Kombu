@@ -71,6 +71,7 @@ public:
             pdf_mat = its_surface.mesh->getBSDF()->pdf(bRec);
 
             float weight = (pdf_em + pdf_mat > 0 ? pdf_em/(pdf_em + pdf_mat) : 0.f);
+            if(lRec.isDelta) weight = 1.f;
             Lo_em += weight * bsdf * Li_over_pdf * cos_theta_i;
         }
         return Le + Lo_mat + Lo_em;

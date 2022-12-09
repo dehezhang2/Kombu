@@ -59,6 +59,7 @@ public:
         lRec.wi = -d.normalized();
         lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm() - Epsilon);
         lRec.pdf = pdf(lRec);
+        lRec.isDelta = true;
         return m_irradiance;
     }
 

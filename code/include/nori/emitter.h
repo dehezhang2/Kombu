@@ -45,6 +45,7 @@ struct EmitterQueryRecord {
     /// for direction light
     Point3f bSphere_center;
     float bSphere_radius;
+    bool isDelta = false;
 
     /// Create an unitialized query record
     EmitterQueryRecord() { }

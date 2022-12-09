@@ -16,6 +16,7 @@ class PointLight: public Emitter {
             // vector to light source
             lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm() - Epsilon);
             lRec.pdf = 1.0;
+            lRec.isDelta = true;
             return eval(lRec) / pdf(lRec);
         }
         Color3f eval(const EmitterQueryRecord &lRec) const {
