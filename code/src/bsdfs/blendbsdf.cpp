@@ -36,7 +36,7 @@ public:
                 }
                 break;
             default:
-                throw NoriException("Bumpmap::addChild(<%s>) is not supported!",
+                throw NoriException("BlendBSDF::addChild(<%s>) is not supported!",
                                     classTypeName(obj->getClassType()));
         }
     }
