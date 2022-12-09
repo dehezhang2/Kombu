@@ -60,6 +60,7 @@ add_executable(kombu
   src/bsdfs/disney_glass.cpp
   src/bsdfs/disney_principled.cpp
   src/bsdfs/bumpmap.cpp
+  src/bsdfs/blendbsdf.cpp
 
   src/cameras/perspective.cpp
   
