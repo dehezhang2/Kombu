@@ -25,12 +25,16 @@ public:
 
     ImageTexture(const PropertyList &props) {
         m_name = props.getString("fileName", "");
+        int type = props.getInteger("boundary",0);
+        BitmapBoundaryType btype = 
+            static_cast<BitmapBoundaryType>(type);
+
         if(m_name[0]=='/'){
-            m_image = Bitmap(m_name);
+            m_image = Bitmap(m_name,btype);
         }
         else{
             filesystem::path filePath = getFileResolver()->resolve(m_name);
-            m_image = Bitmap(filePath.str());
+            m_image = Bitmap(filePath.str(),btype);
         }
 
 
@@ -40,6 +44,12 @@ public:
         m_height = m_image.rows();
     }
 
+    void evalGradient(const Point2f &uv, Color3f *gradient) const {
+        float x = uv.x() / m_scale.x();
+        float y = uv.y() / m_scale.y(); 
+        Point2f scaled_uv(x,y);
+        m_image.evalGradientBilinear(scaled_uv,gradient);
+    }
 
     //this function should return a rgb value depending on the coordinates UV passed
     Color3f eval(const Point2f & uv) {

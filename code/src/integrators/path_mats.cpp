@@ -37,6 +37,7 @@ public:
             BSDFQueryRecord bRec(its_surface.shFrame.toLocal(-incident_ray.d));
             bRec.uv = its_surface.uv;
             bRec.p = its_surface.p;
+            bRec.its = its_surface;
             Color3f bsdf_cos_theta_over_pdf = its_surface.mesh->getBSDF()->sample(bRec, sampler->next2D());
             incident_ray = Ray3f(its_surface.p, its_surface.shFrame.toWorld(bRec.wo));
             // update throughput

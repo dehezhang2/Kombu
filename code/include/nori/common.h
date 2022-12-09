@@ -244,6 +244,8 @@ inline int mod(int a, int b) {
     return (r < 0) ? r+b : r;
 }
 
+extern float safe_acos(float value);
+
 /// Compute a direction for the given coordinates in spherical coordinates
 extern Vector3f sphericalDirection(float theta, float phi);
 

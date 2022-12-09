@@ -44,6 +44,7 @@ public:
             BSDFQueryRecord bRec(its_surface.shFrame.toLocal(-incident_ray.d));
             bRec.uv = its_surface.uv;
             bRec.p = its_surface.p;
+            bRec.its = its_surface;
             Color3f bsdf_cos_theta_over_pdf = its_surface.mesh->getBSDF()->sample(bRec, sampler->next2D());
             pdf_mat_mat = its_surface.mesh->getBSDF()->pdf(bRec);
             prev_discrete = (bRec.measure == EDiscrete);
@@ -60,6 +61,7 @@ public:
                     BSDFQueryRecord bRec_em(its_surface.shFrame.toLocal(-incident_ray.d), its_surface.shFrame.toLocal(lRec.wi), ESolidAngle);
                     bRec_em.uv = its_surface.uv;
                     bRec_em.p = its_surface.p;
+                    bRec_em.its = its_surface;
                     Color3f bsdf = its_surface.mesh->getBSDF()->eval(bRec_em);
                     float pdf_mat_em = its_surface.mesh->getBSDF()->pdf(bRec_em);
                     w_ems = (pdf_em_em + pdf_mat_em > 0 ? pdf_em_em/(pdf_em_em + pdf_mat_em) : 0.f);

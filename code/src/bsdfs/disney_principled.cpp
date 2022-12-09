@@ -107,7 +107,7 @@ public:
                 break;
 
             default:
-                throw NoriException("Diffuse::addChild(<%s>) is not supported!",
+                throw NoriException("DisneyPrincipled::addChild(<%s>) is not supported!",
                                     classTypeName(obj->getClassType()));
         }
     }

@@ -58,6 +58,28 @@ public:
         its.uv[1] = acos(normalized_coor[2]) / M_PI;
         its.geoFrame = Frame(normalized_coor);
 		its.shFrame = Frame(normalized_coor);
+
+        Vector3f local = its.p - m_position;
+        // its.dpdu = m_objectToWorld(Vector(-local.y, local.x, 0) * (2*M_PI));
+        its.dpdu = Vector3f(-local.y(), local.x(), 0) * (2*M_PI);
+        float zrad = std::sqrt(local.x()*local.x() + local.y()*local.y());
+        float theta = safe_acos(local.z()/m_radius);
+        if (zrad > 0) {
+            float invZRad = 1.0f / zrad,
+                  cosPhi = local.x() * invZRad,
+                  sinPhi = local.y() * invZRad;
+            // its.dpdv = m_objectToWorld(Vector(local.z * cosPhi, local.z * sinPhi,
+            //         -std::sin(theta)*m_radius) * M_PI);
+            its.dpdv = Vector3f(local.z() * cosPhi, local.z() * sinPhi,
+                    -std::sin(theta)*m_radius) * M_PI;
+        } else {
+            // avoid a singularity
+            const float cosPhi = 0, sinPhi = 1;
+            // its.dpdv = m_objectToWorld(Vector(local.z * cosPhi, local.z * sinPhi,
+            //         -std::sin(theta)*m_radius) * M_PI);
+            its.dpdv = Vector3f(local.z() * cosPhi, local.z() * sinPhi,
+                    -std::sin(theta)*m_radius) * M_PI;
+        }
     }
 
     virtual void sampleSurface(ShapeQueryRecord & sRec, const Point2f & sample) const override {
