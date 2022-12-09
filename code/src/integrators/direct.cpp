@@ -20,6 +20,10 @@ public:
         float cos_theta;
         for(auto light : lights){
             EmitterQueryRecord lRec(its.p);
+            if(light->isDirectional()){
+                    lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                    lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+            }
             Ei = light->sample(lRec, sample); // integral of Li d omega
 
             if(scene -> rayIntersect(lRec.shadowRay)) continue;

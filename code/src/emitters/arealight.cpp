@@ -85,6 +85,7 @@ public:
         return eval(lRec) * M_PI / m_shape->pdfSurface(sRec);
     }
 
+     bool onSurface() const override{return true;}
 
 protected:
     Color3f m_radiance;

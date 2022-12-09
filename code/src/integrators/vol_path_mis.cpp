@@ -122,8 +122,13 @@ public:
                 // sample light
                 const Emitter* light = scene->getRandomEmitter(sampler->next1D());
                 EmitterQueryRecord lRec(mRec.p);
+                if(light->isDirectional()){
+                    lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                    lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+                }
+                
                 Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
-                Color3f transmittance = recursiveTransmittence(scene, lRec.shadowRay.o, false, lRec.p, true, current_medium, sampler);
+                Color3f transmittance = recursiveTransmittence(scene, lRec.shadowRay.o, false, lRec.p, light->onSurface(), current_medium, sampler);
                 float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
                 if(transmittance.maxCoeff()!=0){
                     PhaseFunctionQueryRecord pRec(-incident_ray.d, lRec.wi, ESolidAngle);
@@ -175,9 +180,13 @@ public:
                     if(its_surface.mesh->isMedium()) current_medium = its_surface.mesh->getMedium();
                     const Emitter* light = scene->getRandomEmitter(sampler->next1D());
                     EmitterQueryRecord lRec(its_surface.p);
+                    if(light->isDirectional()){
+                        lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                        lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+                    }
                     Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
                     const Medium* medium = its_surface.mesh->isMedium() ?its_surface.mesh->getMedium(): current_medium;
-                    Color3f transmittance = recursiveTransmittence(scene, lRec.shadowRay.o, true, lRec.p, true, medium, sampler);
+                    Color3f transmittance = recursiveTransmittence(scene, lRec.shadowRay.o, true, lRec.p, light->onSurface(), medium, sampler);
 
                     float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
                     if(transmittance.maxCoeff()!=0){

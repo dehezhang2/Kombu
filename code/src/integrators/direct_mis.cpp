@@ -51,6 +51,10 @@ public:
         // Lo_em
         for(auto light : lights){
             EmitterQueryRecord lRec(its_surface.p);
+            if(light->isDirectional()){
+                lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+            }
             Li_over_pdf = light -> sample(lRec, sampler->next2D());
             pdf_em = light -> pdf(lRec);
 

@@ -53,6 +53,10 @@ public:
             if(!prev_discrete){
                 const Emitter* light = scene->getRandomEmitter(sampler->next1D());
                 EmitterQueryRecord lRec(its_surface.p);
+                if(light->isDirectional()){
+                    lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                    lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+                }
                 Color3f Li_over_pdf = light -> sample(lRec, sampler->next2D()) * scene->getLights().size();
                 float pdf_em_em = light -> pdf(lRec) / scene->getLights().size();
                 if(!scene -> rayIntersect(lRec.shadowRay)){
