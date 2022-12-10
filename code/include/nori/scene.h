@@ -78,6 +78,17 @@ public:
         return m_emitters[index];
     }
 
+    const Emitter * getEnvLight() const {
+    	for (int i = 0; i < m_emitters.size(); ++i) {
+    		std::string s1 = m_emitters[i]->toString();
+    		std::string s2 = "EnvironmentLight";
+    		if (s1.find(s2) != std::string::npos) {
+    			return m_emitters[i];
+    		}
+    	}
+    	return nullptr;
+    }
+
     /**
      * \brief Intersect a ray against all triangles stored in the scene
      * and return detailed intersection information
