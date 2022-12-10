@@ -24,6 +24,15 @@
 
 NORI_NAMESPACE_BEGIN
 
+/// Specifies the desired antialiasing filter
+enum BitmapBoundaryType {
+    ERepeat = 0,
+    EClamp = 1,
+    EMirror = 2,
+    EZero = 3,
+    EOne = 4
+};
+
 /**
  * \brief Stores a RGB high dynamic-range bitmap
  *
@@ -45,11 +54,21 @@ public:
     /// Load an OpenEXR file with the specified filename
     Bitmap(const std::string &filename);
 
+    Bitmap(const std::string &filename,BitmapBoundaryType type);
+
     /// Save the bitmap as an EXR file with the specified filename
     void save(const std::string &filename);
 
     /// Save the bitmap as a PNG file with the specified filename
     void saveToLDR(const std::string &filename);
+
+    Color3f evalTexel(int x, int y) const;
+
+    void evalGradientBilinear(const Point2f &uv, Color3f *gradient) const;
+
+    BitmapBoundaryType m_bcu;
+    BitmapBoundaryType m_bcv;
+
 };
 
 NORI_NAMESPACE_END

@@ -39,6 +39,8 @@ public:
     virtual EClassType getClassType() const override { return ETexture; }
 
     virtual T eval(const Point2f & uv) = 0;
+
+    virtual void evalGradient(const Point2f &uv, Color3f *gradient) const {}
 };
 
 NORI_NAMESPACE_END

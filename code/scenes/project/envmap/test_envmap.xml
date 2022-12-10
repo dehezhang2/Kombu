@@ -31,8 +31,8 @@
 	<mesh type="sphere">
 		<point name="center" value="0 0 0" />
 		<float name="radius" value="30" />
-		<emitter type="environment">
-        <string name="path2map" value="/home/zhangganlin/Desktop/Kombu/code/scenes/project/envmap/northernlight.exr"/>
+		<emitter type="envmap">
+        <string name="filename" value="/home/zhangganlin/Desktop/Kombu/code/scenes/project/envmap/northernlight.exr"/>
     </emitter>
 	</mesh>
 

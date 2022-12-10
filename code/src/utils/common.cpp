@@ -313,4 +313,8 @@ float fresnel(float cosThetaI, float extIOR, float intIOR) {
     return (Rs * Rs + Rp * Rp) / 2.0f;
 }
 
+float safe_acos(float value){
+    return std::acos(std::min(1.0f, std::max(-1.0f, value)));
+}
+
 NORI_NAMESPACE_END

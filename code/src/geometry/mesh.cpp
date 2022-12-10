@@ -156,6 +156,23 @@ void Mesh::setHitInformation(uint32_t index, const Ray3f &ray, Intersection & it
     } else {
         its.shFrame = its.geoFrame;
     }
+    if (m_UV.size() > 0){
+        Point2f uv0 = m_UV.col(idx0),
+                uv1 = m_UV.col(idx1),
+                uv2 = m_UV.col(idx2);
+        Vector2f duv0 = uv1 - uv0,
+                duv1 = uv2 - uv0;
+
+        float   det     = duv0.x()*duv1.y() - duv0.y() * duv1.x();
+                
+        Vector3f dp0 = p1-p0,
+                dp1 = p2-p0;
+        if (det!=0.f){
+            float inv_det = 1.f/det;
+            its.dpdu = (duv1.y()*dp0 - duv0.y()*dp1)*inv_det;
+            its.dpdv = (duv1.x()*dp0 + duv0.x()*dp1)*inv_det;
+        }
+    }
 }
 
 BoundingBox3f Mesh::getBoundingBox(uint32_t index) const {

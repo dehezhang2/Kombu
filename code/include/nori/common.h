@@ -246,6 +246,22 @@ inline int mod(int a, int b) {
     return (r < 0) ? r+b : r;
 }
 
+inline std::string indent(const std::string &string, size_t amount) {
+    std::string result;
+    result.reserve(string.size());
+    for (size_t i = 0; i < string.length(); ++i) {
+        char ch = string[i];
+        result += ch;
+        if (ch == '\n') {
+            for (size_t j = 0; j < amount; ++j)
+                result += ' ';
+        }
+    }
+    return result;
+}
+
+extern float safe_acos(float value);
+
 /// Compute a direction for the given coordinates in spherical coordinates
 extern Vector3f sphericalDirection(float theta, float phi);
 
