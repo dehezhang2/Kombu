@@ -20,6 +20,7 @@
 #define __NORI_BSDF_H
 
 #include <nori/object.h>
+#include <nori/shape.h>
 
 NORI_NAMESPACE_BEGIN
 
@@ -55,6 +56,8 @@ struct BSDFQueryRecord {
     Point2f uv;
     /// Point associated with the point
     Point3f p;
+
+    Intersection its;
 };
 
 /**

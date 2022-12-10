@@ -66,6 +66,9 @@ add_executable(kombu
   src/bsdfs/transparent.cpp
   src/bsdfs/disney_glass.cpp
   src/bsdfs/disney_principled.cpp
+  src/bsdfs/bumpmap.cpp
+  src/bsdfs/blendbsdf.cpp
+  src/bsdfs/conductor.cpp
 
   src/cameras/perspective.cpp
   
@@ -76,7 +79,7 @@ add_executable(kombu
   src/emitters/pointlight.cpp
   src/emitters/directional.cpp
   src/emitters/envmap.cpp
-  src/emitters/envlight.cpp
+  # src/emitters/envlight.cpp
   
   src/geometry/shape.cpp
   src/geometry/mesh.cpp
@@ -108,12 +111,14 @@ add_executable(kombu
   
   src/sample/independent.cpp
   src/sample/warp.cpp
+  src/sample/stratified.cpp
 
   src/tests/ttest.cpp
   src/tests/chi2test.cpp
 
   src/textures/consttexture.cpp
   src/textures/checkerboard.cpp
+  src/textures/imagetexture.cpp
   
   src/utils/bitmap.cpp
   src/utils/block.cpp

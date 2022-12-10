@@ -65,6 +65,9 @@ struct Intersection {
 
     /// Return a human-readable summary of the intersection record
     std::string toString() const;
+
+    Vector3f dpdu;
+    Vector3f dpdv;
 };
 
 

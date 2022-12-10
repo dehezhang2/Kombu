@@ -77,6 +77,14 @@ Bitmap::Bitmap(const std::string &filename) {
     frameBuffer.insert(ch_b, Imf::Slice(Imf::FLOAT, ptr, pixelStride, rowStride)); 
     file.setFrameBuffer(frameBuffer);
     file.readPixels(dw.min.y, dw.max.y);
+
+}
+
+Bitmap::Bitmap(const std::string &filename,BitmapBoundaryType type):
+    Bitmap(filename)
+{
+    m_bcu = type;
+    m_bcv = type;
 }
 
 void Bitmap::save(const std::string &filename) {
@@ -136,6 +144,59 @@ void Bitmap::saveToLDR(const std::string &filename) {
         }
     }
     stbi_write_png(filename.c_str(),cols(),rows(),3,rgb8.get(),3*cols());
+}
+
+Color3f Bitmap::evalTexel(int row, int col) const{
+        if (row < 0 || row >= rows()) {
+            /* Encountered an out of bounds access -- determine what to do */
+            switch (m_bcu) {
+                case BitmapBoundaryType::EClamp:
+                    // Clamp to the outermost sample position
+                    row = clamp(row, 0, rows()- 1);
+                    break;
+                case BitmapBoundaryType::ERepeat:
+                    row = row%rows();
+                    break;
+            }
+        }
+
+        if (col < 0 || col >= cols()) {
+            /* Encountered an out of bounds access -- determine what to do */
+            switch (m_bcv) {
+                case BitmapBoundaryType::EClamp:
+                    // Clamp to the outermost sample position
+                    col = clamp(col, 0, cols() - 1);
+                    break;
+                case BitmapBoundaryType::ERepeat:
+                    col = col%cols();
+                    break;
+            }
+        }
+
+        return (*this)(row,col);
+}
+
+void Bitmap::evalGradientBilinear(const Point2f &uv, Color3f *gradient) const {
+    if ((!std::isfinite(uv.x()) || !std::isfinite(uv.y()))) {
+        std::cerr<<("evalGradientBilinear(): encountered a NaN!\n");
+        gradient[0] = gradient[1] = Color3f(0.0f);
+        return;
+    }
+
+    /* Convert to fractional pixel coordinates on the specified level */
+    float u = uv.x() * cols() - 0.5f, v = uv.y() * rows()- 0.5f;
+
+    int xPos = floor(u), yPos = floor(v);
+    float dx = u - xPos, dy = v - yPos;
+
+    const Color3f p00 = evalTexel(yPos,   xPos);
+    const Color3f p10 = evalTexel(yPos,   xPos+1);
+    const Color3f p01 = evalTexel(yPos+1, xPos);
+    const Color3f p11 = evalTexel(yPos+1, xPos+1);
+    Color3f tmp = p01 + p10 - p11;
+
+    gradient[0] = (p10 + p00*(dy-1) - tmp*dy) * static_cast<float> (cols());
+    gradient[1] = (p01 + p00*(dx-1) - tmp*dx) * static_cast<float> (rows());
 }
 
 NORI_NAMESPACE_END
