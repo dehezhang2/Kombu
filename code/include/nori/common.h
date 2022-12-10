@@ -39,9 +39,9 @@
 #define NORI_NAMESPACE_BEGIN namespace nori {
 #define NORI_NAMESPACE_END }
 
-#if defined(__NORI_APPLE__NORI_)
+#if defined(__APPLE__)
 #define PLATFORM_MACOS
-#elif defined(__NORI_linux__NORI_)
+#elif defined(__linux__)
 #define PLATFORM_LINUX
 #elif defined(WIN32)
 #define PLATFORM_WINDOWS
@@ -132,10 +132,12 @@ class NoriObject;
 class NoriObjectFactory;
 class NoriScreen;
 class Medium;
+class Volume;
 class PhaseFunction;
 class ReconstructionFilter;
 class Sampler;
 class Scene;
+class Denoiser;
 
 /// Import cout, cerr, endl for debugging purposes
 using std::cout;

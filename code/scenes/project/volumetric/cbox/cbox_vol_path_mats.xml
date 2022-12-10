@@ -2,6 +2,7 @@
 
 <scene>
 	<integrator type="vol_path_mats"/>
+	
 
 	<camera type="perspective">
 		<float name="fov" value="27.7856"/>
@@ -15,7 +16,7 @@
 	</camera>
 
 	<sampler type="independent">
-		<integer name="sampleCount" value="512"/>
+		<integer name="sampleCount" value="1024"/>
 	</sampler>
 
 	<mesh type="obj">
@@ -45,26 +46,13 @@
 	<mesh type="sphere">
 		<point name="center" value="-0.421400 0.332100 -0.280000" />
 		<float name="radius" value="0.3263" />
-		<bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf>
-	</mesh>
-
-	<mesh type="sphere">
-		<point name="center" value="-0.421400 0.332100 -0.280000" />
-		<float name="radius" value="0.1263" />
 		<medium type="homogeneous">
 			<phase type="isotropic"/>
-			<color name="sigma_a" value="0.2 0.2 0.2" />
-			<color name="sigma_s" value="2 2 2" />
+			<color name="sigma_t" value="0.6 0.3 0.2" />
+			<color name="albedo" value="0.167 0.333 0.5" />
+			<float name="scale" value="10"/>
 		</medium>
-		<!-- <bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf> -->
-		<bsdf type="transparent" />
-		
+		<bsdf type="transparent"/>
 	</mesh>
 
 	<mesh type="sphere">
@@ -72,25 +60,21 @@
 		<float name="radius" value="0.3263" />
 		<medium type="homogeneous">
 			<phase type="isotropic"/>
-			<color name="sigma_a" value="0.9 0.9 0.9" />
-			<color name="sigma_s" value="0 0 0" />
+			<color name="sigma_t" value="0.2 0.3 0.6" />
+			<color name="albedo" value="0.5 0.333 0.167" />
+			<float name="scale" value="10"/>
 		</medium>
-		<!-- <bsdf type="dielectric">
-			<float name="intIOR" value="1.5046" />
-			<float name="extIOR" value="1.000277" />
-		</bsdf> -->
-		<bsdf type="transparent" />
-		
+		<bsdf type="transparent"/>
 	</mesh>
-	<mesh type="sphere">
+
+	<!-- <mesh type="sphere">
 		<point name="center" value="0.445800 0.332100 0.376700" />
 		<float name="radius" value="0.1263" />
 		<emitter type="area">
 			<color name="radiance" value="15 15 15"/>
 		</emitter>
-		<bsdf type="transparent" />
 		
-	</mesh>
+	</mesh> -->
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/light.obj"/>

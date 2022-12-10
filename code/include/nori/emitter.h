@@ -42,6 +42,11 @@ struct EmitterQueryRecord {
     /// Shadow ray
     Ray3f shadowRay;
 
+    /// for direction light
+    Point3f bSphere_center;
+    float bSphere_radius;
+    bool isDelta = false;
+
     /// Create an unitialized query record
     EmitterQueryRecord() { }
 
@@ -123,6 +128,9 @@ public:
      * \brief Set the shape if the emitter is attached to a shape
      * */
     void setShape(Shape * shape) { m_shape = shape; }
+
+    virtual bool isDirectional() const {return false;}
+    virtual bool onSurface() const {return false;}
 
 protected:
     /// Pointer to the shape if the emitter is attached to a shape

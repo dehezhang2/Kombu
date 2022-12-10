@@ -48,6 +48,7 @@ struct Intersection {
     Frame geoFrame;
     /// Pointer to the associated shape
     const Shape *mesh;
+    bool valid;
 
     /// Create an uninitialized intersection record
     Intersection() : mesh(nullptr) { }
@@ -106,28 +107,28 @@ public:
     virtual void activate() override;
 
     //// Return an axis-aligned bounding box of the entire mesh
-    const BoundingBox3f &getBoundingBox() const { return m_bbox; }
+    virtual const BoundingBox3f &getBoundingBox() const { return m_bbox; }
 
     /// Is this mesh an area emitter?
-    bool isEmitter() const { return m_emitter != nullptr; }
+    virtual bool isEmitter() const { return m_emitter != nullptr; }
 
     /// Is this mesh a medium?
-    bool isMedium() const { return m_medium != nullptr;}
+    virtual bool isMedium() const { return m_medium != nullptr;}
 
     /// Return a pointer to an attached area emitter instance
-    Emitter *getEmitter() { return m_emitter; }
+    virtual Emitter *getEmitter() { return m_emitter; }
 
     /// Return a pointer to an attached area emitter instance (const version)
-    const Emitter *getEmitter() const { return m_emitter; }
+    virtual const Emitter *getEmitter() const { return m_emitter; }
 
     /// Return a pointer to an attached medium instance
-    Medium *getMedium() { return m_medium; }
+    virtual Medium *getMedium() { return m_medium; }
 
     /// Return a pointer to an attached medium instance (const version)
-    const Medium *getMedium() const { return m_medium; }
+    virtual const Medium *getMedium() const { return m_medium; }
 
     /// Return a pointer to the BSDF associated with this mesh
-    const BSDF *getBSDF() const { return m_bsdf; }
+    virtual const BSDF *getBSDF() const { return m_bsdf; }
 
 
     /// Return the total number of primitives in this shape
@@ -162,6 +163,9 @@ public:
      * provided by this instance
      * */
     virtual EClassType getClassType() const override { return EMesh; }
+
+    virtual bool isReference() const {return false;}
+    virtual bool isInstance() const {return false;}
 
 protected:
     BSDF *m_bsdf = nullptr;      ///< BSDF of the surface

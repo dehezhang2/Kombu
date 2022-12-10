@@ -51,6 +51,10 @@ public:
         // Lo_em
         for(auto light : lights){
             EmitterQueryRecord lRec(its_surface.p);
+            if(light->isDirectional()){
+                lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+            }
             Li_over_pdf = light -> sample(lRec, sampler->next2D());
             pdf_em = light -> pdf(lRec);
 
@@ -67,6 +71,7 @@ public:
             pdf_mat = its_surface.mesh->getBSDF()->pdf(bRec);
 
             float weight = (pdf_em + pdf_mat > 0 ? pdf_em/(pdf_em + pdf_mat) : 0.f);
+            if(lRec.isDelta) weight = 1.f;
             Lo_em += weight * bsdf * Li_over_pdf * cos_theta_i;
         }
         return Le + Lo_mat + Lo_em;

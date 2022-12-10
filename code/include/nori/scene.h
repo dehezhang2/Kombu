@@ -22,7 +22,9 @@
 #include <nori/bvh.h>
 #include <nori/emitter.h>
 #include <kombu/medium.h>
-
+#include <kombu/reference.h>
+#include <kombu/instance.h>
+#include <kombu/denoiser.h>
 NORI_NAMESPACE_BEGIN
 
 /**
@@ -147,15 +149,20 @@ public:
     virtual std::string toString() const override;
 
     virtual EClassType getClassType() const override { return EScene; }
+
+    virtual Denoiser* getDenoiser() const {return m_denoiser;}
 private:
     std::vector<Shape *> m_shapes;
     Integrator *m_integrator = nullptr;
     Sampler *m_sampler = nullptr;
     Camera *m_camera = nullptr;
     BVH *m_bvh = nullptr;
+    Denoiser *m_denoiser = nullptr;
 
     std::vector<Emitter *> m_emitters;
     std::vector<Medium *> m_mediums;
+    std::vector<Reference *> m_references;
+    std::vector<Instance *> m_instances;
 };
 
 NORI_NAMESPACE_END

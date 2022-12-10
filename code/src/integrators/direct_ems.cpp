@@ -30,6 +30,10 @@ public:
         // (1/n)*sum_n(bsdf * Li/pdf * cos theta)
         for(auto light : lights){
             EmitterQueryRecord lRec(its.p);
+            if(light->isDirectional()){
+                lRec.bSphere_center = scene->getBoundingBox().getCenter();
+                lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
+            }
             Li_over_pdf = light -> sample(lRec, sampler->next2D());
 
             if(scene -> rayIntersect(lRec.shadowRay)) continue;

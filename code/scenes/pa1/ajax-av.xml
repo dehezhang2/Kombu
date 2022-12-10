@@ -1,7 +1,7 @@
 <scene>
 	<!-- Independent sample generator, user-selected samples per pixel -->
 	<sampler type="independent">
-		<integer name="sampleCount" value="1024"/>
+		<integer name="sampleCount" value="128"/>
 	</sampler>
 
 	<!-- Use the average visibility integrator -->

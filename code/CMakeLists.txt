@@ -1,12 +1,13 @@
 # This is the main CMake build file used to compile Nori
 cmake_minimum_required (VERSION 2.9)
 project("kombu")
-
 # This file included below takes care of compiling dependencies
 # and setting compiler flags on different platforms
 include("CMakeConfig.txt")
 
 include_directories(ext)
+
+find_package(Qt4 REQUIRED)
 
 # The following lines build the main executable. If you add a source
 # code file to Nori, be sure to include it in this list.
@@ -49,6 +50,11 @@ add_executable(kombu
   include/kombu/disney_utils.h
   include/kombu/principledhelpers.h
   include/kombu/microfacet.h
+  include/kombu/phase.h 
+  include/kombu/volume.h 
+  include/kombu/reference.h 
+  include/kombu/instance.h 
+  include/kombu/denoiser.h
   
 
   # Source code files
@@ -67,13 +73,19 @@ add_executable(kombu
 
   src/emitters/arealight.cpp
   src/emitters/pointlight.cpp
+<<<<<<< HEAD
   src/emitters/envmap.cpp
   src/emitters/envlight.cpp
+=======
+  src/emitters/directional.cpp
+>>>>>>> 01c5b6bd87fad023eb6bb52fcaa9508c91bdc18a
   
   src/geometry/shape.cpp
   src/geometry/mesh.cpp
   src/geometry/sphere.cpp
   src/geometry/obj.cpp
+  src/geometry/reference.cpp
+  src/geometry/instance.cpp
 
   src/integrators/averagevisibility.cpp
   src/integrators/direct.cpp
@@ -88,8 +100,13 @@ add_executable(kombu
   src/integrators/vol_path_mis.cpp
 
   src/mediums/homogeneous.cpp
+  src/mediums/heterogeneous.cpp
 
   src/phase/isotropic.cpp
+  src/phase/hg.cpp
+
+  src/volumes/constvolume.cpp
+  src/volumes/gridvolume.cpp
   
   src/sample/independent.cpp
   src/sample/warp.cpp
@@ -106,6 +123,8 @@ add_executable(kombu
   src/utils/parser.cpp
   src/utils/proplist.cpp
   src/utils/rfilter.cpp
+  src/utils/bilaterial.cpp
+  src/utils/nl_means.cpp
 
   src/core/gui.cpp
   src/core/main.cpp
@@ -114,6 +133,7 @@ add_executable(kombu
   src/core/scene.cpp
 
 )
+
 
 # The following lines build the warping test application
 add_executable(warptest
@@ -138,12 +158,18 @@ add_dependencies(kombu OpenEXR_p)
 add_dependencies(kombu nanogui_p)
 add_dependencies(kombu tbb_p)
 add_dependencies(kombu pugixml)
+# add_dependencies(kombu Qt4::Core)
 add_dependencies(warptest kombu)
 add_dependencies(tonemapper kombu)
 
 # Link to dependency libraries
-target_link_libraries(kombu ${extra_libs})
+target_link_libraries(kombu ${extra_libs} Qt4::QtCore)
 target_link_libraries(warptest ${extra_libs})
 target_link_libraries(tonemapper ${extra_libs})
+
+
+# MESSAGE( ${extra_libs})
+# target_link_libraries(kombu PRIVATE Qt6::Core)
+
 
 # vim: set et ts=2 sw=2 ft=cmake nospell:

@@ -30,7 +30,7 @@
 #include <tbb/blocked_range.h>
 #include <filesystem/resolver.h>
 #include <tbb/concurrent_vector.h>
-
+#include <kombu/denoiser.h>
 
 NORI_NAMESPACE_BEGIN
 
@@ -125,7 +125,6 @@ void RenderThread::renderScene(const std::string & filename) {
         size_t lastdot = outputName.find_last_of(".");
         if (lastdot != std::string::npos)
             outputName.erase(lastdot, std::string::npos);
-        outputName += ".exr";
 
         /* Do the following in parallel and asynchronously */
         m_render_status = 1;
@@ -192,12 +191,23 @@ void RenderThread::renderScene(const std::string & filename) {
             /* Now turn the rendered image block into
                a properly normalized bitmap */
             m_block.lock();
-            std::unique_ptr<Bitmap> bitmap(m_block.toBitmap());
+            Bitmap* bitmap(m_block.toBitmap());
             m_block.unlock();
 
-            /* Save using the OpenEXR format */
-            bitmap->save(outputName);
+             /* Save using the OpenEXR format */
+            bitmap->save(outputName + ".exr");
+            /* Save using the PNG format */
+            bitmap->save(outputName + ".png");
 
+            Denoiser* m_denoiser = m_scene->getDenoiser();
+            if(m_denoiser){
+                m_denoiser->denoise(bitmap);
+                 /* Save using the OpenEXR format */
+                bitmap->save(outputName + "denoised.exr");
+                /* Save using the PNG format */
+                bitmap->save(outputName + "denoised.png");
+            }
+           
             delete m_scene;
             m_scene = nullptr;
 

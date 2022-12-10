@@ -22,8 +22,8 @@ struct MediumQueryRecord {
     float pdf;  
     /// Max free path length
     float tMax;
-    /// whether the sampled point hits the medium (or surface)
-    bool hitMedium;
+    /// albedo
+    Color3f albedo;
 
     EMeasure measure;
 
@@ -57,7 +57,7 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    virtual Color3f sample_intersection(MediumQueryRecord &mRec, const float &sample) const = 0;
+    virtual  bool sample_intersection(MediumQueryRecord &mRec, Sampler* sampler) const = 0;
     
     /** \brief Sample the medium phasefunction
 	 *
@@ -67,7 +67,7 @@ public:
 	 * \return The albedo, evaluated for each color channel.
 	 *         A zero value means that sampling failed.
 	 */
-    float sample_phase(MediumQueryRecord &mRec, const Point2f &sample){
+    float sample_phase(MediumQueryRecord &mRec, const Point2f &sample) const{
         PhaseFunctionQueryRecord pRec(mRec.wi);
         float phase_val = m_phase -> sample(pRec, sample);
         mRec.wo = pRec.wo;
@@ -122,7 +122,7 @@ public:
 	 * \return
 	 *    The transmittance between the two points
 	 */
-    virtual Color3f evalTransmittance(const MediumQueryRecord &mRec) const = 0;
+    virtual Color3f evalTransmittance(const MediumQueryRecord &mRec, Sampler * sampler) const = 0;
 
     // Return the phase function of this medium
     inline const PhaseFunction *getPhaseFunction() const { return m_phase; }
@@ -132,15 +132,10 @@ public:
      */
     virtual bool isHomogeneous() const { return false; }
 
-    virtual Color3f &getSigmaA() = 0;
-    virtual Color3f &getSigmaS() = 0;
-    virtual Color3f &getSigmaT() = 0;
-    virtual Color3f &getAlbedo() = 0;
-
     /**
      * \brief Set the shape if the medium is attached to a shape
      * */
-    void setShape(Shape * shape) { m_shape = shape; }
+    virtual void setShape(Shape * shape) { m_shape = shape; }
     
     virtual void addChild(NoriObject *obj) {}
 

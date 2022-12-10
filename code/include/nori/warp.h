@@ -82,6 +82,10 @@ public:
 
     static Vector3f squareToUniformTriangle(const Point2f &sample);
 
+    
+    static Vector3f squareToHenyeyGreenstein(const Point2f &sample, float g);
+    static float squareToHenyeyGreensteinPdf(const Vector3f &m, float g);
+
 };
 
 NORI_NAMESPACE_END
