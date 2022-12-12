@@ -21,7 +21,15 @@ public:
         int bounce_cnt = 0;
         while(true){
             Intersection its_surface;
-            if (!scene->rayIntersect(incident_ray, its_surface)) break;
+            if (!scene->rayIntersect(incident_ray, its_surface)){
+                if (scene->getEnvLight() == nullptr) {
+					break;
+				} else {
+					EmitterQueryRecord lRec;
+					lRec.wi = incident_ray.d;
+					return Li + throughput * scene->getEnvLight()->eval(lRec);
+				}
+            }
             // count Li
             if(its_surface.mesh->isEmitter()){
                 EmitterQueryRecord emitter_lRec(incident_ray.o, its_surface.p, its_surface.shFrame.n); // intersection (camera), light, normal

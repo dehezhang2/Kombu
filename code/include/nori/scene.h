@@ -81,7 +81,7 @@ public:
     const Emitter * getEnvLight() const {
     	for (int i = 0; i < m_emitters.size(); ++i) {
     		std::string s1 = m_emitters[i]->toString();
-    		std::string s2 = "EnvironmentLight";
+    		std::string s2 = "EnvironmentMap";
     		if (s1.find(s2) != std::string::npos) {
     			return m_emitters[i];
     		}
