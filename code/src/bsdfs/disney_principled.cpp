@@ -318,7 +318,7 @@ public:
                 // Adding diffuse, retro and fake subsurface evaluation.
                 if(diffuse_active){
                     value += brdf * abs(cos_theta_o) * base_color *
-                             M_PI *
+                             M_1_PI *
                              (disney_lerp(f_diff + f_retro, f_ss, flatness));
                 }
 
@@ -326,7 +326,7 @@ public:
                 // Adding diffuse, retro evaluation. (no fake ss.)
                 if(diffuse_active){
                     value+=brdf * abs(cos_theta_o) * base_color *
-                        M_PI * (f_diff + f_retro);
+                        M_1_PI * (f_diff + f_retro);
                 }
             }
             // Sheen evaluation
