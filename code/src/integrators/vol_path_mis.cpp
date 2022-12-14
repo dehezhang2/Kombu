@@ -38,11 +38,14 @@ protected:
         return transmittance;
     }
 
-    void recursiveEmitterChecking(const Scene* scene, const Medium* medium, Ray3f ray, Intersection &_its, Color3f& value, float& pdf_em, Sampler* sampler) const {
+    void recursiveEmitterChecking(const Scene* scene, const Medium* medium, Ray3f ray, Intersection &_its, Color3f& value, float& pdf_em, Sampler* sampler, bool first_hit) const {
         Intersection its2, *its = &_its;
         Color3f transmittance(1.f);
         bool has_intersect = false;
         Point3f origin = its->p;
+
+        // Point3f origin = first_hit ? its->p : ray.o;
+        Point3f origin_first_hit = ray.o;
         while(true){
             has_intersect = scene->rayIntersect(ray, *its);
             if(medium)
@@ -63,10 +66,14 @@ protected:
             ray.o = ray(its->t);
             ray.mint = Epsilon;
             its = &its2;
+            first_hit = false;
         }
         if(has_intersect){
             if(its->mesh->isEmitter()){
-                EmitterQueryRecord emitter_lRec(origin, its->p, its->shFrame.n);    
+                EmitterQueryRecord emitter_lRec(origin, its->p, its->shFrame.n); 
+                if(first_hit){
+                    emitter_lRec = EmitterQueryRecord(origin_first_hit, its->p, its->shFrame.n);
+                }   
                 value = transmittance * its->mesh->getEmitter()->eval(emitter_lRec);
                 pdf_em = its->mesh->getEmitter()->pdf(emitter_lRec) / scene->getLights().size();
             }
@@ -91,7 +98,7 @@ public:
         const Medium* current_medium = nullptr;
         Intersection its_surface;
         bool has_intersection;
-        bool mats_strategy = true;
+        bool first_hit = true;
         if(m_inmedium){
             auto mediums = scene->getMediums();
             for(auto medium : mediums){
@@ -149,7 +156,8 @@ public:
                 // count Li
                 Color3f Le_tr(0.f);
                 float pdf_em_mat = 0.f;
-                recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat, sampler);
+                recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat, sampler, first_hit);
+                first_hit = false;
                 has_intersection = its_surface.valid;
 
                 if(!has_intersection){

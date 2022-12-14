@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <scene>
-	<integrator type="path_mis"/>
+	<integrator type="vol_path_mis"/>
 	<sampler type="independent">
 		<integer name="sampleCount" value="128"/>
 	</sampler>

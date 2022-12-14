@@ -17,7 +17,7 @@
 	</camera>
 
 	<emitter type="envmap">
-		<string name="filename" value="/home/zhangganlin/Desktop/Kombu/main_scene-20221124T111915Z-001/nori/texture/northernlight.exr"/>
+		<string name="filename" value="/home/zhangganlin/Desktop/Kombu/main_scene/nori/texture/northernlight.exr"/>
 		<float name="strength" value="0.05"/>
 	</emitter>
 	<emitter type="directional">
@@ -33,15 +33,12 @@
 
 
 	<emitter type="directional">
-		<color name="radiance" value="2 2 2"/> 
+		<color name="radiance" value="0.1 0.2 0.2"/> 
 		<transform name="toWorld">
-			
 			<scale value="-1,1,1"/>
 			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-2.3044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,1.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-17.1671142578125,0.0,0.0,0.0,1.0"/>
 			<rotate axis="0,1,0" angle="90"/>
 			<rotate axis="0,0,1" angle="220"/>
-			<!-- <rotate axis="1,0,0" angle="178"/> -->
-
 		</transform>
 	</emitter>
 
@@ -152,12 +149,12 @@
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Water.obj"/>
 		<bsdf type="principled" id="mat-Material.021">
-			<color value="0.18 0.730000 1.000000" name="base_color"/>
+			<color value="0.023 0.0930000 0.127000" name="base_color"/>
 			<float name="spec_tint" value="0.000000"/>
 			<float name="spec_trans" value="0.000000"/>
 			<float name="metallic" value="0.000000"/>
 			<float name="anisotropic" value="0.000000"/>
-			<float name="roughness" value="0.000000"/>
+			<float name="roughness" value="0.0000"/>
 			<float name="sheen" value="0.000000"/>
 			<float name="sheen_tint" value="0.500000"/>
 			<float name="clearcoat" value="0.000000"/>
@@ -345,7 +342,7 @@
 			<color value="1.000000 1.000000 1.000000" name="specular_reflectance"/>
 		</bsdf>
 		<emitter type="area">
-			<color value="6.000000 4.124103 1.949462" name="radiance"/>
+			<color value="12.000000 8.124103 4" name="radiance"/>
 		</emitter>
 	</mesh>
 	<mesh type="obj">
@@ -416,49 +413,49 @@
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube-Material.001.obj"/>
 		<bsdf type="diffuse" id="mat-Material.001">
-			<color value="1.000000 0.000000 0.300000" name="albedo"/>
+			<color value="1.0 1.0 1.0" name="albedo"/>
 		</bsdf>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube_001-Material.004.obj"/>
 		<bsdf type="diffuse" id="mat-Material.001">
-			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+			<color value="1.0 1.0 1.0"  name="albedo"/>
 		</bsdf>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube_002-Material.008.obj"/>
 		<bsdf type="diffuse" id="mat-Material.001">
-			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+			<color value="1.0 1.0 1.0"  name="albedo"/>
 		</bsdf>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube_003-Material.019.obj"/>
 		<bsdf type="diffuse" id="mat-Material.001">
-			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+			<color value="1.0 1.0 1.0"  name="albedo"/>
 		</bsdf>
 	</mesh>
 		<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube-Material.002.obj"/>
 		<emitter type="area">
-			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+			<color value="0.8132353 3.6052406 5.0000000" name="radiance"/>
 		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube_001-Material.005.obj"/>
 		<emitter type="area">
-			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+			<color value="0.8132353 3.6052406 5.0000000" name="radiance"/>
 		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube_002-Material.009.obj"/>
 		<emitter type="area">
-			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+			<color value="0.8132353 3.6052406 5.0000000" name="radiance"/>
 		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/ScienceCube_003-Material.020.obj"/>
 		<emitter type="area">
-			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+			<color value="0.8132353 3.6052406 5.0000000" name="radiance"/>
 		</emitter>
 	</mesh>
 
