@@ -93,10 +93,10 @@ public:
     }
 
     float lookup(Shape* shape, const Point3f &_p) {
-		Vector3f extents = shape->getBoundingBox().getExtents(), min = shape->getBoundingBox().min;
+		// Vector3f extents = shape->getBoundingBox().getExtents(), min = shape->getBoundingBox().min;
+		Vector3f extents = shape->getLocalExtent(), min = shape->getLocalMin();
 		Point3f p = _p - min;
 		p = Point3f(p[0]/extents[0] * (m_res[0]-1), p[1]/extents[1] * (m_res[1]-1), p[2]/extents[2] * (m_res[2]-1));
-
 		const int x1 = (int)std::floor(p.x()),
 		      y1 = (int)std::floor(p.y()),
 		      z1 = (int)std::floor(p.z()),

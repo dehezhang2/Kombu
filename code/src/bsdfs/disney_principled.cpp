@@ -36,13 +36,13 @@ public:
 
         std::string material = propList.getString("material","");
         if(material.compare("snow")==0){
-            PropertyList l;
-            l.setColor("value", Color3f(0.845790,0.853620,0.900000));
-            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-            l.setColor("value", 1.f);
-            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-            l.setColor("value", 0.f);
-            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            PropertyList l1,l2,l3;
+            l1.setColor("value", Color3f(0.845790,0.853620,0.900000));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l1)));
+            l2.setColor("value", 1.f);
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l2)));
+            l3.setColor("value", 0.f);
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l3)));
             m_anisotropic = m_metallic = m_spec_trans = m_sheen = m_clearcoat = 0.f;
             m_sheen_tint = 0.5f;
             m_clearcoat_gloss = 0.173205f;
@@ -51,13 +51,13 @@ public:
                 = m_has_sheen_tint = m_has_spec_tint = m_has_spec_trans = true;
             m_has_flatness = false;
         }else if(material.compare("wood")==0){
-            PropertyList l;
-            l.setColor("value", Color3f(0.272831,0.064796,0.003572));
-            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-            l.setColor("value", 0.7f);
-            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-            l.setColor("value", 0.f);
-            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            PropertyList l1,l2,l3;
+            l1.setColor("value", Color3f(0.272831,0.064796,0.003572));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l1)));
+            l2.setColor("value", 0.7f);
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l2)));
+            l3.setColor("value", 0.f);
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l3)));
             m_anisotropic = m_metallic = m_spec_trans = m_sheen = m_clearcoat = 0.f;
             m_sheen_tint = 0.0f;
             m_clearcoat_gloss = 0.173205f;
@@ -66,13 +66,13 @@ public:
                 = m_has_sheen_tint = m_has_spec_tint = m_has_spec_trans = true;
             m_has_flatness = false;
         }else if(material.compare("leaves")==0){
-            PropertyList l;
-            l.setColor("value", Color3f(0.026841,0.184045,0.044340));
-            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-            l.setColor("value", 0.977273f);
-            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-            l.setColor("value", 0.f);
-            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            PropertyList l1,l2,l3;
+            l1.setColor("value", Color3f(0.026841,0.184045,0.044340));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l1)));
+            l2.setColor("value", 0.977273f);
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l2)));
+            l3.setColor("value", 0.f);
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l3)));
             m_anisotropic = m_metallic = m_spec_trans = m_sheen = m_clearcoat = 0.f;
             m_sheen_tint = 0.0f;
             m_clearcoat_gloss = 0.173205f;

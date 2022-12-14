@@ -38,7 +38,7 @@ public:
         std::ifstream is(filename.str());
         if (is.fail())
             throw NoriException("Unable to open OBJ file \"%s\"!", filename);
-        Transform trafo = propList.getTransform("toWorld", Transform());
+        trafo = propList.getTransform("toWorld", Transform());
 
         cout << "Loading \"" << filename << "\" .. ";
         cout.flush();
@@ -61,6 +61,7 @@ public:
             if (prefix == "v") {
                 Point3f p;
                 line >> p.x() >> p.y() >> p.z();
+                m_local_bbox.expandBy(p);
                 p = trafo * p;
                 m_bbox.expandBy(p);
                 positions.push_back(p);
@@ -130,8 +131,15 @@ public:
                           sizeof(float) * (m_V.size() + m_N.size() + m_UV.size()))
              << ")" << endl;
     }
-
+    virtual Vector3f getLocalExtent(){
+        return trafo * m_local_bbox.getExtents();
+    }
+    Vector3f getLocalMin(){
+        return trafo * m_local_bbox.min;
+    }
 protected:
+    BoundingBox3f m_local_bbox;  
+    Transform trafo; 
     /// Vertex indices used by the OBJ format
     struct OBJVertex {
         uint32_t p = (uint32_t) -1;

@@ -169,6 +169,12 @@ public:
 
     virtual bool isReference() const {return false;}
     virtual bool isInstance() const {return false;}
+    virtual Vector3f getLocalExtent(){
+        return 0.f;
+    }
+    virtual Vector3f getLocalMin(){
+        return 0.f;
+    }
 
 protected:
     BSDF *m_bsdf = nullptr;      ///< BSDF of the surface
