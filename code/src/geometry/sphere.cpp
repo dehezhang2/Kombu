@@ -55,7 +55,7 @@ public:
         its.p = ray.o + its.t * ray.d;
         Vector3f normalized_coor = (its.p - m_position).normalized();
         its.uv[0] = atan2(normalized_coor[1], normalized_coor[0]) / (2 * M_PI) + 0.5;
-        its.uv[1] = acos(normalized_coor[2]) / M_PI;
+        its.uv[1] = 1-acos(normalized_coor[2]) / M_PI;
         its.geoFrame = Frame(normalized_coor);
 		its.shFrame = Frame(normalized_coor);
 

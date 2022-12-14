@@ -33,44 +33,95 @@ NORI_NAMESPACE_BEGIN
 class DisneyPrincipled : public BSDF {
 public:
     DisneyPrincipled(const PropertyList &propList) {
-        if(propList.has("base_color")) {
-            PropertyList l;
-            l.setColor("value", propList.getColor("base_color"));
-            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-        }
-        if(propList.has("roughness")) {
-            PropertyList l;
-            l.setColor("value", propList.getFloat("roughness"));
-            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-        }
-        if(propList.has("spec_tint")) {
-            PropertyList l;
-            l.setColor("value", propList.getFloat("spec_tint"));
-            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-        }
-        // m_roughness = propList.getFloat("roughness", 0.5f);
-        m_has_anisotropic = propList.has("anisotropic");
-        m_anisotropic = propList.getFloat("anisotropic", 0.0f);
-        m_has_spec_trans = propList.has("spec_trans");
-        m_spec_trans = propList.getFloat("spec_trans", 0.0f);
-        m_has_sheen = propList.has("sheen");
-        m_sheen = propList.getFloat("sheen", 0.0f);
-        m_has_sheen_tint = propList.has("sheen_tint");
-        m_sheen_tint = propList.getFloat("sheen_tint", 0.0f);
-        m_has_flatness = propList.has("flatness");
-        m_flatness = propList.getFloat("flatness", 0.0f);
-        m_has_spec_tint = propList.has("spec_tint");
-        // m_spec_tint = propList.getFloat("spec_tint", 0.0f);
-        m_has_metallic = propList.has("metallic");
-        m_metallic = propList.getFloat("metallic", 0.0f);
-        m_has_clearcoat = propList.has("clearcoat");
-        m_clearcoat = propList.getFloat("clearcoat", 0.0f);
-        m_clearcoat_gloss = propList.getFloat("clearcoat_gloss", 0.0f);
-        m_spec_srate = propList.getFloat("main_specular_sampling_rate", 1.0f);
-        m_clearcoat_srate = propList.getFloat("clearcoat_sampling_rate", 1.0f);
-        m_diff_refl_srate = propList.getFloat("diffuse_reflectance_sampling_rate", 1.0f);
 
-        m_specular = propList.getFloat("specular", 0.5f);
+        std::string material = propList.getString("material","");
+        if(material.compare("snow")==0){
+            PropertyList l;
+            l.setColor("value", Color3f(0.845790,0.853620,0.900000));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            l.setColor("value", 1.f);
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            l.setColor("value", 0.f);
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            m_anisotropic = m_metallic = m_spec_trans = m_sheen = m_clearcoat = 0.f;
+            m_sheen_tint = 0.5f;
+            m_clearcoat_gloss = 0.173205f;
+            m_specular = 0.020454f;
+            m_has_anisotropic=m_has_clearcoat=m_has_metallic=m_has_sheen
+                = m_has_sheen_tint = m_has_spec_tint = m_has_spec_trans = true;
+            m_has_flatness = false;
+        }else if(material.compare("wood")==0){
+            PropertyList l;
+            l.setColor("value", Color3f(0.272831,0.064796,0.003572));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            l.setColor("value", 0.7f);
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            l.setColor("value", 0.f);
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            m_anisotropic = m_metallic = m_spec_trans = m_sheen = m_clearcoat = 0.f;
+            m_sheen_tint = 0.0f;
+            m_clearcoat_gloss = 0.173205f;
+            m_specular = 0.5f;
+            m_has_anisotropic=m_has_clearcoat=m_has_metallic=m_has_sheen
+                = m_has_sheen_tint = m_has_spec_tint = m_has_spec_trans = true;
+            m_has_flatness = false;
+        }else if(material.compare("leaves")==0){
+            PropertyList l;
+            l.setColor("value", Color3f(0.026841,0.184045,0.044340));
+            m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            l.setColor("value", 0.977273f);
+            m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            l.setColor("value", 0.f);
+            m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            m_anisotropic = m_metallic = m_spec_trans = m_sheen = m_clearcoat = 0.f;
+            m_sheen_tint = 0.0f;
+            m_clearcoat_gloss = 0.173205f;
+            m_specular = 0.077273f;
+            m_has_anisotropic=m_has_clearcoat=m_has_metallic=m_has_sheen
+                = m_has_sheen_tint = m_has_spec_tint = m_has_spec_trans = true;
+            m_has_flatness = false;
+        }
+
+        else{
+            if(propList.has("base_color")) {
+                PropertyList l;
+                l.setColor("value", propList.getColor("base_color"));
+                m_base_color.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            }
+            if(propList.has("roughness")) {
+                PropertyList l;
+                l.setColor("value", propList.getFloat("roughness"));
+                m_roughness.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            }
+            if(propList.has("spec_tint")) {
+                PropertyList l;
+                l.setColor("value", propList.getFloat("spec_tint"));
+                m_spec_tint.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
+            }
+            // m_roughness = propList.getFloat("roughness", 0.5f);
+            m_has_anisotropic = propList.has("anisotropic");
+            m_anisotropic = propList.getFloat("anisotropic", 0.0f);
+            m_has_spec_trans = propList.has("spec_trans");
+            m_spec_trans = propList.getFloat("spec_trans", 0.0f);
+            m_has_sheen = propList.has("sheen");
+            m_sheen = propList.getFloat("sheen", 0.0f);
+            m_has_sheen_tint = propList.has("sheen_tint");
+            m_sheen_tint = propList.getFloat("sheen_tint", 0.0f);
+            m_has_flatness = propList.has("flatness");
+            m_flatness = propList.getFloat("flatness", 0.0f);
+            m_has_spec_tint = propList.has("spec_tint");
+            // m_spec_tint = propList.getFloat("spec_tint", 0.0f);
+            m_has_metallic = propList.has("metallic");
+            m_metallic = propList.getFloat("metallic", 0.0f);
+            m_has_clearcoat = propList.has("clearcoat");
+            m_clearcoat = propList.getFloat("clearcoat", 0.0f);
+            m_clearcoat_gloss = propList.getFloat("clearcoat_gloss", 0.0f);
+            m_spec_srate = propList.getFloat("main_specular_sampling_rate", 1.0f);
+            m_clearcoat_srate = propList.getFloat("clearcoat_sampling_rate", 1.0f);
+            m_diff_refl_srate = propList.getFloat("diffuse_reflectance_sampling_rate", 1.0f);
+
+            m_specular = propList.getFloat("specular", 0.5f);
+        }
         m_eta_specular = false;
         if (m_has_spec_trans && m_specular==0.f){
             m_specular = 1e-3f;
