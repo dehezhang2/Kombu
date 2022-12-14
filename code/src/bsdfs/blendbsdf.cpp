@@ -14,7 +14,14 @@ public:
             PropertyList l;
             l.setColor("value", prop.getFloat("weight"));
             m_weight.reset(static_cast<Texture<Color3f> *>(NoriObjectFactory::createInstance("constant_color", l)));
-       }
+        }
+        is_fresnel = prop.getBoolean("fresnel", false);
+        if(is_fresnel){
+            /* Interior IOR (default: BK7 borosilicate optical glass) */
+            m_intIOR = prop.getFloat("intIOR", 1.450f);
+            /* Exterior IOR (default: air) */
+            m_extIOR = prop.getFloat("extIOR", 1.000277f);
+        }
     }
 
     virtual void addChild(NoriObject *obj) override {
@@ -62,20 +69,20 @@ public:
     }
 
     virtual Color3f eval(const BSDFQueryRecord &bRec) const override {
-        float weight = m_weight->eval(bRec.uv).getLuminance();
+        float weight = is_fresnel ? fresnel(Frame::cosTheta(bRec.wi), m_extIOR, m_intIOR): m_weight->eval(bRec.uv).getLuminance();
         return m_bsdf1->eval(bRec) * (1 - weight) +
                m_bsdf2->eval(bRec) * weight;
     }
 
 
     virtual float pdf(const BSDFQueryRecord &bRec) const override {
-        float weight = m_weight->eval(bRec.uv).getLuminance();
+        float weight = is_fresnel ? fresnel(Frame::cosTheta(bRec.wi), m_extIOR, m_intIOR): m_weight->eval(bRec.uv).getLuminance();
         return m_bsdf1->pdf(bRec) * (1 - weight) +
                m_bsdf2->pdf(bRec) * weight;
     }
 
     virtual Color3f sample(BSDFQueryRecord &bRec, const Point2f &sample2d) const override {
-        float weight = m_weight->eval(bRec.uv).getLuminance();
+        float weight = is_fresnel ? fresnel(Frame::cosTheta(bRec.wi), m_extIOR, m_intIOR): m_weight->eval(bRec.uv).getLuminance();
 
         if (sample2d.x()>weight){
             Point2f new_sample((sample2d.x()-weight)/(1.f-weight),sample2d.y());
@@ -104,6 +111,9 @@ private:
     std::shared_ptr<BSDF> m_bsdf1;
     std::shared_ptr<BSDF> m_bsdf2;
     std::shared_ptr<Texture<Color3f>> m_weight;
+    bool is_fresnel;
+    float m_intIOR;
+    float m_extIOR;
 };
 
 NORI_REGISTER_CLASS(BlendBSDF, "blendbsdf");
