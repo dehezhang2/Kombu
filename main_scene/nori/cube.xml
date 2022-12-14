@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<scene>
+	<integrator type="path_mis"/>
+	<sampler type="independent">
+		<integer name="sampleCount" value="128"/>
+	</sampler>
+	<camera type="perspective">
+		<float name="fov" value="71.50777759085639"/>
+		<float name="nearClip" value="0.10000000149011612"/>
+		<float name="farClip" value="1000.0"/>
+		<integer name="width" value="600"/>
+		<integer name="height" value="400"/>
+		<transform name="toWorld">
+			<scale value="-1,1,1"/>
+			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-2.3044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,1.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-17.1671142578125,0.0,0.0,0.0,1.0"/>
+		</transform>
+	</camera>
+
+	<emitter type="envmap">
+		<string name="filename" value="/home/zhangganlin/Desktop/Kombu/main_scene/nori/texture/northernlight.exr"/>
+		<float name="strength" value="0.05"/>
+	</emitter>
+	<emitter type="directional">
+		<color name="radiance" value="40 40 40"/> 
+		<transform name="toWorld">
+			<scale value="-1,1,1"/>
+			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-2.3044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,1.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-17.1671142578125,0.0,0.0,0.0,1.0"/>
+			<rotate axis="0,1,0" angle="90"/>
+			<rotate axis="0,0,1" angle="40"/>
+		</transform>
+	</emitter>
+
+	<mesh type="obj">
+		<string name="filename" value="meshes/light.obj"/>
+
+		<emitter type="area">
+			<color name="radiance" value="15 15 15"/>
+		</emitter>
+	</mesh>
+
+	<emitter type="directional">
+		<color name="radiance" value="2 2 2"/> 
+		<transform name="toWorld">
+			
+			<scale value="-1,1,1"/>
+			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-2.3044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,1.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-17.1671142578125,0.0,0.0,0.0,1.0"/>
+			<rotate axis="0,1,0" angle="90"/>
+			<rotate axis="0,0,1" angle="220"/>
+			<!-- <rotate axis="1,0,0" angle="178"/> -->
+
+		</transform>
+	</emitter>
+
+	<!-- smoke -->
+	<mesh type="obj">
+		<string name="filename" value="bounds.obj"/>
+		<bsdf type="transparent"/>
+		<transform name="toWorld">
+			<scale value="5 5 5"/>
+			<rotate axis="0,0,1" angle="-90"/>
+			<translate value="-2 8 4.107368" />
+		</transform>
+		<medium type="heterogeneous">
+			<string name="method" value="march"/>
+			<phase type="isotropic"/>
+			<volume name="sigma_t" type="gridvolume">
+				<string name="filename" value="smoke.vol"/>
+			</volume>
+
+			<volume name="albedo" type="constvolume">
+				<float name="value" value="0.9"/>
+			</volume>
+
+			<float name="scale" value="5"/>
+		</medium>
+	</mesh>
+
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Water.obj"/>
+		<bsdf type="principled" id="mat-Material.021">
+			<color value="0.18 0.730000 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.03"/>
+			<float name="specular" value="0.5"/>
+		</bsdf>
+	</mesh>
+
+
+
+<!-- cubes -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube-Material.001.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000" name="albedo"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_001-Material.004.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_002-Material.008.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_003-Material.019.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+		</bsdf>
+	</mesh>
+		<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube-Material.002.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_001-Material.005.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_002-Material.009.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_003-Material.020.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+
+
+
+
+</scene>

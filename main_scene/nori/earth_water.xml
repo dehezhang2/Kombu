@@ -1,0 +1,3242 @@
+<?xml version="1.0" ?>
+<scene>
+	<integrator type="vol_path_mis"/>
+	<sampler type="independent">
+		<integer name="sampleCount" value="64"/>
+	</sampler>
+	<camera type="perspective">
+		<float name="fov" value="71.50777759085639"/>
+		<float name="nearClip" value="0.10000000149011612"/>
+		<float name="farClip" value="1000.0"/>
+		<integer name="width" value="600"/>
+		<integer name="height" value="400"/>
+		<transform name="toWorld">
+			<scale value="-1,1,1"/>
+			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-4.7044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,3.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-19.1671142578125,0.0,0.0,0.0,1.0"/>
+		</transform>
+	</camera>
+
+	<emitter type="envmap">
+		<string name="filename" value="/home/zhangganlin/Desktop/Kombu/main_scene-20221124T111915Z-001/nori/texture/northernlight.exr"/>
+		<float name="strength" value="0.05"/>
+	</emitter>
+	<emitter type="directional">
+		<color name="radiance" value="40 40 40"/> 
+		<transform name="toWorld">
+			<scale value="-1,1,1"/>
+			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-2.3044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,1.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-17.1671142578125,0.0,0.0,0.0,1.0"/>
+			<rotate axis="0,1,0" angle="90"/>
+			<rotate axis="0,0,1" angle="40"/>
+		</transform>
+	</emitter>
+
+
+
+	<emitter type="directional">
+		<color name="radiance" value="2 2 2"/> 
+		<transform name="toWorld">
+			
+			<scale value="-1,1,1"/>
+			<matrix value="0.9928534030914307,-0.0073364186100661755,0.11911442130804062,-2.3044869899749756,7.788235052430537e-06,0.9981126189231873,0.061410192400217056,1.6762620210647583,-0.11934013664722443,-0.06097039207816124,0.9909796118736267,-17.1671142578125,0.0,0.0,0.0,1.0"/>
+			<rotate axis="0,1,0" angle="90"/>
+			<rotate axis="0,0,1" angle="220"/>
+			<!-- <rotate axis="1,0,0" angle="178"/> -->
+
+		</transform>
+	</emitter>
+
+	<mesh type="sphere">
+        <point name="center" value="-13.845371 50.618805 120.770691" />
+        <float name="radius" value="18.2" />
+		<medium type="homogeneous">
+			<phase type="isotropic"/>
+			<color name="sigma_t" value="1 1 1" />
+			<color name="albedo" value="0.0135 0.13 0.32" />
+		</medium>
+        <bsdf type="transparent"/>
+	</mesh>
+
+	
+	<mesh type="sphere">
+		<point name="center" value="-13.845371 50.618805 120.770691" />
+		<float name="radius" value="18" />
+		<bsdf type="blendbsdf">
+			<bsdf name="bsdf1" type="blendbsdf">
+				<bsdf name="bsdf2" type="principled">
+					<texture type="imagetexture" name="base_color">
+						<string name="fileName" value="texture/Earth_Clouds_6K.exr"/>
+					</texture>
+					<float name="spec_tint" value="0.000000"/>
+					<float name="spec_trans" value="0.000000"/>
+					<float name="metallic" value="0.000000"/>
+					<float name="anisotropic" value="0.000000"/>
+					<float name="roughness" value="0.5"/>
+					<float name="sheen" value="0.000000"/>
+					<float name="sheen_tint" value="0.50000"/>
+					<float name="clearcoat" value="0.000000"/>
+					<float name="clearcoat_gloss" value="0.97"/>
+					<float name="specular" value="0.5000"/>
+				</bsdf>
+				<bsdf name="bsdf1" type="blendbsdf">
+					<bsdf name="bsdf1" type="principled">
+						<texture type="imagetexture" name="base_color">
+							<string name="fileName" value="texture/Earth_Diffuse_6K.exr"/>
+						</texture>
+						<float name="spec_tint" value="0.000000"/>
+						<float name="spec_trans" value="0.000000"/>
+						<float name="metallic" value="0.000000"/>
+						<float name="anisotropic" value="0"/>
+						<float name="roughness" value="1.0"/>
+						<float name="sheen" value="1.000000"/>
+						<float name="sheen_tint" value="0.00000"/>
+						<float name="clearcoat" value="0.000000"/>
+						<float name="clearcoat_gloss" value="0.97"/>
+						<float name="specular" value="0.5000"/>
+					</bsdf>
+					<bsdf name="bsdf2" type="emissive">
+					</bsdf>
+					<texture type="imagetexture" name="weight">
+						<string name="fileName" value="texture/Earth_Illumination_6K.exr"/>
+					</texture>
+				</bsdf>
+				<float name="weight" value="0.25"/>
+			</bsdf>
+			<bsdf name="bsdf2" type="blendbsdf">
+				<bsdf name="bsdf2" type="principled">
+					<color value="0.027 0.26 0.64" name="base_color"/>
+					<float name="spec_tint" value="0.000000"/>
+					<float name="spec_trans" value="0.000000"/>
+					<float name="metallic" value="0.000000"/>
+					<float name="anisotropic" value="0.000000"/>
+					<float name="roughness" value="0.5"/>
+					<float name="sheen" value="0.000000"/>
+					<float name="sheen_tint" value="0.500000"/>
+					<float name="clearcoat" value="0.000000"/>
+					<float name="clearcoat_gloss" value="0.97"/>
+					<float name="specular" value="0.5000"/>
+				</bsdf>
+				<bsdf name="bsdf1" type="diffuse">
+					<color value="0 0 0" name="albedo"/>
+				</bsdf>
+				<boolean name="fresnel" value="true"/>
+			</bsdf>
+			<float name="weight" value="0.5" />
+		</bsdf>
+	</mesh>
+
+<!-- smoke -->
+	<mesh type="obj">
+		<string name="filename" value="bounds.obj"/>
+		<bsdf type="transparent"/>
+		<transform name="toWorld">
+			<scale value="5 5 5"/>
+			<rotate axis="0,0,1" angle="-90"/>
+			<translate value="-2 8 4.107368" />
+		</transform>
+		<medium type="heterogeneous">
+			<string name="method" value="march"/>
+			<phase type="isotropic"/>
+			<volume name="sigma_t" type="gridvolume">
+				<string name="filename" value="smoke.vol"/>
+			</volume>
+
+			<volume name="albedo" type="constvolume">
+				<float name="value" value="0.9"/>
+			</volume>
+
+			<float name="scale" value="5"/>
+		</medium>
+	</mesh>
+
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Water.obj"/>
+		<bsdf type="principled" id="mat-Material.021">
+			<color value="0.18 0.730000 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.03"/>
+			<float name="specular" value="0.5"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Stars.obj"/>
+		<bsdf type="diffuse" id="empty-emitter-bsdf">
+			<color value="0 0 0" name="albedo"/>		
+		</bsdf>		
+		<emitter type="area">
+			<color value="7.874124 6.615348 4.092945" name="radiance"/>
+		</emitter>
+	</mesh>
+
+<!-- house -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Plane_001.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/snow_roof.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/House-Wood_house.obj"/>
+		<bsdf type="principled">
+			<color value="0.243288 0.105049 0.022797" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.700000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/House-Metall.obj"/>
+		<bsdf type="principled">
+			<color value="0.213150 0.141077 0.038971" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.772727"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.565000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/House-Wood_house2.obj"/>
+		<bsdf type="principled">
+			<color value="0.282534 0.124343 0.023698" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.700000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Door-Wood_house2.obj"/>
+		<bsdf type="principled">
+			<color value="0.282534 0.124343 0.023698" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.700000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Door-Metall.obj"/>
+		<bsdf type="principled">
+			<color value="0.213150 0.141077 0.038971" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.772727"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.565000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Lamp-Metall.obj"/>
+		<bsdf type="principled">
+			<color value="0.213150 0.141077 0.038971" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.772727"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.565000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/garland-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/garland-gold_candy.obj"/>
+		<bsdf type="principled">
+			<color value="0.800000 0.410680 0.040313" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.172727"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/garland-red_candy.obj"/>
+		<bsdf type="principled">
+			<color value="0.800000 0.105345 0.090425" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.700000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/garland-Leaves_2.obj"/>
+		<bsdf type="principled">
+			<color value="0.037128 0.268072 0.062444" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.977273"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.077273"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/House-Lamp_emission.obj"/>
+		<bsdf type="conductor">
+			<color value="1.000000 1.000000 1.000000" name="specular_reflectance"/>
+		</bsdf>
+		<emitter type="area">
+			<color value="6.000000 4.124103 1.949462" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Lamp-Lamp_emission.obj"/>
+		<bsdf type="conductor">
+			<color value="1.000000 1.000000 1.000000" name="specular_reflectance"/>
+		</bsdf>
+		<emitter type="area">
+			<color value="6.000000 4.124103 1.949462" name="radiance"/>
+		</emitter>
+	</mesh>
+
+<!-- Chirsmas pine -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/twinkle_blue.obj"/>
+		<emitter type="area">
+			<color value="0.1 0.1 5" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/twinkle_green.obj"/>
+		<emitter type="area">
+			<color value="0.1 5 0.1" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/twinkle_red.obj"/>
+		<emitter type="area">
+			<color value="5 0.1 0.1" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/twinkle_yellow.obj"/>
+		<emitter type="area">
+			<color value="5 5 0.1" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/decor_tree.obj"/>
+		<bsdf type="diffuse" id="mat-Emission_yellow">
+			<color value="1.00000 1.0000 0.020000" name="albedo"/>
+		</bsdf>
+		<emitter type="area">
+			<color value="5 5 0.1" name="radiance"/>
+		</emitter>
+	</mesh>
+
+<!-- cubes -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube-Material.001.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000" name="albedo"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_001-Material.004.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_002-Material.008.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_003-Material.019.obj"/>
+		<bsdf type="diffuse" id="mat-Material.001">
+			<color value="1.000000 0.000000 0.300000"  name="albedo"/>
+		</bsdf>
+	</mesh>
+		<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube-Material.002.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_001-Material.005.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_002-Material.009.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ScienceCube_003-Material.020.obj"/>
+		<emitter type="area">
+			<color value="8.132353 36.052406 50.000000" name="radiance"/>
+		</emitter>
+	</mesh>
+
+
+
+<!-- robot1 tank -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Joint-Material.006.obj"/>
+		<bsdf type="principled">
+			<color value="0.110689 0.110689 0.110689" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.551000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.733333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Joint-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Joint-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Joint-Scratched Metal.obj"/>
+		<bsdf type="principled">
+			<color value="0.018849 0.018849 0.018849" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.377273"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Left_Leg_Joint-Material.006.obj"/>
+		<bsdf type="principled">
+			<color value="0.110689 0.110689 0.110689" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.551000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.733333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Left_Leg_Joint-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Left_Leg_Joint-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Left_Leg_Joint-Scratched Metal.obj"/>
+		<bsdf type="principled">
+			<color value="0.018849 0.018849 0.018849" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.377273"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Material.006.obj"/>
+				<bsdf type="principled">
+			<color value="0.110689 0.110689 0.110689" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.551000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.733333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Black Trim.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Chassis-Material.013.obj"/>
+		<bsdf type="principled">
+			<color value="0.060720 0.060720 0.060720" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Laser_Joint.obj"/>
+		<bsdf type="principled">
+			<color value="0.110689 0.110689 0.110689" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.551000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.733333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/FE_Laser-Material.006.obj"/>
+		<bsdf type="principled">
+			<color value="0.110689 0.110689 0.110689" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.551000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.733333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/FE_Laser-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Backpack-To-Chassis_Connection.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Backpack-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Backpack-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Backpack-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Arm_Joints-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Arm_Joints-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Arm_Joints-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-Yellow Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.273832 0.179168 0.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Radome_Left_Panel-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Railgun-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Railgun-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Railgun-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Railgun-Yellow Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.273832 0.179168 0.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Railgun-Glass.obj"/>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Railgun-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Neck_Back.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Neck_Front.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Neck_Main_Column-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Neck_Main_Column-Rubber.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.033103 0.033103 0.033103" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Neck_Main_Column-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Necj_Joint-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Necj_Joint-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.429227 0.429227 0.429227" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.359091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.000000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.000000"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Eye_Exterior-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Eye_Exterior-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Eye_Sockets-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Eye_Sockets-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Eye_Sockets-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Eye_Iris.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Lower_Jaw-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Lower_Jaw-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Lower_Jaw-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hinge_5-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hinge_5-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hinge_4.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hinge_3.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hinge_2.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hinge_1.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hydraulic_Jacks-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Jaw_Hydraulic_Jacks-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Head-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Head-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Head-Off-White.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Head-Rubber.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Main_Head-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Upper_Jaw-Black Trim.obj"/>
+		<bsdf type="principled">
+			<color value="0.098504 0.098504 0.098504" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Upper_Jaw-Main Color.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Upper_Jaw-Silver.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Knee_Chaff-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Knee_Chaff-Rubber.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Knee_Chaff-Material.015.obj"/>
+		<bsdf type="principled">
+			<color value="0.060720 0.060720 0.060720" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Knee_Joint-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Knee_Joint-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Knee_Rocket_Caps.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Leg_Counterweight-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Leg_Counterweight-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Leg_Peg_Connection-Off-White.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Leg_Peg_Connection-Silver.002.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.001.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Claws-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Claws-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Claws-Silver Metal.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.173355 0.173355 0.173355" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.366667"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Claws-Dark Gray.003.obj"/>
+		<bsdf type="principled">
+			<color value="0.137584 0.137584 0.137584" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.275000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Claws-Vanta Black.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.000000 0.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Foot-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Foot-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Foot-Off-White.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Foot-Rubber.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Material.018.obj"/>
+		<bsdf type="principled">
+			<color value="0.800000 0.800000 0.800000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Off-White.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.570472 0.570472 0.570472" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.408333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Silver.002.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.001.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Dark Gray.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.142401 0.142401 0.142401" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.466667"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Hydraulic_Jacks.obj"/>
+		<bsdf type="principled">
+			<color value="0.173355 0.173355 0.173355" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.366667"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Internal_Chassis-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Internal_Chassis-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Internal_Chassis-Dark Gray.003.obj"/>
+		<bsdf type="principled">
+			<color value="0.137584 0.137584 0.137584" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.275000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Peg-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Peg-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Right_Leg_Peg-Rubber.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Thigh-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Thigh-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Thigh-Rubber.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.025394 0.025394 0.025394" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Thigh-Silver.002.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal006_2K_Color.001.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.168182"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.050000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Upper_Calf_Chassis-Black Trim.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.063721 0.063721 0.063721" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.383333"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="1.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Upper_Calf_Chassis-Main Color.002.obj"/>
+		<bsdf type="principled">
+			<color value="0.123710 0.123710 0.123710" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.525758"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.623485"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Backpack_Coils.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Metal035_2K_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.7"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.001000"/>
+		</bsdf>
+	</mesh>
+
+
+<!-- robot2 -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Cylinder_001-Orange.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Orange_Base_Color.001.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.8"/>
+			<float name="anisotropic" value="0.000000"/>
+			<texture type="imagetexture" name="roughness">
+				<string name="fileName" value="texture/Orange_Roughness.001.exr"/>
+			</texture>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Cylinder_001-Black.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/Black_Base_Color.001.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.9"/>
+			<float name="anisotropic" value="0.000000"/>
+			<texture type="imagetexture" name="roughness">
+				<string name="fileName" value="texture/Black_Roughness.001.exr"/>
+			</texture>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Cylinder_001-White.001.obj"/>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/White_Base_Color.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.85"/>
+			<float name="anisotropic" value="0.000000"/>
+			<texture type="imagetexture" name="roughness">
+				<string name="fileName" value="texture/Orange_Roughness.001.exr"/>
+			</texture>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Cylinder_001-FaceScreen.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+
+
+<!-- robot3 -->
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_001-SUIT.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_001-Material.010.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.102705 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_002-SUIT.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_002-Material.023.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.029287 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_003.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_004.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_005.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_006.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_007.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_008.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_009.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.102705 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_010-SCREWS.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_010-Material.025.obj"/>
+		<bsdf type="principled">
+			<color value="1.000000 1.000000 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.300000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.300000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_011.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_012-SCREWS.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_012-Material.025.obj"/>
+		<bsdf type="principled">
+			<color value="1.000000 1.000000 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.300000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.300000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_013.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.474866 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_014.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_015.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_016.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_017.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_018-SUIT.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_018-BAG PACK.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.001061 0.000000 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_018-Material.026.obj"/>
+		<bsdf type="principled">
+			<color value="1.000000 0.824510 0.798784" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="1.000000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_019-Material.022.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.030725 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="1.000000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_019-SCREWS.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.151747 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_019-BAG PACK.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.001061 0.000000 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_019-Material.027.obj"/>
+		<bsdf type="principled">
+			<color value="0.800000 0.800000 0.800000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_020.obj"/>
+		<bsdf type="principled">
+			<color value="0.433546 0.395128 0.447988" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_021.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_022-SUIT.001.obj"/>
+		<bsdf type="principled">
+			<color value="0.500997 0.607241 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.200000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/body_022-Material.010.obj"/>
+		<bsdf type="principled">
+			<color value="0.000000 0.102705 1.000000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="1.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.240000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+
+<!-- trees -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_003-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_003-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_003-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_016-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_016-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_016-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_017-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_017-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_017-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_018-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_018-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_018-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_020-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_020-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_020-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_021-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_021-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_021-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_022-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_022-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_022-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_023-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_023-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_023-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_024-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_024-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_024-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_026-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_026-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_026-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_027-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_027-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_027-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_028-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_028-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_028-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_029-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_029-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_029-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_030-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_030-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_030-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_031-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_031-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_031-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_032-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_032-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_032-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_033-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_033-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_033-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_034-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_034-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_034-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_039-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_039-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_039-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_040-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_040-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_040-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_044-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_044-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_044-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_049-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_049-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_049-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_101-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_101-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_101-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+
+</scene>
