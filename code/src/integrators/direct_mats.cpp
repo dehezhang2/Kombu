@@ -15,7 +15,15 @@ public:
     Color3f Li(const Scene *scene, Sampler *sampler, const Ray3f &ray) const {
         /* Find the surface that is visible in the requested direction */
         Intersection its_surface;
-        if (!scene->rayIntersect(ray, its_surface)) return Color3f(0.0f);
+        if (!scene->rayIntersect(ray, its_surface)){
+            if (scene->getEnvLight() == nullptr) {
+                return 0.f;
+            } else {
+                EmitterQueryRecord lRec;
+                lRec.wi = ray.d;
+                return scene->getEnvLight()->eval(lRec);
+            }
+        }
 
         Color3f bsdf_cos_theta_over_pdf, Le = 0, Li;
 

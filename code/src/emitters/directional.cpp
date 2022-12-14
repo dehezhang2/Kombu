@@ -67,7 +67,7 @@ public:
         return 1.0f;
     }
 
-    bool isDirectional() const override{
+    bool isInfiniteDistance() const override{
         return true;
     }
 

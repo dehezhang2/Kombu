@@ -62,14 +62,14 @@
 			<rgb value="0.570472 0.570472 0.570472" name="base_color"/>
 			<float name="spec_tint" value="0.000000"/>
 			<float name="spec_trans" value="0.000000"/>
-			<float name="metallic" value="1.000000"/>
+			<float name="metallic" value="0.000000"/>
 			<float name="anisotropic" value="0.000000"/>
-			<float name="roughness" value="0.408333"/>
+			<float name="roughness" value="0.0"/>
 			<float name="sheen" value="0.000000"/>
-			<float name="sheen_tint" value="0.500000"/>
+			<float name="sheen_tint" value="0.00000"/>
 			<float name="clearcoat" value="0.000000"/>
-			<float name="clearcoat_gloss" value="0.173205"/>
-			<float name="specular" value="0.001000"/>
+			<float name="clearcoat_gloss" value="0.0"/>
+			<float name="specular" value="1"/>
 		</bsdf>
 	</shape>
 

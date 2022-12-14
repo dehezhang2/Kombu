@@ -122,7 +122,7 @@ public:
                 // sample light
                 const Emitter* light = scene->getRandomEmitter(sampler->next1D());
                 EmitterQueryRecord lRec(mRec.p);
-                if(light->isDirectional()){
+                if(light->isInfiniteDistance()){
                     lRec.bSphere_center = scene->getBoundingBox().getCenter();
                     lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
                 }
@@ -152,7 +152,19 @@ public:
                 recursiveEmitterChecking(scene, current_medium, incident_ray, its_surface, Le_tr, pdf_em_mat, sampler);
                 has_intersection = its_surface.valid;
 
-                if(!has_intersection) break;
+                if(!has_intersection){
+                    if (scene->getEnvLight() == nullptr) {
+                        break;
+                    } else {
+                        EmitterQueryRecord lRec(incident_ray.o);
+                        lRec.wi = incident_ray.d;
+                        if(!prev_discrete){
+                            float pdf_em_mat = scene->getEnvLight()->pdf(lRec) / scene->getLights().size();
+                            w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
+                        }
+                        return Li + w_mat * throughput * scene->getEnvLight()->eval(lRec);
+                    }
+                }
                 if(Le_tr.maxCoeff()!=0){
                     if(!prev_discrete){
                         w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
@@ -187,7 +199,7 @@ public:
                     if(its_surface.mesh->isMedium()) current_medium = its_surface.mesh->getMedium();
                     const Emitter* light = scene->getRandomEmitter(sampler->next1D());
                     EmitterQueryRecord lRec(its_surface.p);
-                    if(light->isDirectional()){
+                    if(light->isInfiniteDistance()){
                         lRec.bSphere_center = scene->getBoundingBox().getCenter();
                         lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
                     }

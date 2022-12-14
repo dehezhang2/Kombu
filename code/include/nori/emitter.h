@@ -129,7 +129,7 @@ public:
      * */
     void setShape(Shape * shape) { m_shape = shape; }
 
-    virtual bool isDirectional() const {return false;}
+    virtual bool isInfiniteDistance() const {return false;}
     virtual bool onSurface() const {return false;}
 
 protected:

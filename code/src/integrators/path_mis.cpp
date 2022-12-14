@@ -28,8 +28,12 @@ public:
                 if (scene->getEnvLight() == nullptr) {
 					break;
 				} else {
-					EmitterQueryRecord lRec;
+					EmitterQueryRecord lRec(incident_ray.o);
 					lRec.wi = incident_ray.d;
+                    if(!prev_discrete){
+                        float pdf_em_mat = scene->getEnvLight()->pdf(lRec) / scene->getLights().size();
+                        w_mat = (pdf_em_mat + pdf_mat_mat > 0 ? (pdf_mat_mat / (pdf_em_mat + pdf_mat_mat)) : 0.f);
+                    }
 					return Li + w_mat * throughput * scene->getEnvLight()->eval(lRec);
 				}
             };
@@ -62,7 +66,7 @@ public:
             if(!prev_discrete){
                 const Emitter* light = scene->getRandomEmitter(sampler->next1D());
                 EmitterQueryRecord lRec(its_surface.p);
-                if(light->isDirectional()){
+                if(light->isInfiniteDistance()){
                     lRec.bSphere_center = scene->getBoundingBox().getCenter();
                     lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
                 }

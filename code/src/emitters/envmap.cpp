@@ -159,7 +159,18 @@ public:
             Point2f pixel = Point2f(u, v);
             Vector3f w = pixelToDirection(pixel);
             lRec.wi = w;
-            lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, 100000);
+            Vector3f d = -w;
+
+            float radius = lRec.bSphere_radius * 1.1f;
+            Point3f disk_center = lRec.bSphere_center - d * radius;
+            float distance = (lRec.ref - disk_center).dot(d);
+            if(distance < 0) return 0.f;
+            
+            // light source
+            lRec.p = lRec.ref - distance * d;
+            // normal vector of the light source
+            lRec.n = Normal3f(d);
+            lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm() - Epsilon);
             pdfv = pdf(lRec) * jacobian;
             return eval(lRec) / pdfv;
         }
@@ -174,6 +185,10 @@ public:
             if (i < 0) i = 0;
             if (j < 0) j = 0;
             return (pmarginal(0, i) * mpdf(i,j));
+        }
+
+        bool isInfiniteDistance() const override{
+            return true;
         }
 
 

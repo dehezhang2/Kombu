@@ -16,7 +16,16 @@ public:
         /* Find the surface that is visible in the requested direction */
         //https://www.pbr-book.org/3ed-2018/Light_Transport_I_Surface_Reflection/Direct_Lighting
         Intersection its;
-        if (!scene->rayIntersect(ray, its)) return Color3f(0.0f);
+        if (!scene->rayIntersect(ray, its)){
+            if (scene->getEnvLight() == nullptr) {
+                return 0.f;
+            } else {
+                EmitterQueryRecord lRec;
+                lRec.wi = ray.d;
+                return scene->getEnvLight()->eval(lRec);
+            }
+        }
+
         auto lights = scene -> getLights();
         
         Color3f Li_over_pdf, bsdf, Lo = 0;
@@ -30,7 +39,7 @@ public:
         // (1/n)*sum_n(bsdf * Li/pdf * cos theta)
         for(auto light : lights){
             EmitterQueryRecord lRec(its.p);
-            if(light->isDirectional()){
+            if(light->isInfiniteDistance()){
                 lRec.bSphere_center = scene->getBoundingBox().getCenter();
                 lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
             }

@@ -34,7 +34,15 @@ public:
                 throughput *= mRec.albedo;                
             } else {
                 if(current_medium) throughput *= mRec.albedo;
-                if(!has_intersection) break;
+                if(!has_intersection){
+                    if (scene->getEnvLight() == nullptr) {
+                        break;
+                    } else {
+                        EmitterQueryRecord lRec(incident_ray.o);
+                        lRec.wi = incident_ray.d;
+                        return Li +  throughput * scene->getEnvLight()->eval(lRec);
+                    }
+                }
                 // same as path_mats
                 // count Li
                 if(its_surface.mesh->isEmitter()){

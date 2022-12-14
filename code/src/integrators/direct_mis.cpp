@@ -15,7 +15,15 @@ public:
     Color3f Li(const Scene *scene, Sampler *sampler, const Ray3f &ray) const {
         /* Find the surface that is visible in the requested direction */
         Intersection its_surface;
-        if (!scene->rayIntersect(ray, its_surface)) return Color3f(0.0f);
+        if (!scene->rayIntersect(ray, its_surface)){
+            if (scene->getEnvLight() == nullptr) {
+                return 0.f;
+            } else {
+                EmitterQueryRecord lRec;
+                lRec.wi = ray.d;
+                return scene->getEnvLight()->eval(lRec);
+            }
+        }
         auto lights = scene -> getLights();
 
         Color3f bsdf_cos_theta_over_pdf, Li_over_pdf, bsdf, Le = 0, Li_mat, Lo_mat, Lo_em = 0;
@@ -51,7 +59,7 @@ public:
         // Lo_em
         for(auto light : lights){
             EmitterQueryRecord lRec(its_surface.p);
-            if(light->isDirectional()){
+            if(light->isInfiniteDistance()){
                 lRec.bSphere_center = scene->getBoundingBox().getCenter();
                 lRec.bSphere_radius = (lRec.bSphere_center - scene->getBoundingBox().max).norm();
             }
