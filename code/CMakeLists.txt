@@ -73,6 +73,7 @@ add_executable(kombu
   src/bsdfs/bumpmap.cpp
   src/bsdfs/blendbsdf.cpp
   src/bsdfs/conductor.cpp
+  src/bsdfs/emissive.cpp
 
   src/cameras/perspective.cpp
   

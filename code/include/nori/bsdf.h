@@ -58,6 +58,9 @@ struct BSDFQueryRecord {
     Point3f p;
 
     Intersection its;
+    bool isEmissive = false;
+    Color3f radiance;
+    float blend_pdf = 1.f;
 };
 
 /**

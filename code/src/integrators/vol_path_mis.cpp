@@ -159,12 +159,6 @@ public:
                     }
                     Li += throughput * Le_tr * w_mat;
                 }
-                // Ruassian Roulette 
-                if(++bounce_cnt > 5){
-                    float success_prob = std::min(throughput.getLuminance(), 0.99f);
-                    if(sampler->next1D() > success_prob) break;
-                    throughput /= success_prob;
-                }
                 // sample BSDF ray
                 BSDFQueryRecord bRec(its_surface.shFrame.toLocal(-incident_ray.d));
                 bRec.uv = its_surface.uv;
@@ -173,6 +167,18 @@ public:
                 pdf_mat_mat = its_surface.mesh->getBSDF()->pdf(bRec);
                 prev_discrete = (bRec.measure == EDiscrete);
                 w_mat = (prev_discrete ? 1.f : w_mat);
+
+                if(bRec.isEmissive){
+                    Li += throughput * bRec.radiance;
+                }
+                
+                // Ruassian Roulette 
+                if(++bounce_cnt > 5){
+                    float success_prob = std::min(throughput.getLuminance(), 0.99f);
+                    if(sampler->next1D() > success_prob) break;
+                    throughput /= success_prob;
+                }
+                
 
                 // sample light source
                 // Note that this MIS corresponds to the BSDF sample in next iteration
