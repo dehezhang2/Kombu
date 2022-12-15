@@ -21,12 +21,18 @@
 	<mesh type="sphere">
 		<point name="center" value="-0.421400 0.332100 -0.280000" />
 		<float name="radius" value="0.3263" />
-		<bsdf type="dielectric">
+		<!-- <bsdf type="dielectric">
 			<float name="intIOR" value="1.5046" />
 			<float name="extIOR" value="1.000277" />
+		</bsdf> -->
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.630 0.065 0.05"/>
 		</bsdf>
 	</mesh>
 
+	<!-- <emitter type="envmap">
+        <string name="filename" value="/home/zhangganlin/Desktop/thatch_chapel_1k.exr"/>
+    </emitter> -->
 
 	<mesh type="sphere">
 		<point name="center" value="0 0 0" />
