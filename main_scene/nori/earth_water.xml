@@ -124,12 +124,13 @@
 <!-- smoke -->
 	<mesh type="obj">
 		<string name="filename" value="bounds.obj"/>
-		<bsdf type="transparent"/>
+		
 		<transform name="toWorld">
 			<scale value="5 5 5"/>
 			<rotate axis="0,0,1" angle="-90"/>
 			<translate value="-4 8 4.107368" />
 		</transform>
+		<bsdf type="transparent"/>
 		<medium type="heterogeneous">
 			<string name="method" value="march"/>
 			<phase type="isotropic"/>
@@ -322,9 +323,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/garland-red_candy.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
             <color name="radiance" value="0.800000 0.105345 0.090425"/>
-        </bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/garland-Leaves_2.obj"/>
@@ -534,9 +535,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Joint-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Joint-Scratched Metal.obj"/>
@@ -572,15 +573,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Left_Leg_Joint-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Left_Leg_Joint-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Left_Leg_Joint-Scratched Metal.obj"/>
@@ -616,9 +617,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Chassis-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Chassis-Main Color.obj"/>
@@ -670,9 +671,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Chassis-Black Trim.001.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Chassis-Material.013.obj"/>
@@ -724,9 +725,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/FE_Laser-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Backpack-To-Chassis_Connection.obj"/>
@@ -746,9 +747,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Backpack-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Backpack-Main Color.obj"/>
@@ -784,15 +785,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Arm_Joints-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Arm_Joints-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Arm_Joints-White.obj"/>
@@ -812,9 +813,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Radome_Left_Panel-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Radome_Left_Panel-Main Color.obj"/>
@@ -866,15 +867,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Radome_Left_Panel-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Radome_Left_Panel-Yellow Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="10 1.0 0"/>
-		</bsdf>
+		</emitter>
 		<!-- <bsdf type="principled">
 			<color value="0.273832 0.179168 0.000000" name="base_color"/>
 			<float name="spec_tint" value="0.000000"/>
@@ -907,9 +908,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Railgun-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Railgun-Main Color.obj"/>
@@ -958,9 +959,9 @@
 			<float name="clearcoat_gloss" value="0.173205"/>
 			<float name="specular" value="0.500000"/>
 		</bsdf> -->
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="10 1.0 0"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Railgun-Glass.obj"/>
@@ -1111,15 +1112,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Eye_Exterior-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Eye_Sockets-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Eye_Sockets-Off-White.obj"/>
@@ -1139,9 +1140,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Eye_Sockets-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Eye_Iris.obj"/>
@@ -1227,9 +1228,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Jaw_Hinge_5-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Jaw_Hinge_4.obj"/>
@@ -1297,21 +1298,21 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Jaw_Hydraulic_Jacks-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Jaw_Hydraulic_Jacks-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Head-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Head-Main Color.obj"/>
@@ -1363,15 +1364,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Main_Head-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Upper_Jaw-Black Trim.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Upper_Jaw-Main Color.obj"/>
@@ -1391,15 +1392,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Upper_Jaw-Silver.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Knee_Chaff-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Knee_Chaff-Rubber.002.obj"/>
@@ -1435,9 +1436,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Knee_Joint-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Knee_Joint-Main Color.002.obj"/>
@@ -1473,9 +1474,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Leg_Counterweight-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Leg_Counterweight-Main Color.002.obj"/>
@@ -1511,15 +1512,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Leg_Peg_Connection-Silver.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Claws-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Claws-Main Color.002.obj"/>
@@ -1539,9 +1540,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Claws-Silver Metal.001.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Claws-Dark Gray.003.obj"/>
@@ -1577,9 +1578,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Foot-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Foot-Main Color.002.obj"/>
@@ -1631,9 +1632,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Main Color.002.obj"/>
@@ -1685,9 +1686,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Silver.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Calf_Lower_Chassis-Dark Gray.002.obj"/>
@@ -1723,9 +1724,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Internal_Chassis-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Internal_Chassis-Main Color.002.obj"/>
@@ -1761,9 +1762,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Peg-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Right_Leg_Peg-Main Color.002.obj"/>
@@ -1799,9 +1800,9 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Thigh-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Thigh-Main Color.002.obj"/>
@@ -1837,15 +1838,15 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Thigh-Silver.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="20 0.039 0.015"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Upper_Calf_Chassis-Black Trim.002.obj"/>
-		<bsdf type="emissive">
+		<emitter type="area">
 			<color name="radiance" value="0.033 2.302 10"/>
-		</bsdf>
+		</emitter>
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/Upper_Calf_Chassis-Main Color.002.obj"/>
@@ -3087,5 +3088,163 @@
 			<string name="material" value="snow"/>
 		</bsdf>
 	</mesh>
+
+<!-- rocket -->
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Wings.obj"/>
+		<transform name="toWorld">
+			<scale value="2 2 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+		<bsdf type="principled">
+			<color value="0.800000 0.000868 0.003533" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.422727"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.177273"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Body.obj"/>
+		<transform name="toWorld">
+			<scale value="2 2 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+		<bsdf type="principled">
+			<color value="0.800000 0.800000 0.800000" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.759091"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Window_001.obj"/>
+		<transform name="toWorld">
+			<scale value="2 2 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+		<bsdf type="blendbsdf">
+			<bsdf type="principled" name="bsdf1">
+				<color value="0.066435 0.097862 0.352510" name="base_color"/>
+				<float name="spec_tint" value="0.000000"/>
+				<float name="spec_trans" value="0.000000"/>
+				<float name="metallic" value="0.000000"/>
+				<float name="anisotropic" value="0.000000"/>
+				<float name="roughness" value="0.000000"/>
+				<float name="sheen" value="0.000000"/>
+				<float name="sheen_tint" value="0.500000"/>
+				<float name="clearcoat" value="0.000000"/>
+				<float name="clearcoat_gloss" value="0.173205"/>
+				<float name="specular" value="1.000000"/>
+			</bsdf>
+			<bsdf type="emissive" name="bsdf2">
+				<color name="radiance" value="0 1.5 5"/>
+			</bsdf>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Window.obj"/>
+		<transform name="toWorld">
+			<scale value="2 2 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Tip.obj"/>
+		<transform name="toWorld">
+			<scale value="2 2 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+		<bsdf type="principled">
+			<color value="0.800000 0.000868 0.003533" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.422727"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.177273"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Engine.obj"/>
+		<transform name="toWorld">
+			<scale value="2 2 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+		<bsdf type="principled">
+			<color value="0.067021 0.067021 0.067021" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.965909"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/BezierCurve.obj"/>
+		<transform name="toWorld">
+			<scale value="2 1.5 2"/>
+			<rotate axis="0,1,0" angle="-120"/>
+			<translate value="16 10 15" />
+		</transform>
+		<emitter type="area">
+			<color value="20 0.3 0" name="radiance"/>
+		</emitter>
+	</mesh>
+
+
+<!-- ship -->
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/ship-Material.003.obj"/>
+		<transform name="toWorld">
+			<scale value="0.6 0.6 0.6"/>
+			<translate value="-3 0 -1" />
+		</transform>
+		<bsdf type="principled">
+			<texture type="imagetexture" name="base_color">
+				<string name="fileName" value="texture/rust.exr"/>
+			</texture>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.500000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+
 
 </scene>
