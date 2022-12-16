@@ -128,7 +128,7 @@
 		<transform name="toWorld">
 			<scale value="5 5 5"/>
 			<rotate axis="0,0,1" angle="-90"/>
-			<translate value="-2 8 4.107368" />
+			<translate value="-4 8 4.107368" />
 		</transform>
 		<medium type="heterogeneous">
 			<string name="method" value="march"/>
@@ -166,6 +166,7 @@
 			<float name="clearcoat_gloss" value="0.03"/>
 			<float name="specular" value="0.5"/>
 		</bsdf>
+
 	</mesh>
 
 	<mesh type="obj">
@@ -198,24 +199,18 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/House-Wood_house.obj"/>
-		<bsdf type="blendbsdf">
-			<bsdf type="principled" name="bsdf1">
-				<color value="0.723288 0.305049 0.062797" name="base_color"/>
-				<float name="spec_tint" value="0.000000"/>
-				<float name="spec_trans" value="0.000000"/>
-				<float name="metallic" value="0.000000"/>
-				<float name="anisotropic" value="0.000000"/>
-				<float name="roughness" value="0.700000"/>
-				<float name="sheen" value="0.000000"/>
-				<float name="sheen_tint" value="0.500000"/>
-				<float name="clearcoat" value="0.000000"/>
-				<float name="clearcoat_gloss" value="0.173205"/>
-				<float name="specular" value="0.500000"/>
-			</bsdf>
-			<bsdf type="emissive" name="bsdf2">
-					<color name="radiance" value="0.123288 0.055049 0.012797"/>
-			</bsdf>
-			<float name="weight" value="0"/>
+		<bsdf type="principled" name="bsdf1">
+			<color value="0.723288 0.305049 0.062797" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.700000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
 		</bsdf>
 	</mesh>
 	<mesh type="obj">
@@ -371,8 +366,31 @@
 			<color value="1.000000 1.000000 1.000000" name="specular_reflectance"/>
 		</bsdf>
 		<emitter type="area">
-			<color value="6.000000 4.124103 1.949462" name="radiance"/>
+			<color value="24.000000 16.124103 8" name="radiance"/>
 		</emitter>
+	</mesh>
+
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Chimney.obj"/>
+		<bsdf type="principled">
+			<color value="0.723288 0.305049 0.062797" name="base_color"/>
+			<float name="spec_tint" value="0.000000"/>
+			<float name="spec_trans" value="0.000000"/>
+			<float name="metallic" value="0.000000"/>
+			<float name="anisotropic" value="0.000000"/>
+			<float name="roughness" value="0.700000"/>
+			<float name="sheen" value="0.000000"/>
+			<float name="sheen_tint" value="0.500000"/>
+			<float name="clearcoat" value="0.000000"/>
+			<float name="clearcoat_gloss" value="0.173205"/>
+			<float name="specular" value="0.500000"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/Chimney_001.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
 	</mesh>
 
 <!-- Chirsmas pine -->
@@ -2519,6 +2537,43 @@
 	</mesh>
 
 	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_008-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_008-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_008-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_012-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_012-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_012-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+
+	<mesh type="obj">
 		<string name="filename" value="obj_meshes/pine_016-Wood.obj"/>
 		<bsdf type="principled" id="mat-Wood">
 			<string name="material" value="wood"/>
@@ -2845,6 +2900,68 @@
 	</mesh>
 
 	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_034-Snow.obj"/>
+		<transform name="toWorld">
+			<translate value="35 4 0" />
+		</transform>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_035-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_035-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_035-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_036-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_036-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_036-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_038-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_038-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_038-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
 		<string name="filename" value="obj_meshes/pine_039-Wood.obj"/>
 		<bsdf type="principled" id="mat-Wood">
 			<string name="material" value="wood"/>
@@ -2876,6 +2993,42 @@
 	</mesh>
 	<mesh type="obj">
 		<string name="filename" value="obj_meshes/pine_040-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+		<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_041-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_041-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_041-Snow.obj"/>
+		<bsdf type="principled" id="mat-Snow">
+			<string name="material" value="snow"/>
+		</bsdf>
+	</mesh>
+		<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_042-Wood.obj"/>
+		<bsdf type="principled" id="mat-Wood">
+			<string name="material" value="wood"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_042-Leaves.obj"/>
+		<bsdf type="principled" id="mat-Leaves">
+			<string name="material" value="leaves"/>
+		</bsdf>
+	</mesh>
+	<mesh type="obj">
+		<string name="filename" value="obj_meshes/pine_042-Snow.obj"/>
 		<bsdf type="principled" id="mat-Snow">
 			<string name="material" value="snow"/>
 		</bsdf>

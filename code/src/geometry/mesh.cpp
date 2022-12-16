@@ -27,6 +27,22 @@ NORI_NAMESPACE_BEGIN
 
 Mesh::Mesh() { }
 
+inline void revisedONB_mesh(const Vector3f &n, Vector3f &b1, Vector3f &b2)
+{
+    if(n.z()<0.f){
+        const float a = 1.0f / (1.0f - n.z());
+        const float b = n.x() * n.y() * a;
+        b1 = Vector3f(1.0f - n.x() * n.x() * a, -b, n.x());
+        b2 = Vector3f(b, n.y() * n.y()*a - 1.0f, -n.y());
+    }
+    else{
+        const float a = 1.0f / (1.0f + n.z());
+        const float b = -n.x() * n.y() * a;
+        b1 = Vector3f(1.0f - n.x() * n.x() * a, b, -n.x());
+        b2 = Vector3f(b, 1.0f - n.y() * n.y() * a, -n.y());
+    }
+}
+
 void Mesh::activate() {
     Shape::activate();
 
@@ -149,10 +165,17 @@ void Mesh::setHitInformation(uint32_t index, const Ray3f &ray, Intersection & it
            means that this code will need to be modified to be able
            use anisotropic BRDFs, which need tangent continuity */
 
-        its.shFrame = Frame(
-                (bary.x() * m_N.col(idx0) +
-                 bary.y() * m_N.col(idx1) +
-                 bary.z() * m_N.col(idx2)).normalized());
+        // its.shFrame = Frame(
+        //         (bary.x() * m_N.col(idx0) +
+        //          bary.y() * m_N.col(idx1) +
+        //          bary.z() * m_N.col(idx2)).normalized());
+        Vector3f n = (bary.x() * m_N.col(idx0) +
+                      bary.y() * m_N.col(idx1) +
+                      bary.z() * m_N.col(idx2)).normalized();
+        Vector3f b1,b2;
+        revisedONB_mesh(n,b1,b2);
+        its.shFrame = Frame(b1,b2,n);
+
     } else {
         its.shFrame = its.geoFrame;
     }

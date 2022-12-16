@@ -23,6 +23,22 @@
 
 NORI_NAMESPACE_BEGIN
 
+inline void revisedONB_sphere(const Vector3f &n, Vector3f &b1, Vector3f &b2)
+{
+    if(n.z()<0.f){
+        const float a = 1.0f / (1.0f - n.z());
+        const float b = n.x() * n.y() * a;
+        b1 = Vector3f(1.0f - n.x() * n.x() * a, -b, n.x());
+        b2 = Vector3f(b, n.y() * n.y()*a - 1.0f, -n.y());
+    }
+    else{
+        const float a = 1.0f / (1.0f + n.z());
+        const float b = -n.x() * n.y() * a;
+        b1 = Vector3f(1.0f - n.x() * n.x() * a, b, -n.x());
+        b2 = Vector3f(b, 1.0f - n.y() * n.y() * a, -n.y());
+    }
+}
+
 class Sphere : public Shape {
 public:
     Sphere(const PropertyList & propList) {
@@ -57,7 +73,12 @@ public:
         its.uv[0] = atan2(normalized_coor[1], normalized_coor[0]) / (2 * M_PI) + 0.5;
         its.uv[1] = 1-acos(normalized_coor[2]) / M_PI;
         its.geoFrame = Frame(normalized_coor);
-		its.shFrame = Frame(normalized_coor);
+
+        Vector3f n = normalized_coor, b1,b2;
+        revisedONB_sphere(n,b1,b2);
+		// its.shFrame = Frame(normalized_coor);
+		its.shFrame = Frame(b1,b2,n);
+
 
         Vector3f local = its.p - m_position;
         // its.dpdu = m_objectToWorld(Vector(-local.y, local.x, 0) * (2*M_PI));
@@ -111,6 +132,9 @@ protected:
     Point3f m_position;
     float m_radius;
 };
+
+
+
 
 NORI_REGISTER_CLASS(Sphere, "sphere");
 NORI_NAMESPACE_END
