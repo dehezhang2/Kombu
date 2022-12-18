@@ -86,11 +86,9 @@ public:
 
         if (sample2d.x()>weight){
             Point2f new_sample((sample2d.x()-weight)/(1.f-weight),sample2d.y());
-            bRec.blend_pdf *= (1 - weight);
             return m_bsdf1->sample(bRec,new_sample);
         }else{
             Point2f new_sample(sample2d.x()/weight,sample2d.y());
-            bRec.blend_pdf *= (1 - weight);
             return m_bsdf2->sample(bRec,new_sample);
         }
     }

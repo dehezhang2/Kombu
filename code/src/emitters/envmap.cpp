@@ -16,7 +16,6 @@ public:
             if (propList.has("strength")) {
                 m_strength = propList.getFloat("strength");
             }
-            // loads the exr file, then create the imageMap with the Bitmap function
             std::string filename = propList.getString("filename");
             imageMap = Bitmap(filename);
 
@@ -58,9 +57,7 @@ public:
         }
 
 
-        //From the paper
         void sample1D(int rowNumber, const matrix &pf, const matrix &Pf , const float &sample , float &x, float &prob) const {
-            //Binary search
             int i;
             for (i = 0; i < Pf.cols(); i++) {
                 if ((sample >= Pf(rowNumber, i)) && (sample < Pf(rowNumber, i+1))) // Pf[i]<=unif<Pf[i+1]
@@ -71,7 +68,6 @@ public:
             prob = pf(rowNumber, i);
         }
 
-        //From the paper
         float precompute1D(int row, const matrix &f, matrix &pf, matrix &Pf) const {
             float I = 0;
             int i;
@@ -88,42 +84,29 @@ public:
             return I;
         }
 
-        //returns the spherical coordinates from uv coordinates of a 2d pixel
         Vector3f pixelToDirection(const Point2f &pixel) const{
-            //from u and v, calculate spherical coordinates
             float theta = pixel[0] * M_PI /(mrows - 1);
             float phi = pixel[1] * 2 * M_PI / (mcols - 1);
-            //spherical coordinates
             return Vector3f(sin(theta) * cos(phi), sin(theta)*sin(phi), cos(theta)).normalized();
         }
 
 
-        //returns the 2d coordinates of the pixel from 3d spherical coordinates
         Point2f directionToPixel(const Vector3f &vec) const {
-            //take the spherical coordinates phi and theta
             Point2f coordinates = sphericalCoordinates(vec);
             float theta = coordinates.x();
             float phi = coordinates.y();
-
-            //calculate u and v from spherical coordinates
             float u = theta * (mrows -1) / M_PI ;
             float v = phi  * 0.5 * (mcols - 1) / M_PI ;
-
             if(std::isnan(u) || std::isnan(v)) {
                 return Point2f(0,0);
             }
-
-            //return the indexes
             return Point2f(u,v);
-
         }
 
 
-        //formular for bilinear interpolation
         Color3f bilinearInterpolation(float dx21, float dy21, Color3f Q11, Color3f Q21, Color3f Q12, Color3f Q22, float dx01, float dy01, float dx20, float dy20) const {
-            // check if the denominator is zero or not
-            if (dx21 == 0.f || dy21 == 0.f) return 0.f;
-            //wikipedia formula extended
+            if (dx21 == 0.f || dy21 == 0.f) 
+                return 0.f;
             return ((1.0 / (dx21 * dy21)) * (Q11 * dx20 * dy20 + Q21 * dx01 * dy20 + Q12 * dx20 * dy01 + Q22 * dx01 * dy01));
         }
 
@@ -133,7 +116,6 @@ public:
             Point2f uv = directionToPixel(lRec.wi.normalized());
 			int u = floor(uv.x());
 			int v = floor(uv.y());
-			//in corners and on borders
 			if (u >= imageMap.rows() - 1 || v >= imageMap.cols() - 1) {
 				return imageMap(imageMap.rows() - 1,imageMap.cols() - 1);
 			}
@@ -168,7 +150,6 @@ public:
             
             // light source
             lRec.p = lRec.ref - distance * d;
-            // normal vector of the light source
             lRec.n = Normal3f(d);
             lRec.shadowRay = Ray3f(lRec.ref, lRec.wi, Epsilon, (lRec.p - lRec.ref).norm() - Epsilon);
             pdfv = pdf(lRec) * jacobian;
@@ -194,19 +175,12 @@ public:
 
 protected:
     Bitmap imageMap;
-    //number of cols of the map
     int mcols;
-    //number of rows of the map
     int mrows;
-    //luminance matrix
     matrix luminance;
-    //pdf matrix
     matrix mpdf;
-    //cdf matrix
     matrix mcdf;
-    //pdf marginal matrix
     matrix pmarginal;
-    //cdf marginal matrix
     matrix cmarginal;
 
     float m_strength = 1;
