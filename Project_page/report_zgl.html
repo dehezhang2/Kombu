@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://noobody.org/is-report/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Comupter Graphics Final Project Report">
+    <title>Final Project Report – Deheng Zhang & Ganlin Zhang</title>
+
+    <link rel="stylesheet" href="./assets/pure.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="./assets/side-menu.css">
+    <!--<![endif]-->
+    <link href="./assets/twentytwenty.css" rel="stylesheet" type="text/css" />
+<style type="text/css"></style></head>
+
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+<div class="container contentWrapper">
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="./index.html#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a href="./index.html">Final Project</a>
+            <ul>
+                <li class="menu-item-divided pure-menu">
+                    <a href="./index.html">Proposal</a>
+                </li>
+                <li class="menu-item-divided pure-menu-selected">
+                    <a href="./report_zgl.html">Ganlin Zhang</a>
+                </li>
+                <li class="menu-item-divided pure-menu">
+                    <a href="./report_zdh.html">Deheng Zhang</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <div id="main">
+        <div class="header">
+            <h2>Project Report</h2>
+            <h3 style="margin: 0 0 10px 0">Ganlin Zhang</h3>
+        </div>
+        <div class="content">
+            <h3>Images as Textures</h3>
+
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+             <ul>
+                <li class="codelist"><code>src/textures/imagetexture.cpp</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p>For this feature, an input texture image is loaded, then the texture of 
+                the object is decided by the input texture image. We write a class inheriting 
+                the <code>Texture</code> class, and the member function <code>eval()</code>
+                would return the corresponding rgb value of input <code>u v</code> coordinate.
+                To make the texture looks more smooth, we use bilinear interpolation on the quired 
+                position. Also, to make it more flexiable, parameter <code>scale</code> can be added
+                to adjust the texture's scale.
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>
+            The texture image we used for testing:
+            </p>
+            <div class="center"><img src="./assets/validation/image_texture/texture2.png" width="400" height="400"></div>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/image_texture/test_imagetexture_notexture.png" alt="without texture" class="img-responsive">
+                <img src="./assets/validation/image_texture/test_imagetexture.png" alt="with texture" class="img-responsive">
+            </div> <br>
+            
+            <h3>Bump Mapping</h3>
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+             <ul>
+                <li class="codelist"><code>src/bsdfs/bumpmap.cpp</code></li>
+                <li class="codelist"><code>src/geometry/mesh.cpp</code></li>
+                <li class="codelist"><code>src/geometry/sphere.cpp</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p>For this feature, an input image is loaded as the bumpmap. We implement a <code>bumpmap</code> class inheriting 
+                from the <code>BSDF</code> class, which contains a actual BSDF and a image texture. When we need the BSDF 
+                information of the intersection point, first we adjust the frame of that point according to the input image 
+                texture, after that, the adjusted intersection would be passed to the actual BSDF and get the results. A member 
+                variable <code>enhance</code> is also added to adjust the strength of the bumpmap.  
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>
+            The bumpmap image we used for testing:
+            </p>
+            <div class="center"><img src="./assets/validation/bumpmap/floor_tiles_bumpmap.png" width="400" height="400"></div>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/bumpmap/test_bumpmap_mug_1.png" alt="bumpmap enhance=1" class="img-responsive">
+                <img src="./assets/validation/bumpmap/test_bumpmap_mug_005.png" alt="bumpmap enhance=0.05" class="img-responsive">
+                <img src="./assets/validation/image_texture/test_imagetexture_notexture.png" alt="without bumpmap" class="img-responsive">
+            </div> <br>
+            <h3>Simple Extra BSDF: Conductor</h3>
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+             <ul>
+                <li class="codelist"><code>src/bsdfs/conductor.cpp</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p> We implement a <code>ConductorBSDF</code> class inheriting 
+                from the <code>BSDF</code> class, which contains three member variables:
+                <code>eta</code>, <code>k</code> and <code>specular_reflectance</code>.
+                Since it is a discrete BSDF, the <code>eval()</code> and <code>pdf()</code>
+                function of it would directly return 0. For <code>sample()</code>, we use 
+                the conductor fresnel function by K.D. Moeller.
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>
+            We compare our result with the result from Mitsuba 3.
+            </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/conductor/test_conductor.png" alt="our result" class="img-responsive">
+                <img src="./assets/validation/conductor/test_conductor_mitsuba.png" alt="Mitsuba 3" class="img-responsive">
+            </div> <br>
+
+            <h3>Simple Extra BSDF: Blend BSDF</h3>
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+             <ul>
+                <li class="codelist"><code>src/bsdfs/blendbsdf.cpp</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p>This feature intends to combine two different BSDF with a given weight factor. To
+                achive this goal, we implement a <code>BlendBSDF</code> class inheriting 
+                from the <code>BSDF</code> class. This <code>BlendBSDF</code> requires to BSDF as input, 
+                a float weight factor <code>weight</code> is also needed to balance this two BSDF. For 
+                <code>eval()</code> and <code>pdf()</code> function, we call the two member BSDF and weight
+                their result by the weight. For function <code>sample()</code>, we use a random variable to 
+                decide use which BSDF, and call the corresponding <code>sample()</code>.
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>Use <code>BlendBSDF</code> to combine <code>Diffuse</code> and <code>Dielectric</code> with
+                different weight (0.00, 0.25, 0.50, 0.75, 1.00 from left to right). The result is shown below:</p>
+            <div class="center"><img src="./assets/validation/blendbsdf/concat.png" width="800"></div>
+            <p>Use <code>BlendBSDF</code> to combine <code>Diffuse</code> and <code>Conductor</code> with
+            different weight (0.00, 0.25, 0.50, 0.75, 1.00 from left to right). The result is shown below:</p>
+            <p><div class="center"><img src="./assets/validation/blendbsdf/concat_c.png" width="800"></div>
+            Use <code>BlendBSDF</code> to combine <code>Dielectric</code> and <code>Conductor</code> with
+            different weight (0.00, 0.25, 0.50, 0.75, 1.00 from left to right). The result is shown below:</p>
+            <div class="center"><img src="./assets/validation/blendbsdf/concat_d.png" width="800"></div>
+
+
+            <h3>Stratified Sampling</h3>
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+             <ul>
+                <li class="codelist"><code>src/sample/stratified.cpp</code></li>
+                <li class="codelist"><code>src/core/render.cpp</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p>For this feature, we implement a <code>StratifiedSampler</code> class inheriting 
+                from the <code>Sampler</code> class. Besides the <code>sampleCount</code> parameter, 
+                an additional <code>dimension</code> parameter is also added. Every sample would generate
+                the predefined dimension, and each sample would distributed relatively evenly across the 
+                sample space. If the sample use more than the predefined dimension, it will sample value randomly.
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>
+            Here we compare the rendering result with stratified sampling and independent sampling. It
+            can be seen clearly that the noise distribution of the one with stratified sampling is more even than
+            the one with independent sampling.</p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/stratified/hetvol_nori_stratified.png" alt="stratified sampling" class="img-responsive">
+                <img src="./assets/validation/stratified/hetvol_nori_independent.png" alt="independent sampling" class="img-responsive">
+            </div> <br>
+
+            <h3>Environment Map Emitter</h3>
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+            <ul>
+               <li class="codelist"><code>src/emitters/envmap.cpp</code></li>
+               <li class="codelist"><code>include/kombu/envmap.h</code></li>
+               <li class="codelist"><code>src/integrators/path_mats.cpp</code></li>
+               <li class="codelist"><code>src/integrators/path_mis.cpp</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p>This feature intends to provide a background environment light to the rendered scene. It
+                would load an image as the environment map as an emitter and wrap the image to a infinite large
+                sphere. The return value of the emitter only depends on the angle of the sampled ray. In practice,
+                we also need to give a shadow ray, whose length depends on the bounding sphere of the scene to enable
+                the light sampling. Also, importance sample is done by calculating the pdf and cdf of the image. Bilinear 
+                interpolation is applied to make it looks more smooth. The implementation is based on this paper:
+                <a  href="https://web.cs.wpi.edu/~emmanuel/courses/cs563/S07/projects/envsample.pdf">https://web.cs.wpi.edu/~emmanuel/courses/cs563/S07/projects/envsample.pdf</a>
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>Here we compare our result with mitsuba 3. There are a diffuse sphere and a dielectric sphere
+            in the scene to check the correcness. </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/envmap/test_envmap.png" alt="our envmap" class="img-responsive">
+                <img src="./assets/validation/envmap/test_envmap_mitsuba.png" alt="mitsuba 3 envmap" class="img-responsive">
+            </div>
+            <p>This is the environment map for testing.</p>
+            <div class="center"><img src="./assets/validation/envmap/pisa.png" width="800" height="400"></div>
+
+
+            <h3>Disney BSDF (metallic, roughness, specular, sheen, sheen_tint)</h3>
+            <h4 style="margin: 0 0 0 0">Relevant code:</h4>           
+            <ul>
+               <li class="codelist"><code>src/bsdf/disney_principled.cpp</code></li>
+               <li class="codelist"><code>include/kombu/disney_utils.h</code></li>
+               <li class="codelist"><code>include/kombu/principledhelpers.h</code></li>
+            </ul>
+            <h4 style="margin: 0 0 0 0">Implementation Details:</h4>  
+            <p>We implement 5 parameters of Disney Principled BSDF, which are roughness, specular, metallic, sheen and sheen_tint. 
+            This feature makes it possible to adjust the material of surface of certain object more flexiable to 
+            be adjusted. Basically, Disney BSDF is a mix of different material. <code>metallic</code> describes how much 
+            is the metal contributes to the material (0 is dielectric and 1 is metal). <code>roughness</code> 
+            controls the roughness of the surface by weighting diffuse and specular reflections.
+            <code>specular</code> decribes the amount of incident specular reflection. Used to replace the rate of refraction.
+            <code>sheen</code> is an additional grazing component, mainly for cloth, and <code>sheen_tint</code> controls
+            the color of sheen.
+            Our implementation uses <a  href="https://cseweb.ucsd.edu/~tzli/cse272/homework1.pdf">this tutorial from UCSD</a>
+            and Mitsuba 3 as references.
+            </p>
+            <h4 style="margin: 0 0 0 0">Validation:</h4>
+            <p>Let <code>metallic</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
+            <div class="center"><img src="./assets/validation/disney/concat_metallic.png" width="800"></div>
+            <p>Let <code>roughness</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
+            <div class="center"><img src="./assets/validation/disney/concat_roughness.png" width="800"></div>
+
+            <p>Let <code>sheen</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
+            <div class="center"><img src="./assets/validation/disney/concat_sheen.png" width="800"></div>
+            <p>Let <code>sheen_tint</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
+            <div class="center"><img src="./assets/validation/disney/concat_sheentint.png" width="800"></div>
+            <p>Let <code>specular</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
+            <div class="center"><img src="./assets/validation/disney/concat_specular.png" width="800"></div>
+
+            <p>Compare <code>metallic = 0</code> and <code>metallic = 1</code>: </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/disney/test_disney_metallic_0.png" alt="metallic=0" class="img-responsive">
+                <img src="./assets/validation/disney/test_disney_metallic_100.png" alt="metallic=1" class="img-responsive">
+            </div>
+
+            <p>Compare <code>roughness = 0</code> and <code>roughness = 1</code>: </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/disney/test_disney_roughness_0.png" alt="roughness=0" class="img-responsive">
+                <img src="./assets/validation/disney/test_disney_roughness_100.png" alt="roughness=1" class="img-responsive">
+            </div>
+
+            <p>Compare <code>sheen = 0</code> and <code>sheen = 1</code>: </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/disney/test_disney_sheen_0.png" alt="sheen=0" class="img-responsive">
+                <img src="./assets/validation/disney/test_disney_sheen_100.png" alt="sheen=1" class="img-responsive">
+            </div>
+
+            <p>Compare <code>sheen_tint = 0</code> and <code>sheen_tint = 1</code>: </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/disney/test_disney_sheentint_0.png" alt="sheen_tint=0" class="img-responsive">
+                <img src="./assets/validation/disney/test_disney_sheentint_100.png" alt="sheen_tint=1" class="img-responsive">
+            </div>
+
+            <p>Compare <code>specular = 0</code> and <code>specular = 1</code>: </p>
+            <div class="twentytwenty-container">
+                <img src="./assets/validation/disney/test_specular_0.png" alt="specular=0" class="img-responsive">
+                <img src="./assets/validation/disney/test_specular_1.png" alt="specular=1" class="img-responsive">
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script src="./assets/ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="assets/jquery.twentytwenty.js"></script>
+
+<script>
+    $(window).load(function(){$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5});});
+</script>
+    
+
+</div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

@@ -55,9 +55,10 @@ void Instance::setHitInformation(uint32_t index, const Ray3f &ray, Intersection 
     m_reference->setHitInformation(index, local_ray, its);
 
     its.p = m_localToWorld * its.p;
-    Vector3f normalized_coor = (m_localToWorld * its.shFrame.n).normalized();
-    its.geoFrame = Frame(normalized_coor);
-	its.shFrame = Frame(normalized_coor);
+    Vector3f sh_normalized_coor = (m_localToWorld * its.shFrame.n).normalized();
+    Vector3f geo_normalized_coor = (m_localToWorld * its.geoFrame.n).normalized();
+    its.geoFrame = Frame(geo_normalized_coor);
+	its.shFrame = Frame(sh_normalized_coor);
 }
 
 Point3f Instance::getCentroid(uint32_t index) const {
