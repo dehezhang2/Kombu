@@ -2,7 +2,6 @@
 
 <scene>
 	<integrator type="vol_path_mis">
-		<boolean name="inmedium" value="true" />
 	</integrator>
 	
 
@@ -64,29 +63,16 @@
 	<mesh type="instance">
 		<transform name="toWorld">
 			<scale value="0.5 0.5 0.5"/>
-			<translate value="-0.421400 0.332100 -0.280000"/>
 			<rotate axis="1,0,0" angle="90"/>
+			<translate value="-0.421400 0.332100 -0.280000"/>
 		</transform>
 		<string name="ref" value="sphere-001"/>
 	</mesh>
-
 	<mesh type="instance">
 		<transform name="toWorld">
 			<translate value="0.445800 0.332100 0.376700"/>
 		</transform>
 		<string name="ref" value="sphere-001"/>
-	</mesh>
-
-	<mesh type="sphere">
-		<point name="center" value="0.445800 0.332100 0.376700" />
-		<float name="radius" value="10" />
-		<medium type="homogeneous">
-			<phase type="isotropic"/>
-			<color name="sigma_t" value="0.1 0.1 0.1" />
-			<color name="albedo" value="1 1 1" />
-			<!-- <float name="scale" value="10"/> -->
-		</medium>
-		<bsdf type="transparent"/>
 	</mesh>
 
 	<mesh type="obj">

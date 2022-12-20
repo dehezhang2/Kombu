@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<scene>
+	<integrator type="vol_path_mis"/>
+
+	<mesh type="obj">
+		<string name="filename" value="bounds.obj"/>
+		<bsdf type="transparent"/>
+		<medium type="heterogeneous">
+			<string name="method" value="march"/>
+			<phase type="isotropic"/>
+			<volume name="sigma_t" type="gridvolume">
+				<string name="filename" value="smoke.vol"/>
+			</volume>
+
+			<volume name="albedo" type="constvolume">
+				<float name="value" value="0.2"/>
+			</volume>
+
+			<float name="scale" value="20"/>
+		</medium>
+	</mesh>
+
+	<mesh type="obj">
+		<!-- Shiny floor -->
+		<string name="filename" value="plane.obj"/>
+
+		<bsdf type="diffuse">
+			<color name="albedo" value="0.2, 0.2, 0.3"/>
+		</bsdf>
+		<transform name="toWorld">
+			<translate value="0 0.48 0"/>
+		</transform>
+	</mesh>
+	<sampler type="stratified">
+		<integer name="sampleCount" value="256"/>
+	</sampler>
+	<denoiser type="nl_means">
+		<integer name="f" value="2"/>
+		<integer name="r" value="1"/>
+		<float name="sigma_i" value="5"/>
+		<float name="sigma_d" value="5"/>
+		<float name="k" value="1.0"/>
+	</denoiser>
+	<camera type="perspective">
+		<float name="focusDistance" value="1.25668"/>
+		<float name="fov" value="45.8402"/>
+		<string name="fovAxis" value="x"/>
+		<transform name="toWorld">
+			<scale value="1 1 1"/>
+			<lookat target="-0.166029, 0.148984, -0.537402" origin="-0.61423, 0.154197, -1.43132" up="-0.000640925, -0.999985, -0.0055102"/>
+		</transform>
+
+		<integer name="height" value="576"/>
+		<integer name="width" value="768"/>
+	</camera>
+
+	<mesh type="sphere">
+		<point name="center" value="0 -2 -1"/>
+		<float name="radius" value="0.2"/>
+
+		<emitter type="area">
+			<color name="radiance" value="400 400 400"/>
+		</emitter>
+	</mesh>
+</scene>

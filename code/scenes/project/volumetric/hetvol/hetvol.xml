@@ -13,10 +13,10 @@
         </volume>
 
      	<volume name="albedo" type="constvolume">
-            <spectrum name="value" value="0.9"/>
+            <spectrum name="value" value="0.2"/>
         </volume>
 
-		<float name="scale" value="100"/>
+		<float name="scale" value="20"/>
 	</medium>
 
 	<shape type="obj">
@@ -47,15 +47,13 @@
 			<lookat target="-0.166029, 0.148984, -0.537402" origin="-0.61423, 0.154197, -1.43132" up="-0.000640925, -0.999985, -0.0055102"/>
 		</transform>
 
-		<sampler type="ldsampler">
-			<integer name="sampleCount" value="64"/>
+		<sampler type="independent">
+			<integer name="sampleCount" value="256"/>
 		</sampler>
 
 		<film type="hdrfilm">
 			<integer name="height" value="576"/>
 			<integer name="width" value="768"/>
-
-			<rfilter type="gaussian"/>
 		</film>
 	</sensor>
 

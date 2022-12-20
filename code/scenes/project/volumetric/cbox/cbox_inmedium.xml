@@ -17,8 +17,8 @@
 		<integer name="width" value="800"/>
 	</camera>
 
-	<sampler type="independent">
-		<integer name="sampleCount" value="512"/>
+	<sampler type="stratified">
+		<integer name="sampleCount" value="256"/>
 	</sampler>
 
 	<mesh type="obj">
