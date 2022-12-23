@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)http://noobody.org/is-report/index.html -->
+<!-- saved from url=(0039)http://noobody.org/is-report/report.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,17 +21,20 @@
 <div class="container contentWrapper">
 <div id="layout">
     <!-- Menu toggle -->
-    <a href="./index.html#menu" id="menuLink" class="menu-link">
+    <a href="./report.html#menu" id="menuLink" class="menu-link">
         <!-- Hamburger icon -->
         <span></span>
     </a>
 
     <div id="menu">
         <div class="pure-menu pure-menu-open">
-            <a href="./index.html">Final Project</a>
+            <a href="./report.html">Final Project</a>
             <ul>
                 <li class="menu-item-divided pure-menu">
-                    <a href="./index.html">Proposal</a>
+                    <a href="./report.html">Rendering Result</a>
+                </li>
+                <li class="menu-item-divided pure-menu">
+                    <a href="./proposal.html">Proposal</a>
                 </li>
                 <li class="menu-item-divided pure-menu-selected">
                     <a href="./report_zgl.html">Ganlin Zhang</a>
@@ -138,13 +141,13 @@
             <h4 style="margin: 0 0 0 0">Validation:</h4>
             <p>Use <code>BlendBSDF</code> to combine <code>Diffuse</code> and <code>Dielectric</code> with
                 different weight (0.00, 0.25, 0.50, 0.75, 1.00 from left to right). The result is shown below:</p>
-            <div class="center"><img src="./assets/validation/blendbsdf/concat.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/blendbsdf/concat.jpg" width="800"></div>
             <p>Use <code>BlendBSDF</code> to combine <code>Diffuse</code> and <code>Conductor</code> with
             different weight (0.00, 0.25, 0.50, 0.75, 1.00 from left to right). The result is shown below:</p>
-            <p><div class="center"><img src="./assets/validation/blendbsdf/concat_c.png" width="800"></div>
+            <p><div class="center"><img src="./assets/validation/blendbsdf/concat_c.jpg" width="800"></div>
             Use <code>BlendBSDF</code> to combine <code>Dielectric</code> and <code>Conductor</code> with
             different weight (0.00, 0.25, 0.50, 0.75, 1.00 from left to right). The result is shown below:</p>
-            <div class="center"><img src="./assets/validation/blendbsdf/concat_d.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/blendbsdf/concat_d.jpg" width="800"></div>
 
 
             <h3>Stratified Sampling</h3>
@@ -171,8 +174,8 @@
             </div> <br>
             
             <div class="twentytwenty-container">
-                <img src="./assets/validation/volumetric/error_stratify.png" alt="stratified sampling" class="img-responsive">
-                <img src="./assets/validation/volumetric/error.png" alt="independent sampling" class="img-responsive">
+                <img src="./assets/validation/volumetric/error_stratify.jpg" alt="stratified sampling" class="img-responsive">
+                <img src="./assets/validation/volumetric/error.jpg" alt="independent sampling" class="img-responsive">
             </div> <br>
 
             <h3>Environment Map Emitter</h3>
@@ -196,11 +199,11 @@
             <p>Here we compare our result with mitsuba 3. There are a diffuse sphere and a dielectric sphere
             in the scene to check the correcness. </p>
             <div class="twentytwenty-container">
-                <img src="./assets/validation/envmap/test_envmap.png" alt="our envmap" class="img-responsive">
-                <img src="./assets/validation/envmap/test_envmap_mitsuba.png" alt="mitsuba 3 envmap" class="img-responsive">
+                <img src="./assets/validation/envmap/test_envmap.jpg" alt="our envmap" class="img-responsive">
+                <img src="./assets/validation/envmap/test_envmap_mitsuba.jpg" alt="mitsuba 3 envmap" class="img-responsive">
             </div>
             <p>This is the environment map for testing.</p>
-            <div class="center"><img src="./assets/validation/envmap/pisa.png" width="800" height="400"></div>
+            <div class="center"><img src="./assets/validation/envmap/pisa.jpg" width="800" height="400"></div>
 
 
             <h3>Disney BSDF (metallic, roughness, specular, sheen, sheen_tint)</h3>
@@ -224,16 +227,16 @@
             </p>
             <h4 style="margin: 0 0 0 0">Validation:</h4>
             <p>Let <code>metallic</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
-            <div class="center"><img src="./assets/validation/disney/concat_metallic.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/disney/concat_metallic.jpg" width="800"></div>
             <p>Let <code>roughness</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
-            <div class="center"><img src="./assets/validation/disney/concat_roughness.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/disney/concat_roughness.jpg" width="800"></div>
 
             <p>Let <code>sheen</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
-            <div class="center"><img src="./assets/validation/disney/concat_sheen.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/disney/concat_sheen.jpg" width="800"></div>
             <p>Let <code>sheen_tint</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
-            <div class="center"><img src="./assets/validation/disney/concat_sheentint.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/disney/concat_sheentint.jpg" width="800"></div>
             <p>Let <code>specular</code> be (0.00, 0.25, 0.50, 0.75, 1.00 from left to right), fix other parameters:</p>
-            <div class="center"><img src="./assets/validation/disney/concat_specular.png" width="800"></div>
+            <div class="center"><img src="./assets/validation/disney/concat_specular.jpg" width="800"></div>
 
             <p>Compare <code>metallic = 0</code> and <code>metallic = 1</code>: </p>
             <div class="twentytwenty-container">

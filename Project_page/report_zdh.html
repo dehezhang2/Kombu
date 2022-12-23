@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)http://noobody.org/is-report/index.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,16 +20,19 @@
 <div class="container contentWrapper">
 <div id="layout">
     <!-- Menu toggle -->
-    <a href="./index.html#menu" id="menuLink" class="menu-link">
+    <a href="./report.html#menu" id="menuLink" class="menu-link">
         <!-- Hamburger icon -->
         <span></span>
     </a>
     <div id="menu">
         <div class="pure-menu pure-menu-open">
-            <a href="./index.html">Final Project</a>
+            <a href="./report.html">Final Project</a>
             <ul>
                 <li class="menu-item-divided pure-menu">
-                    <a href="./index.html">Proposal</a>
+                    <a href="./report.html">Rendering Result</a>
+                </li>
+                <li class="menu-item-divided pure-menu">
+                    <a href="./proposal.html">Proposal</a>
                 </li>
                 <li class="menu-item-divided pure-menu">
                     <a href="./report_zgl.html">Ganlin Zhang</a>
@@ -192,9 +194,9 @@ Passed 10/10 tests.
                 estimator, mean of the error distribution is shifted compared with other two methods. We can still find that the shadow part
                 of ray marching is better than other two methods.
                 <div class="twentytwenty-container">
-                    <img src="./assets/validation/volumetric/error_nori_delta.png" alt="delta" class="img-responsive">
-                    <img src="./assets/validation/volumetric/error_nori_ratio.png" alt="ratio" class="img-responsive">
-                    <img src="./assets/validation/volumetric/error_nori_march.png" alt="march" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error_nori_delta.jpg" alt="delta" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error_nori_ratio.jpg" alt="ratio" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error_nori_march.jpg" alt="march" class="img-responsive">
                 </div> <br>
 
             </p>
@@ -235,7 +237,7 @@ Passed 10/10 tests.
                 </ul>
                 For denoiser, I implemented basic bilaterial denoiser as well as NL means denoiser 
                 with uniform variance. Since NL means preserves better structure information, it is used 
-                for validation. The idea is to compute patch-wise color distance and index distance
+                for validation. The idea is to compute patch-wise color distance and report distance
                  around the center pixel and use its exponential as weight to filter the image. 
             </p>
             <h4 style="margin: 0 0 0 0">Validation:</h4>
@@ -250,10 +252,10 @@ Passed 10/10 tests.
                 </div> <br>
                 The following figure shows that the variance of the error is reduced after denoising after stratified sampling and denoising:
                 <div class="twentytwenty-container">
-                    <img src="./assets/validation/volumetric/error.png" alt="independent" class="img-responsive">
-                    <img src="./assets/validation/volumetric/error_denoised.png" alt="independent + denoise" class="img-responsive">
-                    <img src="./assets/validation/volumetric/error_stratify.png" alt="stratified" class="img-responsive">
-                    <img src="./assets/validation/volumetric/error_stratify_denoised.png" alt="stratified + denoise" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error.jpg" alt="independent" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error_denoised.jpg" alt="independent + denoise" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error_stratify.jpg" alt="stratified" class="img-responsive">
+                    <img src="./assets/validation/volumetric/error_stratify_denoised.jpg" alt="stratified + denoise" class="img-responsive">
                 </div> <br>
             </p>
             
@@ -313,9 +315,7 @@ Passed 10/10 tests.
                     <img src="./assets/validation/object_instance/cbox_instance.png" alt="instance" class="img-responsive">
                     <img src="./assets/validation/object_instance/cbox_instance_texture.png" alt="instance with texture" class="img-responsive">
                 </div> <br>
-            </p>
-            <h3>Not graded features</h3>
-            
+            </p>            
             
         </div>
     </div>
