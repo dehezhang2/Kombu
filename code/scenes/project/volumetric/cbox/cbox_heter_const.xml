@@ -16,7 +16,7 @@
 	</camera>
 
 	<sampler type="independent">
-		<integer name="sampleCount" value="128"/>
+		<integer name="sampleCount" value="256"/>
 	</sampler>
 
 	<mesh type="obj">
@@ -46,18 +46,12 @@
 	<mesh type="sphere">
 		<point name="center" value="-0.421400 0.332100 -0.280000" />
 		<float name="radius" value="0.3263" />
-		<medium type="homogeneous">
+		<!-- <medium type="homogeneous">
 			<phase type="isotropic"/>
 			<color name="sigma_t" value="1 1 1" />
 			<color name="albedo" value="0.6 0.6 0.6" />
 			<float name="scale" value="10"/>
-		</medium>
-		<bsdf type="transparent"/>
-	</mesh>
-
-	<mesh type="sphere">
-		<point name="center" value="0.445800 0.332100 0.376700" />
-		<float name="radius" value="0.3263" />
+		</medium> -->
 		<medium type="heterogeneous">
 			<phase type="isotropic"/>
 			<volume type = "constvolume" name="sigma_t">
@@ -67,7 +61,28 @@
 			<volume type = "constvolume" name="albedo">
 				<float name="value" value="0.6"/>
 			</volume>
-			
+		</medium>
+		<bsdf type="transparent"/>
+	</mesh>
+
+	<mesh type="sphere">
+		<point name="center" value="0.445800 0.332100 0.376700" />
+		<float name="radius" value="0.3263" />
+		<!-- <medium type="homogeneous">
+			<phase type="isotropic"/>
+			<color name="sigma_t" value="1 1 1" />
+			<color name="albedo" value="0.6 0.6 0.6" />
+			<float name="scale" value="10"/>
+		</medium> -->
+		<medium type="heterogeneous">
+			<phase type="isotropic"/>
+			<volume type = "constvolume" name="sigma_t">
+				<float name="value" value="10"/>
+			</volume>
+
+			<volume type = "constvolume" name="albedo">
+				<float name="value" value="0.6"/>
+			</volume>
 		</medium>
 		<bsdf type="transparent"/>
 	</mesh>

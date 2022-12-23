@@ -48,8 +48,8 @@
 		<float name="radius" value="0.3263" />
 		<medium type="homogeneous">
 			<phase type="isotropic"/>
-			<color name="sigma_t" value="0.6 0.3 0.2" />
-			<color name="albedo" value="0.167 0.333 0.5" />
+			<color name="sigma_t" value="0.2 0.3 0.6" />
+			<color name="albedo" value="1 1 1" />
 			<float name="scale" value="10"/>
 		</medium>
 		<bsdf type="transparent"/>
@@ -60,8 +60,8 @@
 		<float name="radius" value="0.3263" />
 		<medium type="homogeneous">
 			<phase type="isotropic"/>
-			<color name="sigma_t" value="0.2 0.3 0.6" />
-			<color name="albedo" value="0.5 0.333 0.167" />
+			<color name="sigma_t" value="0.6 0.3 0.2" />
+			<color name="albedo" value="1 1 1" />
 			<float name="scale" value="10"/>
 			
 		</medium>
@@ -70,7 +70,9 @@
 
 	<mesh type="obj">
 		<string name="filename" value="meshes/light.obj"/>
-
+		<bsdf type="diffuse">
+			<color name="albedo" value="0 0 0"/>
+		</bsdf>
 		<emitter type="area">
 			<color name="radiance" value="15 15 15"/>
 		</emitter>

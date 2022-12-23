@@ -14,10 +14,10 @@
 			</volume>
 
 			<volume name="albedo" type="constvolume">
-				<float name="value" value="0.9"/>
+				<float name="value" value="0.2"/>
 			</volume>
 
-			<float name="scale" value="100"/>
+			<float name="scale" value="20"/>
 		</medium>
 	</mesh>
 
@@ -32,9 +32,16 @@
 			<translate value="0 0.48 0"/>
 		</transform>
 	</mesh>
-	<sampler type="independent">
-		<integer name="sampleCount" value="128"/>
+	<sampler type="stratified">
+		<integer name="sampleCount" value="256"/>
 	</sampler>
+	<denoiser type="nl_means">
+		<integer name="f" value="2"/>
+		<integer name="r" value="1"/>
+		<float name="sigma_i" value="5"/>
+		<float name="sigma_d" value="5"/>
+		<float name="k" value="1.0"/>
+	</denoiser>
 	<camera type="perspective">
 		<float name="focusDistance" value="1.25668"/>
 		<float name="fov" value="45.8402"/>
@@ -46,7 +53,6 @@
 
 		<integer name="height" value="576"/>
 		<integer name="width" value="768"/>
-
 	</camera>
 
 	<mesh type="sphere">
