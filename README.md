@@ -48,7 +48,7 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
 Please download the scene from [polybox](https://polybox.ethz.ch/index.php/s/FuiuW27Vocy9fjF), and the layout should looks like this:
 
 ```
-
+code
 └── final_scene
     ├── bounds.obj
     ├── earth_water_4.0.exr
