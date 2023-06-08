@@ -45,7 +45,7 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
 
 ## Data Preparation
 
-Please download the scene from [polybox](https://polybox.ethz.ch/index.php/s/FuiuW27Vocy9fjF), and the layout should looks like this:
+Please download the scene from [polybox](https://polybox.ethz.ch/index.php/s/FuiuW27Vocy9fjF), and unzip the file using `unzip sample_scene.zip`. The layout should looks like this:
 
 ```
 code
