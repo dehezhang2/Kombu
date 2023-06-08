@@ -6,7 +6,7 @@
 
 <img src="./page/assets/earth_water_2.0.png" alt="earth_water_2.0" style="zoom:10%;" />
 
-This is a physically based renderer based on Nori in C++11. The functions supported include path tracing with multiple importance sampling (MIS), photon mapping, volumetric path tracing with MIS, heterogeneous media, different distance sampling and transmittance estimation methods (ray marching, delta tracking, and ratio tracking), bilateral filter with uniform variance denoting, directional light, anisotropic phase function, object instancing, Disney BSDF, environment map and texture, stratified sampling, blend and conductor BSDF, bump mapping.  For more information, please view our [project website](). 
+This is a physically based renderer based on Nori in C++11. The functions supported include path tracing with multiple importance sampling (MIS), photon mapping, volumetric path tracing with MIS, heterogeneous media, different distance sampling and transmittance estimation methods (ray marching, delta tracking, and ratio tracking), bilateral filter with uniform variance denoting, directional light, anisotropic phase function, object instancing, Disney BSDF, environment map and texture, stratified sampling, blend and conductor BSDF, bump mapping.  For more information, please view our [project website](https://dehezhang2.github.io/Kombu/). 
 
 The renderer is developed for the rendering competition in [ETH Computer Graphics course 2022](https://cgl.ethz.ch/teaching/cg22/home.php). **Please DO NOT directly copy the code from this repository**, we only provide the code for reference.
 
