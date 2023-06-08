@@ -17,7 +17,7 @@ public:
                 m_strength = propList.getFloat("strength");
             }
             std::string filename = propList.getString("filename");
-            imageMap = Bitmap(filename);
+            // imageMap = Bitmap(filename);
 
 			if(filename[0]=='/'){
 				imageMap = Bitmap(filename);
