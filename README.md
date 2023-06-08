@@ -36,6 +36,7 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
 * Build the code (or you can directly use the compiled release version)
 
   ```bash
+  cd code
   mkdir build
   cd build
   cmake ..
@@ -74,7 +75,7 @@ Please download the scene from [polybox](https://polybox.ethz.ch/index.php/s/Fui
 * Run the renderer using:
 
 ```bash
-cd build
+cd code/build
 ./kombu ../final_scene/earth_water.xml
 ```
 
