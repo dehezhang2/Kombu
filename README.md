@@ -4,7 +4,7 @@
 
 ## Overview
 
-<img src="assets/earth_water_2.0.png" alt="earth_water_2.0" style="zoom:30%;" align = “center" />
+<img src="assets/earth_water_2.0.png" alt="earth_water_2.0" style="zoom:30%;" />
 
 This is a physically based renderer based on Nori in C++11. The functions supported include path tracing with multiple importance sampling (MIS), photon mapping, volumetric path tracing with MIS, heterogeneous media, different distance sampling and transmittance estimation methods (ray marching, delta tracking, and ratio tracking), bilateral filter with uniform variance denoting, directional light, anisotropic phase function, object instancing, Disney BSDF, environment map and texture, stratified sampling, blend and conductor BSDF, bump mapping.  For more information, please view our [project website](). 
 
