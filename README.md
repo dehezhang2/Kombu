@@ -31,8 +31,12 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
     conda install -c pkgw-forge qt4
     ```
 
-  * Linux: follow the instruction in this [link](https://ubuntuhandbook.org/index.php/2020/07/install-qt4-ubuntu-20-04/).
-
+  * Linux: follow the instruction in this [link](https://ubuntuhandbook.org/index.php/2020/07/install-qt4-ubuntu-20-04/) for ubuntu 22.04, and for ubuntu 20.04:
+    ```bash
+    sudo add-apt-repository ppa:rock-core/qt4
+    sudo apt update
+    sudo apt install qt4-dev-tools libqt4-dev
+    ```
 * Build the code (or you can directly use the compiled release version)
 
   ```bash
