@@ -36,6 +36,7 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
     sudo add-apt-repository ppa:rock-core/qt4
     sudo apt update
     sudo apt install qt4-dev-tools libqt4-dev
+    sudo apt-get install xorg-dev libglu1-mesa-dev
     ```
 * Build the code (or you can directly use the compiled release version)
 
