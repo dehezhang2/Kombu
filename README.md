@@ -14,13 +14,13 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
 
 * All the codes are tested in the following environment:
 
-  - Mac OS (Version 11.6), Linux (Ubuntu 22.04)
+  - Mac OS (Version 11.6), Linux (Ubuntu 20.04, 22.04)
 
-  * CMake (Version 3.20.2, Version 3.25.2)
+  * CMake (Version 3.16.3, 3.20.2, 3.25.2)
 
 * Install Qt4: You need to install Qt4 for the heterogeneous volume data reading:
 
-  * Mac
+  * Mac:
 
     ```bash
     conda remove --force qt
@@ -31,7 +31,7 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
     conda install -c pkgw-forge qt4
     ```
 
-  * Linux: follow the instruction in this [link](https://ubuntuhandbook.org/index.php/2020/07/install-qt4-ubuntu-20-04/) for ubuntu 22.04, and for ubuntu 20.04:
+  * Linux:
     ```bash
     sudo add-apt-repository ppa:rock-core/qt4
     sudo apt update
