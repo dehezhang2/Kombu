@@ -16,7 +16,7 @@ The renderer is developed for the rendering competition in [ETH Computer Graphic
 
   - Mac OS (Version 11.6), Linux (Ubuntu 20.04, 22.04)
 
-  * CMake (Version 3.20.2, Version 3.25.2)
+  * CMake (Version 3.16.3, 3.20.2, 3.25.2)
 
 * Install Qt4: You need to install Qt4 for the heterogeneous volume data reading:
 
